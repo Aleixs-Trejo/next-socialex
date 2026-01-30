@@ -3,6 +3,11 @@ import { redirect } from "next/navigation";
 import { LogoutBtn } from "./ui/LogoutBtn";
 import { ImageCustom } from "@/components";
 
+export const metadata = {
+  title: "Mi Perfil | Socialex",
+  description: "Perfil Page",
+};
+
 const ProfilePage = async () => {
   const session = await auth();
   console.log('session profile: ', session);
