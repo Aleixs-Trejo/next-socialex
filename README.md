@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Socialex
 
-## Getting Started
+**Socialex** es un proyecto personal desarrollado con **Next.js** cuyo objetivo principal es practicar y mejorar mis habilidades como desarrollador frontend/fullstack, explorando patrones modernos, autenticación, manejo de estado global y consumo de APIs externas.
 
-First, run the development server:
+La idea de Socialex es funcionar como una **red social de entretenimiento**, donde los usuarios pueden descubrir música, contenido multimedia y divertirse con pequeños juegos de navegador.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Características principales
+
+- 🔐 **Autenticación**
+  - Registro mediante **formulario multipasos**
+  - Inicio de sesión con **Google** (NextAuth)
+- 👤 **Perfil de usuario**
+  - Acceso condicionado según sesión activa
+- 🎵 **Música**
+  - Integración con la **API de Spotify**
+  - Búsqueda y visualización de información musical
+- 🎬 **Contenido multimedia**
+  - Información general sobre:
+    - Anime
+    - Series
+    - Películas  
+  > ⚠️ *No se aloja contenido multimedia completo, solo información y referencias*
+- 🎮 **Juegos de navegador**
+  - Pequeños juegos casuales directamente desde la web
+- 👥 **Sistema de usuarios / amigos**
+  - Visualización de otros perfiles
+- 🧭 **Navegación dinámica**
+  - Sidebar con rutas protegidas según la sesión
+  - UI reactiva y moderna
+
+---
+
+## 🧱 Tecnologías utilizadas
+
+- **Next.js (App Router)**
+- **React**
+- **TypeScript**
+- **NextAuth**
+- **Zustand** (manejo de estado global)
+- **Spotify Web API**
+- **Tailwind CSS**
+- **React Icons**
+
+---
+
+## 🗂️ Estructura general
+
+- `/socialex/feed` → Inicio / Feed principal  
+- `/socialex/users` → Usuarios / Amigos  
+- `/socialex/profile` → Perfil (solo usuarios autenticados)  
+- `/socialex/music` → Música (Spotify API)  
+- `/socialex/games` → Juegos de navegador  
+
+La navegación se adapta dinámicamente según el estado de autenticación del usuario.
+
+---
+
+## 🧠 Aprendizajes clave
+
+Este proyecto me ha permitido practicar:
+
+- Formularios multipasos con validaciones
+- Autenticación con proveedores externos
+- Manejo de sesiones en Server y Client Components
+- Estado global con Zustand
+- Consumo de APIs externas
+- Diseño de UI modular y reutilizable
+- Protección de rutas y renderizado condicional
+
+---
+
+## ⚙️ Variables de entorno
+Para que el proyecto funcione correctamente, es necesario configurar:
+
+```env
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+SPOTIFY_CLIENT_ID=
+SPOTIFY_CLIENT_SECRET=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📌 Estado del proyecto
+### 🛠️ En desarrollo activo
+Este proyecto sigue creciendo con nuevas ideas, mejoras de rendimiento y funcionalidades adicionales.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📄 Nota final
+Socialex es un proyecto educativo y experimental, creado con fines de aprendizaje.
+No tiene fines comerciales ni de monetización.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+_✨ Gracias por visitar Socialex ✨_
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+###### Sí amigo, la IA me ayudó a generar todo eso XD.
