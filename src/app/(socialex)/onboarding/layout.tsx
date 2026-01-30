@@ -1,6 +1,13 @@
+import { auth } from "@/auth.config";
 import { Copyright } from "@/components";
+import { redirect } from "next/navigation";
 
 const OnboardingLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
+  if (session?.user) {
+    if (session.user.onboardingCompleted) redirect("/socialex/feed");
+  }
+
   return (
     <section className="w-full min-h-dvh flex flex-col items-center justify-center">
       <div className="w-full py-8 sm:py-12 flex-1 flex flex-col gap-12 items-center justify-center overflow-hidden text-white">

@@ -4,7 +4,7 @@ import { Copyright } from "@/components";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
-  if (session?.user) redirect("/");
+  if (session?.user) redirect("/socialex/feed");
 
   return (
     <section className="w-full min-h-dvh flex flex-col items-center justify-center">

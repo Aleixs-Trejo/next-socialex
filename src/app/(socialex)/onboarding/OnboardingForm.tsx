@@ -69,6 +69,12 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
         break;
       case "UPDATE":
         await updateRegisterOnboarding(values, token);
+        await update({
+          name: values.name,
+          image: values.image,
+          onboardingCompleted: true,
+          statusProfile: 'ONLINE',
+        });
         break;
       case "FINISH":
         setIsFinishOnboarding(true);
@@ -78,7 +84,7 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
           image: values.image,
           onboardingCompleted: true,
           statusProfile: 'ONLINE',
-        })
+        });
         window.location.replace('/socialex/profile');
         break;
     }

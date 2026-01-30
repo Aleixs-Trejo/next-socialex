@@ -16,11 +16,11 @@
   --spacing-input-text-x: clamp(1rem, 1.25dvh, 1.25rem);
   --spacing-input-text-y: clamp(0.5rem, 2.75dvw, 0.75rem);
   --spacing-header: 4rem;
-  --spacing-main-mobile: calc(100dvh - (var(--spacing-header) * 2));
+  --spacing-main-mobile: calc(100dvh - var(--spacing-header) * 2);
   --spacing-main: calc(100dvh - var(--spacing-header));
   --spacing-width-main: calc(100dvw - var(--spacing-aside));
   --spacing-width-main-active: calc(100dvw - var(--spacing-aside-open));
-  --spacing-aside-nav: calc(100dvh - var(--spacing-header) * 2);
+  --spacing-aside-nav: calc(100dvh - var(--spacing-header) * 3);
   --spacing-aside: 4rem;
   --spacing-aside-open: 16rem;
 

@@ -7,6 +7,7 @@ import { useShallow } from "zustand/shallow";
 import Link from "next/link";
 import { NavList } from "./ui/NavList";
 import { useEffect } from "react";
+import { LogoutBtn } from "./ui/LogoutBtn";
 
 export const AsideNav = () => {
   const isAsideOpen = useUIStore(useShallow(state => state.isAsideOpen));
@@ -44,11 +45,14 @@ export const AsideNav = () => {
             )
           }
         </div>
-        <nav className="w-full pb-4 min-h-aside-nav">
+        <nav className="w-full min-h-aside-nav">
           <ul className="flex flex-col">
             <NavList session={session} />
           </ul>
         </nav>
+        {
+          session?.user && <LogoutBtn session={session} />
+        }   
       </div>
     </aside>
   );

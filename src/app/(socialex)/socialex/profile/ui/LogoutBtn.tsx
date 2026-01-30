@@ -1,26 +1,18 @@
 'use client';
 
-import { logout } from "@/actions";
-import { signOut, useSession } from "next-auth/react";
+import { useUIStore } from "@/stores";
 
 export const LogoutBtn = () => {
-  const { data: session } = useSession();
-
-  if (!session?.user) return <h2>Cargando...</h2>;
-
-  const logoutAction = async () => {
-    await logout(session?.user?.email || '');
-    signOut();
-  };
+  const setIsModalLogoutOpen = useUIStore(state => state.setIsModalLogoutOpen);
 
   return (
     <div className="flex flex-col gap 6">
       <button
         className="btn-primary w-max"
-        onClick={logoutAction}
+        onClick={() => setIsModalLogoutOpen(true)}
       >
-      Cerrar sesión
-    </button>
+        Cerrar sesión
+      </button>
     </div>
   );
 };

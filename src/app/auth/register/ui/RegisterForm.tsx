@@ -6,12 +6,15 @@ import { useState } from "react";
 import { ModalRegisterForm } from "./ModalRegisterForm";
 import { registerEmail } from "@/actions";
 import { validateEmail } from "@/lib/validate-email";
+import { useUIStore } from "@/stores";
 
 export const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [open, setOpen] = useState(false);
   const [touched, setTouched] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isInitOnboarding = useUIStore(state => state.isInitOnboarding);
+  const setIsInitOnboarding = useUIStore(state => state.setIsInitOnboarding);
 
   const handleClick = () => {
     setTouched(true);
@@ -31,7 +34,9 @@ export const RegisterForm = () => {
 
   const acceptTerms = async () => {
     setOpen(false);
+    setIsInitOnboarding(true);
     const res = await registerEmail(email);
+    setIsInitOnboarding(false);
     if (!res?.ok) {
       setError(res.message);
       return;
@@ -41,7 +46,7 @@ export const RegisterForm = () => {
   return (
     <div className="flex flex-col gap-8 overflow-hidden">
       <h2 className={`${titleFont.className} text-3xl font-semibold text-center max-w-full`}>Registrate</h2>
-      <div className="flex flex-col gap-4">
+      <div className={`flex flex-col gap-4 ${isInitOnboarding ? 'pointer-events-none opacity-50' : ''}`}>
         <div className="flex flex-col gap-2">
           <label
             className="label-text"
@@ -65,7 +70,7 @@ export const RegisterForm = () => {
             )}
           </div>
         </div>
-        <button type="button" className={`btn-primary ${touched && error ? 'btn-disabled' : ''} `} onClick={handleClick} disabled={touched && !!error}>Siguiente</button>
+        <button type="button" className={`btn-primary ${touched && error ? 'btn-disabled' : ''} `} onClick={handleClick} disabled={touched && !!error}>{isInitOnboarding ? 'Cargando...' : 'Siguiente'}</button>
         <div className="flex flex-col items-center justify-center w-full text-center sm:flex-row sm:gap-2">
           <span className="text-sm sm:text-base">Ya tienes un cuenta?</span>
           <Link
