@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Colors */
+  --color-bright: #c77dff;
+  --color-primary: #7b2cbf;
+  --color-secondary: #5a189a;
+  --color-tertiary: #3c096c;
+  --color-quaternary: #240046;
+  --color-accent: #10002b;
+  --color-accent-dark: #000814;
+  --color-black: #000;
+  --color-white: #fff;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Spacing */
+  --spacing-input-text-x: clamp(1rem, 1.25dvh, 1.25rem);
+  --spacing-input-text-y: clamp(0.5rem, 2.75dvw, 0.75rem);
+  --spacing-header: 4rem;
+  --spacing-main-mobile: calc(100dvh - (var(--spacing-header) * 2));
+  --spacing-main: calc(100dvh - var(--spacing-header));
+  --spacing-width-main: calc(100dvw - var(--spacing-aside));
+  --spacing-width-main-active: calc(100dvw - var(--spacing-aside-open));
+  --spacing-aside-nav: calc(100dvh - var(--spacing-header) * 2);
+  --spacing-aside: 4rem;
+  --spacing-aside-open: 16rem;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Font size */
+  --text-title-main: clamp(1.25rem, 6.5dvw, 4.25rem);
+  --text-medium: clamp(0.9375rem, 3.5dvw, 1.15rem);
+
+  /* Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.bg-main-gradient {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: radial-gradient(circle at 50% 50%, var(--color-accent), var(--color-black));
+}
+
+.label-text {
+  @apply block text-sm font-medium text-gray-300;
+}
+
+.input-field-text {
+  @apply block w-full rounded-md border border-gray-200 py-input-text-y px-input-text-x text-sm text-white placeholder:text-gray-400 outline-0 transition-colors duration-300 focus:border-primary;
+}
+
+.input-field-text-error {
+  @apply border-red-500;
+}
+
+.btn-primary {
+  @apply flex items-center justify-center gap-3 rounded-4xl cursor-pointer bg-primary py-2.5 px-8 text-sm font-medium text-white transition-all duration-300 hover:bg-secondary focus:outline-none;
+}
+
+.btn-disabled {
+  @apply flex items-center justify-center gap-3 rounded-4xl cursor-not-allowed bg-zinc-800 py-2.5 px-8 text-sm font-medium text-gray-300 opacity-60;
+}
+
+.modal-form-register {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+.main {
+  @apply md:w-width-main;
+}
+
+@media screen and (width >= 48rem) {
+  body:has(.aside-active) .main {
+    @apply w-width-main-active;
+  }
 }
