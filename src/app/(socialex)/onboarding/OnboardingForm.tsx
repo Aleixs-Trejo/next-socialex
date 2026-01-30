@@ -9,6 +9,7 @@ import { updateRegisterOnboarding } from "@/actions";
 import { registerPassword } from "@/actions";
 import { finishOnboarding } from "@/actions";
 import { redirect } from "next/navigation";
+import { useUIStore } from "@/stores";
 
 interface Props {
   authProvider: AuthProvider;
@@ -25,6 +26,9 @@ interface Props {
 }
 
 export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister }: Props) => {
+  const isFinishOnboarding = useUIStore(state => state.isFinishOnboarding);
+  const setIsFinishOnboarding = useUIStore(state => state.setIsFinishOnboarding);
+
   const { update } = useSession();
   const [stepIdx, setStepIdx] = useState(0);
   const steps = useMemo(() => {
@@ -67,6 +71,7 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
         await updateRegisterOnboarding(values, token);
         break;
       case "FINISH":
+        setIsFinishOnboarding(true);
         await finishOnboarding(token, values.image);
         await update({
           name: values.name,
@@ -101,8 +106,8 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
         <StepComponent form={form} token={token} />
       </div>
       <div className="flex items-center gap-4 justify-between">
-        <button className={`text-white px-6 py-2 hover:bg-quaternary cursor-pointer transition-colors duration-300 rounded-4xl ${(stepIdx === 1 || stepIdx === 0) ? 'btn-disabled' : ''}`} onClick={goPrev} disabled={(stepIdx === 1 || stepIdx === 0)}>Volver</button>
-        <button className="btn-primary" onClick={goNext}>Siguiente</button>
+        <button className={`text-white px-6 py-2 hover:bg-quaternary cursor-pointer transition-colors duration-300 rounded-4xl ${(stepIdx === 1 || stepIdx === 0) ? 'btn-disabled' : ''}`} onClick={goPrev} disabled={(stepIdx === 1 || stepIdx === 0 || isFinishOnboarding)}>Volver</button>
+        <button className={`${isFinishOnboarding ? 'btn-disabled' : 'btn-primary'} transition-colors duration-300`} onClick={goNext} disabled={isFinishOnboarding}>{isFinishOnboarding ? 'Cargando...' : 'Siguiente'}</button>
       </div>
     </div>
   );
