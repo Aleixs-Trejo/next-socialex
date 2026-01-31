@@ -44,7 +44,7 @@ export const ProfessionStep = ({ form, token }: Props) => {
               </p>
             ))}
           </div>
-          <button type="button" className="text-bright text-sm text-right cursor-pointer hover:underline" onClick={skipOboarding}>Saltar</button>
+          <button type="button" className="text-bright text-sm text-right cursor-pointer hover:underline w-max ml-auto" onClick={skipOboarding}>Saltar</button>
         </div>
       )}
     </form.Field>

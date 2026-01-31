@@ -17,6 +17,27 @@ enum StatusProfile {
   OFFLINE
 }
 
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+}
+
+enum ReactionType {
+  LIKE
+  LOVE
+  HAHA
+  WOW
+  SAD
+  ANGRY
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
 model User {
   id             String        @id @default(cuid())
   name           String?
@@ -40,8 +61,105 @@ model User {
   onboardingCompleted Boolean   @default(false)
   onboardingSkippedAt DateTime?
 
+  // POSTS
+  posts     Post[]
+  comments  Comment[]
+  reactions Reaction[]
+
+  // AMIGUITOS
+  friendshipsSent     Friendship[] @relation("FriendshipSender")
+  friendshipsReceived Friendship[] @relation("FriendshipReceiver")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String     @id @default(cuid())
+  content   String?
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media[]
+  comments  Comment[]
+  reactions Reaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model Media {
+  id        String     @id @default(cuid())
+  url       String
+  type      MediaType
+  postId    String
+  order     Int        @default(0)
+
+  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+}
+
+model Comment {
+  id        String     @id @default(cuid())
+  content   String
+  postId    String
+  userId    String
+
+  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  reactions Reaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model Reaction {
+  id        String     @id @default(cuid())
+  type      ReactionType
+  userId    String
+  postId    String
+  commentId String?
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment   Comment?   @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@unique([userId, commentId])
+  @@index([postId])
+  @@index([commentId])
+  @@index([userId])
+}
+
+model Friendship {
+  id        String     @id @default(cuid())
+  senderId  String
+  receiverId String
+  status    FriendshipStatus @default(PENDING)
+
+  sender   User @relation("FriendshipSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("FriendshipReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([senderId, receiverId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([status])
 }
 
 model VerificationCode {

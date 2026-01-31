@@ -25,9 +25,10 @@ export const authOptions: NextAuthConfig = {
 
         const { email, password } = parsedCredentials.data;
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({ where: { email: email.toLowerCase() } });
 
         if (!user) return null;
+
         if (user.statusAccount === "INACTIVE") return null;
         // if (!user.emailVerified) return null;
         if (!user?.passwordHashed) return null;
@@ -51,7 +52,6 @@ export const authOptions: NextAuthConfig = {
   },
   callbacks: {
     async signIn({ user, account }) {
-      console.log('Iniciando sesión...: ', user);
 
       if (account?.provider === "google") {
         const token = crypto.randomUUID();

@@ -9,3 +9,5 @@ export * from './auth/finish-register-onboarding';
 export * from './auth/logout';
 
 export * from './user/get-user-by-session';
+export * from './user/get-all-users';
+export * from './user/get-user-by-id';

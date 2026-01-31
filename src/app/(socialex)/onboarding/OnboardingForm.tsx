@@ -40,7 +40,7 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
 
   const form = useForm({
     defaultValues,
-    onSubmit: async ({ value }) => console.log('Valor: ', value),
+    onSubmit: async ({ value }) => console.log('Validando datos...'),
   });
 
   const step = steps[stepIdx];

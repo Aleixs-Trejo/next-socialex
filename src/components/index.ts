@@ -7,3 +7,5 @@ export * from './aside-nav/AsideNav';
 export * from './footer-nav/FooterNav';
 
 export * from './overlay-logout-confirm/OverlayLogout';
+
+export * from './empty-data/EmptyData';

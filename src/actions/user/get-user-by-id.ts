@@ -1,0 +1,22 @@
+'use server';
+
+import prisma from "@/lib/prisma";
+
+export const getUserById = async (id: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: id }
+    });
+    return {
+      ok: true,
+      message: 'Usuario obtenido correctamente',
+      data: user,
+    }
+  } catch (error) {
+    console.log('Error: ', error);
+    return {
+      ok: false,
+      message: 'Error al obtener usuario',
+    }
+  }
+};

@@ -6,6 +6,9 @@
 # Postgres
 postgres/
 
+# Seed
+seed/
+
 # dependencies
 /node_modules
 /.pnp

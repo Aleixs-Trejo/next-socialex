@@ -3,6 +3,7 @@ import { useCropper } from "@/hooks/useCropper";
 import { OnboardingFormApi } from "@/interfaces";
 import { onboardingSchema } from "@/schema/onboarding.schema";
 import { skipRegisterOnboarding } from "@/actions";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 interface Props {
   form: OnboardingFormApi;
@@ -54,7 +55,6 @@ export const ImageStep = ({ form, token }: Props) => {
           if (!cropped) return;
 
           field.setValue(cropped);
-          console.log("field.value después de handleChange:", field.state.value);
         };
 
         return (
@@ -68,12 +68,13 @@ export const ImageStep = ({ form, token }: Props) => {
               hidden
               onChange={onFileChange}
             />
-            <button type="button" onClick={openFilePicker} className="text-bright text-start text-sm cursor-pointer">
+            <button type="button" onClick={openFilePicker} className="text-bright text-start text-sm cursor-pointer flex flex-col items-center justify-center w-max mx-auto">
+              <IoCloudUploadOutline size={16} className="shrink-0" />
               {croppedImage ? "Cambiar foto" : "Subir una foto"}
             </button>
             {croppedImage && (
               <div className="w-full flex flex-col gap-2">
-                <div className="w-9/10 max-w-96 mx-auto">
+                <div className="w-9/10 max-w-64 mx-auto">
                   <img src={croppedImage} alt="Preview" className="w-full h-auto rounded-full object-cover" />
                 </div>
                 <span className="text-sm text-primary">¿No tenías algo mejor?</span>
