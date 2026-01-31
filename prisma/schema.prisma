@@ -28,7 +28,7 @@ model User {
   birthdate      DateTime?
   emailVerified  DateTime?
   passwordHashed String?
-  image          String? // Cloudinary image url
+  image          String?
 
   accounts          Account[]
   sessions          Session[]

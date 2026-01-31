@@ -8,7 +8,7 @@ interface Props {
 export const ModalRegisterForm = ({ onAccept, onClose }: Props) => {
   return (
     <section className="modal-form-register fixed inset-0 w-full h-full bg-black/80 flex items-center justify-center" onClick={onClose}>
-      <div className="w-9/10 max-w-2xl mx-auto bg-accent-dark px-4 py-8 rounded-lg h-4/5 overflow-auto" onClick={(e) => e.stopPropagation()}>
+      <div className="w-9/10 max-w-2xl mx-auto bg-accent-dark px-4 py-8 rounded-lg h-4/5 overflow-auto" onClick={e => e.stopPropagation()}>
         <div className="w-full flex flex-col gap-4 text-white">
           <h2 className="text-lg font-bold text-center">
             Términos y Condiciones de Socialex

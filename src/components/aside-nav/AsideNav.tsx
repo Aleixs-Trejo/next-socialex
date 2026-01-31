@@ -6,23 +6,11 @@ import { useUIStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
 import Link from "next/link";
 import { NavList } from "./ui/NavList";
-import { useEffect } from "react";
 import { LogoutBtn } from "./ui/LogoutBtn";
 
 export const AsideNav = () => {
   const isAsideOpen = useUIStore(useShallow(state => state.isAsideOpen));
   const setIsAsideOpen = useUIStore(useShallow(state => state.setIsAsideOpen));
-
-/*   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768 && isAsideOpen) {
-        setIsAsideOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [isAsideOpen, setIsAsideOpen]); */
 
   const { data: session } = useSession();
 
@@ -45,13 +33,13 @@ export const AsideNav = () => {
             )
           }
         </div>
-        <nav className="w-full min-h-aside-nav">
+        <nav className="w-full grow">
           <ul className="flex flex-col">
             <NavList session={session} />
           </ul>
         </nav>
         {
-          session?.user && <LogoutBtn session={session} />
+          session?.user && <LogoutBtn />
         }   
       </div>
     </aside>

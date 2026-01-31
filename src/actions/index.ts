@@ -7,3 +7,5 @@ export * from './auth/update-register-onboarding';
 export * from './auth/get-user-by-token';
 export * from './auth/finish-register-onboarding';
 export * from './auth/logout';
+
+export * from './user/get-user-by-session';

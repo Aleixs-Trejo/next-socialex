@@ -1,11 +1,15 @@
 'use server';
 
+import { auth } from "@/auth.config";
 import prisma from "@/lib/prisma";
 
-export const logout = async (email: string) => {
+export const logout = async () => {
+  const session = await auth();
+  if (!session?.user) return;
+
   try {
     await prisma.user.update({
-      where: { email },
+      where: { id: session.user.id },
       data: { statusProfile: 'OFFLINE' },
     });
   } catch (error) {

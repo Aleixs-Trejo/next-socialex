@@ -1,24 +1,25 @@
 import { useUIStore } from "@/stores";
-import { OverlayLogoutBtn } from "./OverlayLogutBtn";
-import { Session } from "next-auth";
+import { logout } from "@/actions";
+import { signOut } from "next-auth/react";
 
-interface Props {
-  session: Session | null;
-}
-
-export const OverlayLogoutConfirm = ({ session }: Props) => {
+export const OverlayLogoutConfirm = () => {
   const setIsModalLogoutOpen = useUIStore(state => state.setIsModalLogoutOpen);
+
+  const logoutAction = async () => {
+    await logout();
+    signOut();
+  };
 
   return (
     <section className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" onClick={() => setIsModalLogoutOpen(false)}>
-      <div className="w-9/10 max-w-sm mx-auto bg-accent-dark px-4 py-8 rounded-4xl" onClick={(e) => e.stopPropagation()}>
+      <div className="w-9/10 max-w-sm mx-auto bg-accent-dark px-4 py-8 rounded-4xl" onClick={e => e.stopPropagation()}>
         <div className="flex flex-col gap-8">
           <h2 className="text-lg font-normal text-center">
             ¿En serio te vas?
           </h2>
           <div className="flex items-center justify-center gap-x-4 gap-y-2 flex-wrap w-full">
             <button type="button" className="cursor-pointer px-2 py-1 text-sm text-gray-300 transition-colors duration-300 hover:text-white" onClick={() => setIsModalLogoutOpen(false)}>No, quedarme</button>
-            <OverlayLogoutBtn session={session} />
+            <button type="button" className="cursor-pointer px-6 py-2 text-sm bg-primary rounded-2xl transition-colors duration-300 hover:bg-secondary" onClick={logoutAction}>Me largo</button>
           </div>
         </div>
       </div>

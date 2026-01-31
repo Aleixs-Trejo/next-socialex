@@ -2,8 +2,8 @@ export const Copyright = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="w-full border-t border-gray-700">
-      <p className={`text-center text-base text-gray-400 py-8 overflow-hidden`}>
+    <div className="w-full border-t border-gray-700 h-header flex items-center justify-center">
+      <p className={`text-center text-base text-gray-400 overflow-hidden min-w-55`}>
         &copy; {currentYear} Socialex. Ningún derecho reservado.
       </p>
     </div>
