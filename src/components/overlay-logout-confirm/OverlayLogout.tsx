@@ -11,7 +11,7 @@ export const OverlayLogoutConfirm = () => {
   };
 
   return (
-    <section className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" onClick={() => setIsModalLogoutOpen(false)}>
+    <section className="overlay-logout-btns fixed inset-0 bg-black/80 flex items-center justify-center z-50" onClick={() => setIsModalLogoutOpen(false)}>
       <div className="w-9/10 max-w-sm mx-auto bg-accent-dark px-4 py-8 rounded-4xl" onClick={e => e.stopPropagation()}>
         <div className="flex flex-col gap-8">
           <h2 className="text-lg font-normal text-center">

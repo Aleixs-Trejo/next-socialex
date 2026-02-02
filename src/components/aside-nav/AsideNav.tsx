@@ -15,7 +15,7 @@ export const AsideNav = () => {
   const { data: session } = useSession();
 
   return (
-    <aside className={`h-main fixed top-16 bottom-0 hidden md:block transition-all duration-300 ${isAsideOpen ? 'w-aside-open aside-active': 'w-aside'}`}>
+    <aside className={`h-main fixed top-16 bottom-0 hidden md:block transition-all duration-300 z-50 ${isAsideOpen ? 'w-aside-open aside-active': 'w-aside'}`}>
       <div className="w-full h-full flex flex-col">
         <div className={`flex items-center gap-2 overflow-hidden transition-all duration-300 ${isAsideOpen ? 'w-max': 'w-16'}`}>
           <button

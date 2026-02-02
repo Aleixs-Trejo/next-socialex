@@ -2,15 +2,16 @@
 
 @theme {
   /* Colors */
-  --color-bright: #c77dff;
+  --color-bright: #d297ff;
   --color-primary: #7b2cbf;
   --color-secondary: #5a189a;
   --color-tertiary: #3c096c;
   --color-quaternary: #240046;
-  --color-accent: #10002b;
+  --color-accent: #160e22;
   --color-accent-dark: #000814;
-  --color-black: #000;
-  --color-white: #fff;
+  --color-dark-gray: #252728;
+  --color-gray-medium: #474748;
+  --color-bg-card: #161a22;
 
   /* Spacing */
   --spacing-input-text-x: clamp(1rem, 1.25dvh, 1.25rem);
@@ -25,7 +26,8 @@
   --spacing-aside-open: 16rem;
 
   /* Font size */
-  --text-title-main: clamp(1.25rem, 6.5dvw, 4.25rem);
+  --text-title-main: clamp(1.25rem, 12dvw, 4.25rem);
+  --text-title: clamp(1.25rem, 10dvw, 2.25rem);
   --text-medium: clamp(0.9375rem, 3.5dvw, 1.15rem);
 
   /* Animations */
@@ -74,6 +76,10 @@
 .modal-form-register,
 .animate-fade-in {
   animation: fade-in 0.3s ease-in-out;
+}
+
+.overlay-logout-btns {
+  @apply z-99;
 }
 
 .main {

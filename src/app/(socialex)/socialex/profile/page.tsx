@@ -17,7 +17,7 @@ const ProfilePage = async () => {
   if (!currentUser) redirect("/auth/login");
 
   return (
-    <div className="w-9/10 max-w-xl mx-auto overflow-hidden py-8">
+    <div className="w-9/10 max-w-3xl mx-auto overflow-hidden py-8">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-8 border border-tertiary p-4 rounded-xl relative">
           <div className="w-42 h-42 rounded-full bg-white p-1 shrink-0 flex justify-center items-center relative">

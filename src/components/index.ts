@@ -9,3 +9,7 @@ export * from './footer-nav/FooterNav';
 export * from './overlay-logout-confirm/OverlayLogout';
 
 export * from './empty-data/EmptyData';
+
+export * from './title/Title';
+
+export * from './not-found/PageNotFound';

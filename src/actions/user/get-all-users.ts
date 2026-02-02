@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 export const getAllUsers = async () => {
   try {
     const users = await prisma.user.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: { image: 'desc' },
     });
     return {
       ok: true,
