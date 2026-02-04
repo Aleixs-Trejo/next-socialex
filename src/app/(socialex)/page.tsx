@@ -6,7 +6,7 @@ export default async function Home() {
       <div className="flex min-h-dvh w-full items-center justify-between py-16">
         <div className="w-9/10 max-w-2xl mx-auto overflow-hidden">
           <div className="fade-in flex flex-col gap-4">
-            <h1 className="text-title-main font-bold text-center bg-clip-text text-transparent bg-linear-to-r from-white via-primary to-secondary">Socialex</h1>
+            <h1 className="relative text-title-main text-glow font-bold text-center bg-clip-text text-transparent bg-linear-to-r from-white via-primary to-secondary">Socialex</h1>
             <p className="text-center text-medium">
               Socialex es un proyecto hecho por Alesis que sirve de base para
               otros proyectos de similares caracteristicas, puedes aportar a

@@ -86,6 +86,26 @@
   @apply md:w-width-main;
 }
 
+.text-glow {
+  position: relative;
+  z-index: 1;
+
+  &::after {
+    content: "Socialex"; 
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    background: linear-gradient(to right, white, var(--color-bright), var(--color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: blur(12px);
+    opacity: 0.7;
+  }
+}
+
 @media screen and (width >= 48rem) {
   body:has(.aside-active) .main {
     @apply w-width-main-active;

@@ -7,7 +7,7 @@ const SocialexLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="w-full min-h-dvh flex flex-col">
       <HeaderNav session={session} />
-      <AsideNav />
+      <AsideNav session={session}/>
       <main className="min-h-main pb-16 md:pb-0 flex flex-col mt-16 main md:ml-auto transition-all duration-300">
         <div className="flex-1">
           <div className="w-full">

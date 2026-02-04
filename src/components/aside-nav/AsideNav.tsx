@@ -1,18 +1,20 @@
 'use client';
 
-import { useSession } from "next-auth/react";
 import { IoMdMenu } from "react-icons/io";
 import { useUIStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
 import Link from "next/link";
-import { NavList } from "./ui/NavList";
+import { NavListElements } from "./ui/NavListElements";
 import { LogoutBtn } from "./ui/LogoutBtn";
+import { Session } from "next-auth";
 
-export const AsideNav = () => {
+interface Props {
+  session: Session | null;
+}
+
+export const AsideNav = ({ session }: Props) => {
   const isAsideOpen = useUIStore(useShallow(state => state.isAsideOpen));
   const setIsAsideOpen = useUIStore(useShallow(state => state.setIsAsideOpen));
-
-  const { data: session } = useSession();
 
   return (
     <aside className={`h-main fixed top-16 bottom-0 hidden md:block transition-all duration-300 z-50 ${isAsideOpen ? 'w-aside-open aside-active': 'w-aside'}`}>
@@ -35,7 +37,7 @@ export const AsideNav = () => {
         </div>
         <nav className="w-full grow">
           <ul className="flex flex-col">
-            <NavList session={session} />
+            <NavListElements session={session} />
           </ul>
         </nav>
         {

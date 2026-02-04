@@ -1,5 +1,3 @@
-'use client';
-
 import Link from "next/link";
 import { useUIStore } from "@/stores";
 import { Session } from "next-auth";
@@ -42,7 +40,7 @@ interface Props {
   session: Session | null;
 }
 
-export const NavList = ({ session }: Props) => {
+export const NavListElements = ({ session }: Props) => {
   const pathname = usePathname();
   const isAsideOpen = useUIStore(useShallow(state => state.isAsideOpen));
 
