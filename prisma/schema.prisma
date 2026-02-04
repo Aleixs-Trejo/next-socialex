@@ -91,13 +91,13 @@ model Post {
 }
 
 model Media {
-  id        String     @id @default(cuid())
-  url       String
-  type      MediaType
-  postId    String
-  order     Int        @default(0)
+  id     String    @id @default(cuid())
+  url    String
+  type   MediaType
+  postId String
+  order  Int       @default(0)
 
-  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -106,13 +106,13 @@ model Media {
 }
 
 model Comment {
-  id        String     @id @default(cuid())
-  content   String
-  postId    String
-  userId    String
+  id      String @id @default(cuid())
+  content String
+  postId  String
+  userId  String
 
-  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   reactions Reaction[]
 
@@ -125,15 +125,15 @@ model Comment {
 }
 
 model Reaction {
-  id        String     @id @default(cuid())
+  id        String       @id @default(cuid())
   type      ReactionType
   userId    String
   postId    String
   commentId String?
 
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
-  comment   Comment?   @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
@@ -145,10 +145,10 @@ model Reaction {
 }
 
 model Friendship {
-  id        String     @id @default(cuid())
-  senderId  String
+  id         String           @id @default(cuid())
+  senderId   String
   receiverId String
-  status    FriendshipStatus @default(PENDING)
+  status     FriendshipStatus @default(PENDING)
 
   sender   User @relation("FriendshipSender", fields: [senderId], references: [id], onDelete: Cascade)
   receiver User @relation("FriendshipReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
@@ -202,6 +202,9 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  ipAddress String?
+  userAgent String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
