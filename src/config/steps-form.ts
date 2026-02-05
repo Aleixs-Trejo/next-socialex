@@ -21,7 +21,6 @@ export const onboardingSteps: OnboardingStep[] = [
     title: 'Contraseña',
     subtitle: 'Ingresa alguna contraseña segura',
     component: PasswordStep,
-    auth: ["credentials"],
     action: "REGISTER",
   },
   {
@@ -29,7 +28,6 @@ export const onboardingSteps: OnboardingStep[] = [
     title: 'Nombre',
     subtitle: 'Ingresa un nombre apropiado dentro de la plataforma',
     component: NameStep,
-    auth: ["credentials", "google"],
     action: "UPDATE"
   },
   {
@@ -37,7 +35,6 @@ export const onboardingSteps: OnboardingStep[] = [
     title: 'Descripción',
     subtitle: '¿Alguna descripción de ti?, puedes omitir si deseas',
     component: DescriptionStep,
-    auth: ["credentials", "google"],
     action: "UPDATE"
   },
   {
@@ -45,7 +42,6 @@ export const onboardingSteps: OnboardingStep[] = [
     title: 'Profesión',
     subtitle: '¿Qué eres en esta vida?',
     component: ProfessionStep,
-    auth: ["credentials", "google"],
     action: "UPDATE"
   },
   {
@@ -53,7 +49,6 @@ export const onboardingSteps: OnboardingStep[] = [
     title: 'Fecha de nacimiento',
     subtitle: '¿Eres un mocoso aún?',
     component: BirthdateStep,
-    auth: ["credentials", "google"],
     action: "UPDATE"
   },
   {
@@ -61,7 +56,6 @@ export const onboardingSteps: OnboardingStep[] = [
     title: 'Imagen',
     subtitle: 'Usa alguna foto falsa si quieres',
     component: ImageStep,
-    auth: ["credentials", "google"],
     action: "FINISH"
   },
 ];

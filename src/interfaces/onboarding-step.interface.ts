@@ -1,7 +1,6 @@
 import { ComponentType } from "react";
 import { useForm } from "@tanstack/react-form";
 import { OnboardingValues } from "@/schema/onboarding.schema";
-import { AuthProvider } from "@/types";
 import { defaultValues } from "@/config/steps-form";
 
 const _createFormInstance = () => useForm({ defaultValues });
@@ -13,7 +12,6 @@ export interface OnboardingStep {
   title: string;
   subtitle: string;
   component: ComponentType<{ form: OnboardingFormApi, token?: string }>;
-  auth: AuthProvider[];
   action?: "START" | "UPDATE" | "COMPLETE" | "SKIP" | "REGISTER" | "FINISH";
 }
 

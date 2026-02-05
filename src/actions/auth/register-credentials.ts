@@ -1,28 +1,61 @@
-'use server';
+"use server";
 
+import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-import { getUserByToken } from "./get-user-by-token";
-import { login } from "./login";
+import { auth } from "@/lib/auth";
 
-export const registerPassword = async (data: { password: string, token: string }) => {
-  const findUser = await getUserByToken(data.token);
-  if (!findUser) throw new Error('No se encontró el usuario');
-  
-  try {
-    const passwordHashed = await bcrypt.hash(data.password, 10);
-    await prisma.user.update({
-      where: { email: findUser.email },
-      data: { 
-        passwordHashed,
-        onboardingCompleted: false,
-      }
-    });
+export const registerPassword = async (data: {
+  password: string;
+  token: string;
+}) => {
+  const verification = await prisma.verificationToken.findFirst({
+    where: {
+      token: data.token,
+      expires: { gt: new Date() },
+    },
+  });
 
-    await login(findUser.email, data.password);
-
-  } catch (error: any) {
-    console.log('Error: ', error);
-    return error.message || 'Error';
+  if (!verification) {
+    throw new Error("Token inválido o expirado");
   }
+
+  const email = verification.identifier;
+
+  const newUserRegister = await auth.api.signUpEmail({
+    body: {
+      email,
+      password: data.password,
+      name: "",
+    },
+  });
+
+  if (!newUserRegister.token) {
+    throw new Error("No se pudo crear la sesión");
+  }
+
+  const updatedUser = await prisma.user.update({
+    where: { email },
+    data: {
+      onboardingToken: data.token,
+      onboardingTokenExpires: verification.expires,
+    },
+  });
+
+  const signInResult = await auth.api.signInEmail({
+    body: {
+      email,
+      password: data.password,
+    },
+  });
+
+  const cookieStore = await cookies();
+  cookieStore.set("better-auth.session_token", signInResult.token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  return { ok: true };
 };

@@ -1,10 +1,10 @@
 import { logoFont } from "@/config/fonts";
-import { Session } from "next-auth";
 import Link from "next/link";
 import { BtnProfileHeaderOptions } from "./ui/BtnProfileHeaderOptions";
+import { BetterAuthSession } from "@/types/better-auth.type";
 
 interface Props {
-  session: Session | null;
+  session: BetterAuthSession | null;
 }
 
 export const HeaderNav = async ({ session }: Props) => {

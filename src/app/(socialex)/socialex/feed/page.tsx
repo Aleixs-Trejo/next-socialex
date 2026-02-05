@@ -1,7 +1,9 @@
-import { auth } from "@/auth.config";
+
 import { Title } from "@/components";
 import { NewPostBanner } from "./ui/NewPostBanner";
 import { AllPosts } from "./ui/AllPosts";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 
 export const metadata = {
@@ -9,8 +11,10 @@ export const metadata = {
 };
 
 const FeedPage = async () => {
-  const session = await auth();
-  console.log('Feed Page Session: ', session);
+
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
 
   return (
     <div className="w-9/10 max-w-3xl mx-auto overflow-hidden py-8">
@@ -21,7 +25,6 @@ const FeedPage = async () => {
           )
         }
         <Title title="Novedades" subtitle="Explora lo último" />
-        <AllPosts />
       </div>
     </div>
   );

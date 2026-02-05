@@ -39,17 +39,16 @@ enum MediaType {
 }
 
 model User {
-  id             String        @id @default(cuid())
-  name           String?
-  email          String        @unique
-  description    String?
-  statusAccount  StatusAccount @default(ACTIVE)
-  statusProfile  StatusProfile @default(OFFLINE)
-  profession     String?
-  birthdate      DateTime?
-  emailVerified  DateTime?
-  passwordHashed String?
-  image          String?
+  id            String        @id @default(cuid())
+  name          String?
+  email         String        @unique
+  description   String?
+  statusAccount StatusAccount @default(ACTIVE)
+  statusProfile StatusProfile @default(OFFLINE)
+  profession    String?
+  birthdate     DateTime?
+  emailVerified Boolean       @default(false)
+  image         String?
 
   accounts          Account[]
   sessions          Session[]
@@ -176,38 +175,40 @@ model VerificationCode {
 }
 
 model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
+  id           String    @id @default(cuid())
+  userId       String
+  accountId    String
+  providerId   String
+  password     String?
+  accessToken  String?   @db.Text
+  refreshToken String?   @db.Text
+  idToken      String?   @db.Text
+  expiresAt    DateTime?
+  scope        String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([provider, providerAccountId])
+  @@unique([providerId, accountId])
   @@index([userId])
 }
 
 model Session {
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
   ipAddress String?
   userAgent String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model VerificationToken {

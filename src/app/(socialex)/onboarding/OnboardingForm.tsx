@@ -3,16 +3,14 @@
 import { useState, useMemo, useEffect } from "react";
 import { useForm } from "@tanstack/react-form";
 import { onboardingSteps } from "@/config/steps-form";
-import { AuthProvider } from "@/types";
-import { useSession } from "next-auth/react";
 import { updateRegisterOnboarding } from "@/actions";
 import { registerPassword } from "@/actions";
 import { finishOnboarding } from "@/actions";
 import { redirect } from "next/navigation";
 import { useUIStore } from "@/stores";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  authProvider: AuthProvider;
   token: string;
   defaultValues: {
     name: string;
@@ -25,18 +23,18 @@ interface Props {
   hasRegister: boolean;
 }
 
-export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister }: Props) => {
+export const OnboardingForm = ({ token, defaultValues, hasRegister }: Props) => {
   const isFinishOnboarding = useUIStore(state => state.isFinishOnboarding);
   const setIsFinishOnboarding = useUIStore(state => state.setIsFinishOnboarding);
 
-  const { update } = useSession();
+  const router = useRouter();
   const [stepIdx, setStepIdx] = useState(0);
   const steps = useMemo(() => {
     return onboardingSteps.filter(step => {
-      if (step.auth && !step.auth.includes(authProvider)) return false;
+      if (step.key === "password" && hasRegister) return false;
       return true;
-    })
-  }, [authProvider, hasRegister]);
+    });
+  }, [hasRegister]);
 
   const form = useForm({
     defaultValues,
@@ -44,7 +42,7 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
   });
 
   const step = steps[stepIdx];
-  if (!step) redirect('/auth/register');
+  // if (!step) redirect('/auth/register');
 
   const StepComponent = step.component;
 
@@ -63,28 +61,18 @@ export const OnboardingForm = ({ authProvider, token, defaultValues, hasRegister
     switch (step.action) {
       case "REGISTER":
         await registerPassword({
-          token,
           password: values.password, 
+          token, 
         });
         break;
       case "UPDATE":
         await updateRegisterOnboarding(values, token);
-        await update({
-          name: values.name,
-          image: values.image,
-          onboardingCompleted: true,
-          statusProfile: 'ONLINE',
-        });
+        router.refresh();
         break;
       case "FINISH":
         setIsFinishOnboarding(true);
-        await finishOnboarding(token, values.image);
-        await update({
-          name: values.name,
-          image: values.image,
-          onboardingCompleted: true,
-          statusProfile: 'ONLINE',
-        });
+        await finishOnboarding(values.image, token);
+        router.refresh();
         window.location.replace('/socialex/profile');
         break;
     }

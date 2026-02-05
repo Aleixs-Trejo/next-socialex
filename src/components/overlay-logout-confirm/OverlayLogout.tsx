@@ -1,13 +1,12 @@
 import { useUIStore } from "@/stores";
 import { logout } from "@/actions";
-import { signOut } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 
 export const OverlayLogoutConfirm = () => {
   const setIsModalLogoutOpen = useUIStore(state => state.setIsModalLogoutOpen);
 
   const logoutAction = async () => {
-    await logout();
-    signOut();
+    await authClient.signOut();
   };
 
   return (

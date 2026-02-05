@@ -1,9 +1,13 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth.config";
 import { Copyright } from "@/components";
+import { auth } from "@/lib/auth";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await auth();
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  console.log('session: ', session);
+
   if (session?.user) redirect("/socialex/feed");
 
   return (

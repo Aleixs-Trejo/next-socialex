@@ -1,12 +1,12 @@
 'use client';
 
 import { ImageCustom } from "@/components";
-import { Session } from "next-auth";
 import { MenuProfileHeaderOptions } from "./MenuProfileHeaderOptions";
 import { useUIStore } from "@/stores";
+import { BetterAuthSession } from "@/types/better-auth.type";
 
 interface Props {
-  session: Session | null;
+  session: BetterAuthSession | null;
 }
 
 export const BtnProfileHeaderOptions = ({ session }: Props) => {
@@ -16,7 +16,7 @@ export const BtnProfileHeaderOptions = ({ session }: Props) => {
     <>
       <button type="button" className="w-8 h-8 aspect-square cursor-pointer" onClick={() => setIsOpenMenuProfilHeader(!isOpenMenuProfilHeader)}>
         <ImageCustom
-          src={session?.user?.image || undefined}
+          src={session?.user.image || undefined}
           alt="Avatar"
           width={24}
           height={24}

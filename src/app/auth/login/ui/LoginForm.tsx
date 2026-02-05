@@ -1,22 +1,51 @@
 'use client';
 
-import { authenticated } from "@/actions";
 import { titleFont } from "@/config/fonts";
 import Link from "next/link";
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
-  const [message, formAction, isPending] = useActionState(authenticated, undefined);
+  const [isPending, setIsPending] = useState(false);
+  const [message, setMessage] = useState<string | undefined>();
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  useEffect(() => {
-    if (message === 'Success') {
-      window.location.replace('/socialex/feed');
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsPending(true);
+    setMessage(undefined);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email,
+        password,
+      });
+
+      if (error) {
+        setMessage(error.message || 'Error al iniciar sesión');
+        setIsPending(false);
+        return;
+      }
+
+      if (data) {
+        // Éxito - redirigir
+        router.push('/socialex/feed');
+        router.refresh();
+      }
+    } catch (error) {
+      setMessage('Error inesperado al iniciar sesión');
+      setIsPending(false);
     }
-  }, [message]);
+  };
 
   return (
-    <form action={formAction}>
+    <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-8 overflow-hidden">
         <h2 className={`${titleFont.className} text-3xl font-semibold text-center max-w-full`}>Ingresar</h2>
         <div className="w-full flex flex-col gap-4">
@@ -34,6 +63,7 @@ export const LoginForm = () => {
                 type="email"
                 name="email"
                 placeholder="Ej: alesis@makanaki.xd"
+                required
               />
             </div>
           </div>
@@ -52,6 +82,7 @@ export const LoginForm = () => {
                 name="password"
                 placeholder="*********"
                 minLength={8}
+                required
               />
               <button
                 type="button"
@@ -74,11 +105,15 @@ export const LoginForm = () => {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn-primary overflow-hidden" aria-disabled={isPending}>
-          Acceder
+        <button 
+          type="submit" 
+          className="btn-primary overflow-hidden" 
+          disabled={isPending}
+        >
+          {isPending ? 'Accediendo...' : 'Acceder'}
         </button>
         {
-          message && message !== 'Success' && (
+          message && (
             <div
               className="flex h-8 items-end space-x-1"
               aria-live="polite"

@@ -4,38 +4,39 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
 export const registerEmail = async (email: string) => {
-  const token = crypto.randomUUID();
+  const emailNormalized = email.toLowerCase();
 
-  const isExists = await prisma.user.findUnique({
-    where: { email },
+  const exists = await prisma.user.findUnique({
+    where: { email: emailNormalized },
   });
 
-  if (isExists) {
+  if (exists) {
     return {
       ok: false,
-      message: 'El email ya está registrado',
-    }
-  };
-
-  const user = await prisma.user.upsert({
-    where: { email: email.toLowerCase() },
-    update: {
-      onboardingToken: token,
-      onboardingTokenExpires: new Date(Date.now() + 15 * 60 * 1000),
-    },
-    create: { 
-      email: email.toLowerCase(),
-      onboardingToken: token,
-      onboardingTokenExpires: new Date(Date.now() + 15 * 60 * 1000),
-    }
-  });
-
-  if (!user) {
-    return {
-      ok: false,
-      message: 'No se pudo registrar el usuario',
+      message: "El email ya está registrado",
     };
   }
 
-  redirect(`/onboarding?auth=credentials&token=${token}`);
+  const token = crypto.randomUUID();
+
+  const verificationIdentifierExsists = await prisma.verificationToken.findFirst({
+    where: { identifier: emailNormalized },
+  });
+
+  if (verificationIdentifierExsists) {
+    return {
+      ok: false,
+      message: "Ya existe una solicitud de registro para este email",
+    };
+  }
+
+  await prisma.verificationToken.create({
+    data: {
+      identifier: emailNormalized,
+      token,
+      expires: new Date(Date.now() + 15 * 60 * 1000),
+    },
+  });
+
+  redirect(`/onboarding?token=${token}`);
 };

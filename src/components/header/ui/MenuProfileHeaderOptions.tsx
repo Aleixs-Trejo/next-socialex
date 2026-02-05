@@ -2,15 +2,13 @@ import Link from "next/link";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { useUIStore } from "@/stores";
-import { logout } from "@/actions";
-import { signOut } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 
 export const MenuProfileHeaderOptions = () => {
   const setIsOpenMenuProfilHeader = useUIStore(state => state.setIsOpenMenuProfilHeader);
 
   const handleLogout = async () => {
-    await logout();
-    signOut();
+    await authClient.signOut();
   };
 
   return (

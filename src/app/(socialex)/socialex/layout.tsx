@@ -1,8 +1,11 @@
-import { auth } from "@/auth.config";
 import { AsideNav, Copyright, FooterNav, HeaderNav } from "@/components";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const SocialexLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
 
   return (
     <div className="w-full min-h-dvh flex flex-col">

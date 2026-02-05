@@ -1,14 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { getUserByToken } from "./get-user-by-token";
 import { redirect } from "next/navigation";
 import { v2 as cloudinary } from "cloudinary";
+import { getUserByToken } from "./get-user-by-token";
 cloudinary.config(process.env.CLOUDINARY_URL ?? "");
 
-export const finishOnboarding = async (token: string, imageForm: string) => {
+export const finishOnboarding = async (imageForm: string, token: string) => {
   const user = await getUserByToken(token);
-  if (!user) redirect("/auth/register");
+    if (!user) redirect("/auth/register");
 
   try {
     let imageUrl = "user-profile-default.avif";

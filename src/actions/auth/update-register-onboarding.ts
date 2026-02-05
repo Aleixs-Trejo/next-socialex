@@ -1,17 +1,19 @@
 'use server';
 
+import { headers } from "next/headers";
 import { OnboardingUpdateInput } from "@/interfaces";
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import { getUserByToken } from "./get-user-by-token";
+import { redirect } from "next/navigation";
 
 export const updateRegisterOnboarding = async (data: OnboardingUpdateInput, token: string) => {
-  const findUser = await getUserByToken(token);
-  if (!findUser) redirect('/auth/register');
+  const user = await getUserByToken(token);
+  if (!user) redirect("/auth/register");
 
   try {
-    await prisma.user.update({
-      where: { id: findUser.id },
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
       data: {
         name: data.name,
         description: data.description,
@@ -20,7 +22,10 @@ export const updateRegisterOnboarding = async (data: OnboardingUpdateInput, toke
         image: data.image,
       },
     });
+
+    return { ok: true };
   } catch (error) {
-    console.log('Error: ', error);
+    console.error(error);
+    return { ok: false };
   }
 };

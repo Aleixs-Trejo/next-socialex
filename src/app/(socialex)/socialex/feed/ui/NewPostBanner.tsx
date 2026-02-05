@@ -1,9 +1,9 @@
 import { ImageCustom } from "@/components";
-import { Session } from "next-auth";
+import { BetterAuthSession } from "@/types";
 import Link from "next/link";
 
 interface Props {
-  session: Session;
+  session: BetterAuthSession;
 }
 
 export const NewPostBanner = ({ session }: Props) => {

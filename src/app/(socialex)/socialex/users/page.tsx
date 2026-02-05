@@ -1,5 +1,5 @@
 import { getAllUsers } from "@/actions";
-import { EmptyData, ImageCustom } from "@/components";
+import { EmptyData, ImageCustom, Title } from "@/components";
 import Link from "next/link";
 
 export const metadata = {
@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 const UsersPage = async () => {
-  const users = await getAllUsers();
+/*   const users = await getAllUsers();
 
   if (!users.ok) return (
     <EmptyData message={users.message} />
@@ -52,12 +52,12 @@ const UsersPage = async () => {
         <Link href={`/socialex/users/${user.id}`} className="btn-primary">Ver perfil</Link>
       </div>
     </div>
-  ));
+  )); */
 
   return (
     <div className="w-9/10 max-w-xl mx-auto overflow-hidden py-8">
       <div className="flex flex-col gap-4">
-        {usersMap}
+        <Title title="Usuarios" subtitle="Explora los usuarios" />
       </div>
     </div>
   );

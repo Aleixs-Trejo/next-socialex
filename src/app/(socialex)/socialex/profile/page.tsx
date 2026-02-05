@@ -1,8 +1,9 @@
-import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
-import { LogoutBtn } from "./ui/LogoutBtn";
+
 import { ImageCustom } from "@/components";
 import { getUserBySession } from "@/actions";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 export const metadata = {
   title: "Mi Perfil | Socialex",
@@ -10,7 +11,10 @@ export const metadata = {
 };
 
 const ProfilePage = async () => {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+
   if (!session?.user) redirect("/auth/login");
 
   const currentUser = await getUserBySession(session);
@@ -28,14 +32,14 @@ const ProfilePage = async () => {
               height={160}
               className="w-full h-full rounded-full object-cover object-center"
             />
-            <div
+            {/* <div
               className="absolute w-8 h-8 bg-white p-1 rounded-full bottom-1/20 right-1/10"
               title={session?.user.statusProfile?.toLowerCase()}
             >
               <span
                 className={`block w-full h-full rounded-full ${session?.user.statusProfile === "ONLINE" ? "bg-green-500" : "bg-zinc-500"}`}
               />
-            </div>
+            </div> */}
           </div>
           <div className="flex flex-col text-center md:text-start">
             <h2 className="text-2xl font-semibold">{currentUser.name}</h2>

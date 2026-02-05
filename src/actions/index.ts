@@ -1,7 +1,5 @@
-export * from './auth/login';
 export * from './auth/register-credentials';
 export * from './auth/register-email';
-export * from './auth/start-register-onboarding';
 export * from './auth/skip-register-onboarding';
 export * from './auth/update-register-onboarding';
 export * from './auth/get-user-by-token';

@@ -5,11 +5,10 @@ import { useUIStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
 import Link from "next/link";
 import { NavListElements } from "./ui/NavListElements";
-import { LogoutBtn } from "./ui/LogoutBtn";
-import { Session } from "next-auth";
+import { BetterAuthSession } from "@/types/better-auth.type";
 
 interface Props {
-  session: Session | null;
+  session: BetterAuthSession | null;
 }
 
 export const AsideNav = ({ session }: Props) => {
@@ -40,9 +39,9 @@ export const AsideNav = ({ session }: Props) => {
             <NavListElements session={session} />
           </ul>
         </nav>
-        {
+        {/* {
           session?.user && <LogoutBtn />
-        }   
+        }    */}
       </div>
     </aside>
   );

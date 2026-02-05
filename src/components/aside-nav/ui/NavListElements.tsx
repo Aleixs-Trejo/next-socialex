@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useUIStore } from "@/stores";
-import { Session } from "next-auth";
+import { BetterAuthSession } from "@/types";
 import { usePathname } from "next/navigation";
 import { FaMusic, FaUser } from "react-icons/fa";
 import { GiConsoleController } from "react-icons/gi";
@@ -37,7 +37,7 @@ const navLinks = [
 ];
 
 interface Props {
-  session: Session | null;
+  session: BetterAuthSession | null;
 }
 
 export const NavListElements = ({ session }: Props) => {

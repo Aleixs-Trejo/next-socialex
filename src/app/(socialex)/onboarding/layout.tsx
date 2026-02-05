@@ -1,12 +1,12 @@
-import { auth } from "@/auth.config";
 import { Copyright } from "@/components";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 const OnboardingLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await auth();
-  if (session?.user) {
-    if (session.user.onboardingCompleted) redirect("/socialex/feed");
-  }
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
 
   return (
     <section className="w-full min-h-dvh flex flex-col items-center justify-center">
