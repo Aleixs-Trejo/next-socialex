@@ -6,8 +6,6 @@ import { auth } from "@/lib/auth";
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth.api.getSession({ headers: await headers() });
 
-  console.log('session: ', session);
-
   if (session?.user) redirect("/socialex/feed");
 
   return (

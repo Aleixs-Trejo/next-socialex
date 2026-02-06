@@ -6,9 +6,9 @@ import { onboardingSteps } from "@/config/steps-form";
 import { updateRegisterOnboarding } from "@/actions";
 import { registerPassword } from "@/actions";
 import { finishOnboarding } from "@/actions";
-import { redirect } from "next/navigation";
 import { useUIStore } from "@/stores";
 import { useRouter } from "next/navigation";
+import { authClient, useSession } from "@/lib/auth-client";
 
 interface Props {
   token: string;
@@ -24,6 +24,8 @@ interface Props {
 }
 
 export const OnboardingForm = ({ token, defaultValues, hasRegister }: Props) => {
+  const { data: session, refetch: refetchSession } = useSession();
+
   const isFinishOnboarding = useUIStore(state => state.isFinishOnboarding);
   const setIsFinishOnboarding = useUIStore(state => state.setIsFinishOnboarding);
 
@@ -42,7 +44,6 @@ export const OnboardingForm = ({ token, defaultValues, hasRegister }: Props) => 
   });
 
   const step = steps[stepIdx];
-  // if (!step) redirect('/auth/register');
 
   const StepComponent = step.component;
 
@@ -60,10 +61,18 @@ export const OnboardingForm = ({ token, defaultValues, hasRegister }: Props) => 
 
     switch (step.action) {
       case "REGISTER":
-        await registerPassword({
+        const registerResult = await registerPassword({
           password: values.password, 
           token, 
         });
+
+        if (registerResult.ok && registerResult.email) {
+          await authClient.signIn.email({
+            email: registerResult.email,
+            password: values.password,
+            fetchOptions: { onSuccess: () => router.refresh() }
+          });
+        }
         break;
       case "UPDATE":
         await updateRegisterOnboarding(values, token);
@@ -71,9 +80,16 @@ export const OnboardingForm = ({ token, defaultValues, hasRegister }: Props) => 
         break;
       case "FINISH":
         setIsFinishOnboarding(true);
-        await finishOnboarding(values.image, token);
-        router.refresh();
-        window.location.replace('/socialex/profile');
+        const result = await finishOnboarding(values.image, token);
+        if (result?.ok && result.imageUrl) {
+          try {
+            await authClient.updateUser({ image: result.imageUrl });
+          } catch (error) {
+            console.error("Error al actualizar sesión:", error);
+          }
+          router.refresh();
+          window.location.replace('/socialex/profile');
+        }
         break;
     }
 

@@ -1,6 +1,5 @@
 "use server";
 
-import { cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
@@ -25,7 +24,7 @@ export const registerPassword = async (data: {
     body: {
       email,
       password: data.password,
-      name: "",
+      name: email.split("@")[0],
     },
   });
 
@@ -33,7 +32,7 @@ export const registerPassword = async (data: {
     throw new Error("No se pudo crear la sesión");
   }
 
-  const updatedUser = await prisma.user.update({
+  await prisma.user.update({
     where: { email },
     data: {
       onboardingToken: data.token,
@@ -41,21 +40,5 @@ export const registerPassword = async (data: {
     },
   });
 
-  const signInResult = await auth.api.signInEmail({
-    body: {
-      email,
-      password: data.password,
-    },
-  });
-
-  const cookieStore = await cookies();
-  cookieStore.set("better-auth.session_token", signInResult.token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-
-  return { ok: true };
+  return { ok: true, email };
 };

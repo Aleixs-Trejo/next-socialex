@@ -21,9 +21,9 @@ export async function proxy(request: NextRequest) {
 
   // Redirigir si no hay sesssssionnnn
   // Por qué carajos no fununcia?
-  if (pathname.startsWith('/socialex') && !session?.user) {
+  /* if (pathname.startsWith('/socialex') && !session?.user) {
     return NextResponse.redirect(new URL('/auth/login', request.url));
-  }
+  } */
 
   return NextResponse.next();
 }

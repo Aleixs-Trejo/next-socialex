@@ -17,7 +17,7 @@ const ProfilePage = async () => {
 
   if (!session?.user) redirect("/auth/login");
 
-  const currentUser = await getUserBySession(session);
+  const currentUser = await getUserBySession();
   if (!currentUser) redirect("/auth/login");
 
   return (
@@ -32,14 +32,14 @@ const ProfilePage = async () => {
               height={160}
               className="w-full h-full rounded-full object-cover object-center"
             />
-            {/* <div
+            <div
               className="absolute w-8 h-8 bg-white p-1 rounded-full bottom-1/20 right-1/10"
               title={session?.user.statusProfile?.toLowerCase()}
             >
               <span
                 className={`block w-full h-full rounded-full ${session?.user.statusProfile === "ONLINE" ? "bg-green-500" : "bg-zinc-500"}`}
               />
-            </div> */}
+            </div>
           </div>
           <div className="flex flex-col text-center md:text-start">
             <h2 className="text-2xl font-semibold">{currentUser.name}</h2>

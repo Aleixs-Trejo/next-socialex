@@ -1,4 +1,5 @@
 import { OnboardingFormApi } from "@/interfaces";
+import { useSession } from "@/lib/auth-client";
 import { onboardingSchema } from "@/schema/onboarding.schema";
 
 interface Props {
