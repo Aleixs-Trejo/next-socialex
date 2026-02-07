@@ -24,7 +24,6 @@ interface Props {
 }
 
 export const OnboardingForm = ({ token, defaultValues, hasRegister }: Props) => {
-  const { data: session, refetch: refetchSession } = useSession();
 
   const isFinishOnboarding = useUIStore(state => state.isFinishOnboarding);
   const setIsFinishOnboarding = useUIStore(state => state.setIsFinishOnboarding);

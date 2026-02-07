@@ -8,13 +8,17 @@ export const getAllPostsPaginated = async (page: number = 1, limit: number = 10)
       take: limit,
       skip: (page - 1) * limit,
       orderBy: { createdAt: 'desc' },
-      select: {
-        content: true,
-        userId: true,
-        media: true,
-        comments: true,
-        reactions: true,
-      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            profession: true,
+            statusProfile: true,
+          }
+        }
+      }
     });
 
     return {

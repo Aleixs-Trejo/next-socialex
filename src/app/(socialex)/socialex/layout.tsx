@@ -2,7 +2,12 @@ import { AsideNav, Copyright, FooterNav, HeaderNav } from "@/components";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
-const SocialexLayout = async ({ children }: { children: React.ReactNode }) => {
+interface Props {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}
+
+const SocialexLayout = async ({ children, modal }: Props) => {
   const session = await auth.api.getSession({
     headers: await headers()
   });
@@ -22,6 +27,7 @@ const SocialexLayout = async ({ children }: { children: React.ReactNode }) => {
         </div>
       </main>
       <FooterNav />
+      {modal}
     </div>
   );
 };

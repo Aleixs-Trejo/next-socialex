@@ -5,7 +5,6 @@ import { AllPosts } from "./ui/AllPosts";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
-
 export const metadata = {
   title: "Inicio | Socialex"
 };
@@ -25,6 +24,7 @@ const FeedPage = async () => {
           )
         }
         <Title title="Novedades" subtitle="Explora lo último" />
+        <AllPosts />
       </div>
     </div>
   );
