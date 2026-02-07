@@ -1,4 +1,4 @@
-import { StatusProfile } from "@/generated/prisma/enums";
+import { MediaType, StatusProfile } from "@/generated/prisma/enums";
 
 export interface PostWithUser {
   id: string;
@@ -13,4 +13,9 @@ export interface PostWithUser {
     image: string | null;
     profession: string | null;
   };
+  media: {
+    url: string;
+    type: MediaType;
+    order: number;
+  }[];
 }

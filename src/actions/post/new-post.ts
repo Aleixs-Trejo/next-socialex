@@ -8,8 +8,8 @@ import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
 cloudinary.config(process.env.CLOUDINARY_URL ?? "");
 
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
-const MAX_VIDEO_SIZE = 20 * 1024 * 1024;
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_VIDEO_SIZE = 20 * 1024 * 1024; // 20MB
 
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const VIDEO_TYPES = ["video/mp4", "video/webm"];

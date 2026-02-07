@@ -4,8 +4,8 @@ import { useForm } from "@tanstack/react-form";
 import { newPost } from "@/actions";
 import { useRouter } from "next/navigation";
 
-const MAX_IMAGE = 5 * 1024 * 1024;
-const MAX_VIDEO = 20 * 1024 * 1024;
+const MAX_IMAGE = 5 * 1024 * 1024; // 5MB
+const MAX_VIDEO = 20 * 1024 * 1024; // 20MB
 
 export const FormNewPost = () => {
   const router = useRouter();

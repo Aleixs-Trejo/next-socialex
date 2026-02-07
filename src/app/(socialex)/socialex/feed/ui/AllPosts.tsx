@@ -1,6 +1,5 @@
 import { getAllPostsPaginated } from "@/actions";
 import { EmptyData, ImageCustom } from "@/components";
-import { postDate } from "@/utils/dateFriendly";
 import { PostCard } from "./PostCard";
 
 export const AllPosts = async () => {

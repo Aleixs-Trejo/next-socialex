@@ -1,6 +1,7 @@
 import { ImageCustom } from "@/components";
 import { PostWithUser } from "@/interfaces";
 import { postDate } from "@/utils/dateFriendly";
+import Image from "next/image";
 
 interface Props {
   post: PostWithUser;
@@ -55,7 +56,18 @@ export const PostCard = ({ post }: Props) => {
           </svg>
         </div>
       </div>
-      <p className="text-xl font-semibold p-3 sm:p-4">{post.content}</p>
+      <div className="flex flex-col gap-2">
+        { post?.content && <p className="text-xl font-semibold p-3 sm:p-4">{post.content}</p> }
+        { post?.media?.length && (
+          <Image
+            src={post.media[0]?.url}
+            alt={post.user.name || ""}
+            width={300}
+            height={48}
+            className="w-full h-auto"
+          />
+        ) }
+      </div>
       <div className="w-full flex items-center justify-between p-3 sm:p-4">
         <button type="button" className="flex items-center gap-2 cursor-pointer hover:underline">
           <svg

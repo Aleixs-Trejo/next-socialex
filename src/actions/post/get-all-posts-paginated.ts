@@ -17,6 +17,13 @@ export const getAllPostsPaginated = async (page: number = 1, limit: number = 10)
             profession: true,
             statusProfile: true,
           }
+        },
+        media: {
+          select: {
+            url: true,
+            type: true,
+            order: true,
+          }
         }
       }
     });
