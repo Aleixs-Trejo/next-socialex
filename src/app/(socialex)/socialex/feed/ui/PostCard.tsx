@@ -1,4 +1,4 @@
-import { ImageCustom } from "@/components";
+import { ImageCustom, PostMediaSwiper } from "@/components";
 import { PostWithUser } from "@/interfaces";
 import { postDate } from "@/utils/dateFriendly";
 import Image from "next/image";
@@ -8,6 +8,9 @@ interface Props {
 }
 
 export const PostCard = ({ post }: Props) => {
+  const hasContent = Boolean(post.content?.trim());
+  const hasMedia = post.media && post.media.length > 0;
+
   return (
     <div className="flex flex-col border border-secondary rounded-lg shadow-md">
       <div className="w-full flex justify-between items-start p-3 sm:p-4">
@@ -56,18 +59,19 @@ export const PostCard = ({ post }: Props) => {
           </svg>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        { post?.content && <p className="text-xl font-semibold p-3 sm:p-4">{post.content}</p> }
-        { post?.media?.length && (
-          <Image
-            src={post.media[0]?.url}
-            alt={post.user.name || ""}
-            width={300}
-            height={48}
-            className="w-full h-auto"
-          />
-        ) }
-      </div>
+      {(hasContent || hasMedia) && (
+        <div className="flex flex-col gap-2 pb-4">
+          {hasContent && <p className="text-xl font-semibold p-3 sm:p-4">{post.content}</p>}
+          {hasMedia && (
+            <div className="w-full aspect-video bg-black">
+              <PostMediaSwiper
+                media={post.media} 
+                userName={post.user.name || undefined}
+              />
+            </div>
+          )}
+        </div>
+      )}
       <div className="w-full flex items-center justify-between p-3 sm:p-4">
         <button type="button" className="flex items-center gap-2 cursor-pointer hover:underline">
           <svg
@@ -83,10 +87,10 @@ export const PostCard = ({ post }: Props) => {
               d="M7.993 6.003h-.719a7 7 0 0 0 .339-1.118c.098-.486.142-1.054-.019-1.573c-.17-.55-.56-1.009-1.234-1.235c-.863-.289-1.608.317-1.924.925L3.143 5.49a2.5 2.5 0 0 1-.976 1.017l-1.161.665a2 2 0 0 0-.88 2.435l.311.834a2 2 0 0 0 1.313 1.22l4.243 1.24a2.5 2.5 0 0 0 3.09-1.66l.82-2.646a2 2 0 0 0-1.91-2.592m4.733 8h-.719a2 2 0 0 1-1.91-2.593l.82-2.646a2.5 2.5 0 0 1 3.09-1.66l4.243 1.24a2 2 0 0 1 1.313 1.22l.311.835a2 2 0 0 1-.88 2.435l-1.161.665a2.5 2.5 0 0 0-.976 1.016l-1.293 2.488c-.316.608-1.06 1.214-1.924.925c-.674-.226-1.064-.685-1.234-1.235c-.16-.518-.118-1.087-.019-1.573c.084-.414.216-.805.338-1.117"
             ></path>
           </svg>
-          <span className="text-xs text-gray-200 select-none pointer-events-none">55</span>
+          <span className="text-xs text-gray-200 select-none pointer-events-none">{post.reactions.length}</span>
         </button>
         <button type="button" className="flex items-center gap-2 cursor-pointer hover:underline">
-          <span className="text-xs">10 comentarios</span>
+          <span className="text-xs">{post.comments.length} comentarios</span>
         </button>
       </div>
       <div className="border-b border-tertiary mx-3" />

@@ -24,6 +24,20 @@ export const getAllPostsPaginated = async (page: number = 1, limit: number = 10)
             type: true,
             order: true,
           }
+        },
+        reactions: {
+          select: {
+            id: true,
+            userId: true,
+            type: true,
+          }
+        },
+        comments: {
+          select: {
+            id: true,
+            userId: true,
+            content: true,
+          }
         }
       }
     });

@@ -1,5 +1,5 @@
 import { getAllPostsPaginated } from "@/actions";
-import { EmptyData, ImageCustom } from "@/components";
+import { EmptyData } from "@/components";
 import { PostCard } from "./PostCard";
 
 export const AllPosts = async () => {
@@ -9,10 +9,15 @@ export const AllPosts = async () => {
   if (!posts?.data) return <div>Error</div>;
   if (!posts?.data?.length) return <EmptyData message="No hay publicaciones" />;
 
+  console.log("Post: ", posts.data[0]);
+
   return (
     <section className="flex flex-col gap-4">
       {posts.data.map(post => (
-        <PostCard key={post.id} post={post} />
+        <PostCard
+          key={post.id}
+          post={post}
+        />
       ))}
     </section>
   );
