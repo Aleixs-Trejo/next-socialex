@@ -1,14 +1,17 @@
 import { redirect } from "next/navigation";
 import { getUserById } from "@/actions";
-import { auth } from "@/auth.config";
 import { ImageCustom } from "@/components";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 const UserPage = async ({ params }: Props) => {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   const { id } = await params;
 
   if (!session?.user) redirect("/auth/login");
