@@ -47,7 +47,7 @@ const UsersPage = async () => {
           </div>
         </div>
         <div className="w-full">
-          <p className="text-sm text-gray-200">"{user.description}"</p>
+          <p className="text-sm text-gray-200">{user.description || 'Sin descripción disponible'}</p>
         </div>
         <Link href={`/socialex/user/${user.id}`} className="btn-primary">Ver perfil</Link>
       </div>

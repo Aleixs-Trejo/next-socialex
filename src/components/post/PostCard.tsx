@@ -6,12 +6,15 @@ import { PostReactionBtn } from "./PostReactionBtn";
 import { PostReactionsUsers } from "./PostReactionsUsers";
 import { getAllReactionsFromPost } from "@/actions";
 import Link from "next/link";
+import { getServerSession } from "@/lib/get-server-session";
 
 interface Props {
   post: PostWithUser;
 }
 
 export const PostCard = async ({ post }: Props) => {
+  const session = await getServerSession();
+  
   const hasContent = Boolean(post.content?.trim());
   const hasMedia = post.media && post.media.length > 0;
 
@@ -90,32 +93,36 @@ export const PostCard = async ({ post }: Props) => {
           <span className="text-xs">{post.comments.length} comentarios</span>
         </button>
       </div>
-      <div className="border-b border-tertiary mx-3" />
-      <div className="flex items-center gap-2 px-3 py-1">
-        <PostReactionBtn postId={post.id} currentReaction={currentReaction.data?.type || null} />
-        <button
-          type="button"
-          className="flex items-center justify-center gap-2 text-gray-300 p-1.5 grow cursor-pointer transition-colors duration-300 rounded-lg hover:bg-secondary/20"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <rect width="24" height="24" fill="none"></rect>
-            <path
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-              d="M12 21a9 9 0 1 0-9-9c0 1.488.36 2.89 1 4.127L3 21l4.873-1c1.236.639 2.64 1 4.127 1"
-            ></path>
-          </svg>
-          <span className="user-select-none pointer-events-none text-xs">Comentar</span>
-        </button>
-      </div>
+      {session?.user && (
+        <>
+          <div className="border-b border-tertiary mx-3" />
+          <div className="flex items-center gap-2 px-3 py-1">
+            <PostReactionBtn postId={post.id} currentReaction={currentReaction.data?.type || null} />
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 text-gray-300 p-1.5 grow cursor-pointer transition-colors duration-300 rounded-lg hover:bg-secondary/20"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <rect width="24" height="24" fill="none"></rect>
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                  d="M12 21a9 9 0 1 0-9-9c0 1.488.36 2.89 1 4.127L3 21l4.873-1c1.236.639 2.64 1 4.127 1"
+                ></path>
+              </svg>
+              <span className="user-select-none pointer-events-none text-xs">Comentar</span>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
