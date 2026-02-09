@@ -9,6 +9,8 @@ postgres/
 # Seed
 seed/
 
+/proxy.ts
+
 # dependencies
 /node_modules
 /.pnp
