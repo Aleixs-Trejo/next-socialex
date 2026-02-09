@@ -20,6 +20,7 @@ export function GoogleButton() {
     } catch (err) {
       console.error('Error al iniciar sesión con Google:', err);
       setError('Error al conectar con Google. Intenta de nuevo.');
+    } finally {
       setLoading(false);
     }
   };
@@ -28,7 +29,7 @@ export function GoogleButton() {
     <div className="flex flex-col gap-2">
       <button
         onClick={handleClick}
-        className="btn-primary overflow-hidden"
+        className={`overflow-hidden ${loading ? 'btn-disabled' : 'btn-primary'}`}
         disabled={loading}
         type="button"
       >
