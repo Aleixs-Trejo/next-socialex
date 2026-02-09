@@ -70,14 +70,10 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
               <path d="M10.5 13L5.5 8l5-5" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
             </svg>
           </button>
-
           <button
             onClick={() => swiperRef.current?.slideNext()}
             disabled={currentIndex === sortedMedia.length - 1}
-            className="absolute right-1/50 top-1/2 -translate-y-1/2 z-10 
-              bg-white text-gray-700 rounded-full p-1.5 shadow-md
-              disabled:opacity-0 disabled:pointer-events-none
-              hover:bg-gray-100 transition-all duration-200"
+            className="absolute right-1/50 top-1/2 -translate-y-1/2 z-10 bg-white text-gray-700 rounded-full p-1.5 shadow-md disabled:opacity-0 disabled:pointer-events-none hover:bg-gray-100 transition-all duration-200"
             aria-label="Siguiente"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">

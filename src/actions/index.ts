@@ -13,3 +13,7 @@ export * from './user/get-user-by-id';
 export * from './post/get-all-posts-paginated';
 export * from './post/get-post-by-id';
 export * from './post/new-post';
+
+export * from './reaction/toggle-reaction';
+export * from './reaction/get-reaction-post';
+export * from './reaction/get-all-reactions-from-post';

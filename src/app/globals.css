@@ -24,11 +24,13 @@
   --spacing-aside-nav: calc(100dvh - (var(--spacing-header) * 3));
   --spacing-aside: 4rem;
   --spacing-aside-open: 16rem;
+  --spacing-image-header: clamp(1.5rem, 5.75dvw, 2.5rem);
 
   /* Font size */
   --text-title-main: clamp(1.25rem, 12dvw, 4.25rem);
   --text-title: clamp(1.25rem, 10dvw, 2.25rem);
   --text-medium: clamp(0.9375rem, 3.5dvw, 1.15rem);
+  --text-header-logo: clamp(1rem, 5.75dvw, 1.75rem);
 
   /* Animations */
   --animation-fade-in: fade-in 0.3s ease-in-out;

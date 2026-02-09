@@ -116,19 +116,6 @@ export const auth = betterAuth({
           },
         });
       }
-
-      if (ctx.path === "/sign-out" && ctx.context.session) {
-        const userId = ctx.context.session.user.id;
-
-        try {
-          await prisma.user.update({
-            where: { id: userId },
-            data: { statusProfile: "OFFLINE" },
-          });
-        } catch (error) {
-          console.error("Error al actualizar statusProfile en logout:", error);
-        }
-      }
     }),
   },
 });

@@ -1,6 +1,6 @@
 import { getAllPostsPaginated } from "@/actions";
 import { EmptyData } from "@/components";
-import { PostCard } from "./PostCard";
+import { PostCard } from "@/components";
 
 export const AllPosts = async () => {
   const posts = await getAllPostsPaginated();
@@ -8,8 +8,6 @@ export const AllPosts = async () => {
   if (!posts?.ok) return <div>Error</div>;
   if (!posts?.data) return <div>Error</div>;
   if (!posts?.data?.length) return <EmptyData message="No hay publicaciones" />;
-
-  console.log("Post: ", posts.data[0]);
 
   return (
     <section className="flex flex-col gap-4">

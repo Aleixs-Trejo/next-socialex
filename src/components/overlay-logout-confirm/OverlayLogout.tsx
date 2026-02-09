@@ -6,6 +6,7 @@ export const OverlayLogoutConfirm = () => {
   const setIsModalLogoutOpen = useUIStore(state => state.setIsModalLogoutOpen);
 
   const logoutAction = async () => {
+    await logout();
     await authClient.signOut();
   };
 

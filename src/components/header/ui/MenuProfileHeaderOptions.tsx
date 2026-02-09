@@ -4,12 +4,14 @@ import { FaUser } from "react-icons/fa";
 import { useUIStore } from "@/stores";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { logout } from "@/actions";
 
 export const MenuProfileHeaderOptions = () => {
   const router = useRouter();
   const setIsOpenMenuProfilHeader = useUIStore(state => state.setIsOpenMenuProfilHeader);
 
   const handleLogout = async () => {
+    await logout();
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {

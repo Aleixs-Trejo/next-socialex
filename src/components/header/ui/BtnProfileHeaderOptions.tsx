@@ -14,13 +14,13 @@ export const BtnProfileHeaderOptions = ({ session }: Props) => {
   const setIsOpenMenuProfilHeader = useUIStore(state => state.setIsOpenMenuProfilHeader);
   return (
     <>
-      <button type="button" className="w-8 h-8 aspect-square cursor-pointer" onClick={() => setIsOpenMenuProfilHeader(!isOpenMenuProfilHeader)}>
+      <button type="button" className="w-image-header h-image-header aspect-square cursor-pointer" onClick={() => setIsOpenMenuProfilHeader(!isOpenMenuProfilHeader)}>
         <ImageCustom
           src={session?.user.image || undefined}
           alt="Avatar"
           width={24}
           height={24}
-          className="rounded-full m-auto"
+          className="w-full h-full rounded-full object-contain object-center"
         />
       </button>
       {

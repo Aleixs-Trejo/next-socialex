@@ -15,4 +15,5 @@ export * from './not-found/PageNotFound';
 
 export * from './overlay-modal/OverlayModal';
 
-export * from './post-media-swiper/PostMediaSwiper';
+export * from './post/post-media-swiper/PostMediaSwiper';
+export * from './post/PostCard';

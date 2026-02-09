@@ -14,10 +14,12 @@ export const logout = async () => {
   }
 
   try {
-    await prisma.user.update({
+    const logoutDB = await prisma.user.update({
       where: { id: session.user.id },
       data: { statusProfile: 'OFFLINE' },
     });
+
+    console.log('logoutDB: ', logoutDB);
 
     return { ok: true, message: 'Sesión cerrada correctamente' };
   } catch (error) {
