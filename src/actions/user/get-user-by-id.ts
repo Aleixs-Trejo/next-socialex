@@ -5,7 +5,12 @@ import prisma from "@/lib/prisma";
 export const getUserById = async (id: string) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { id: id }
+      where: { id: id },
+      include: {
+        posts: true,
+        comments: true,
+        reactions: true,
+      }
     });
     return {
       ok: true,

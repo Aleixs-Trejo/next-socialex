@@ -8,7 +8,7 @@ import { registerPassword } from "@/actions";
 import { finishOnboarding } from "@/actions";
 import { useUIStore } from "@/stores";
 import { useRouter } from "next/navigation";
-import { authClient, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 interface Props {
   token: string;

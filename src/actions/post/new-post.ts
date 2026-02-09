@@ -11,7 +11,7 @@ cloudinary.config(process.env.CLOUDINARY_URL ?? "");
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 const MAX_VIDEO_SIZE = 20 * 1024 * 1024; // 20MB
 
-const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml", "image/avif"];
 const VIDEO_TYPES = ["video/mp4", "video/webm"];
 
 export const newPost = async (formData: FormData) => {

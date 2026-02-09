@@ -23,7 +23,7 @@ export const PostCard = async ({ post }: Props) => {
     <div className="flex flex-col border border-secondary rounded-lg shadow-md">
       <div className="w-full flex justify-between items-start p-3 sm:p-4">
         <div className="flex items-center gap-2">
-          <Link href={`/socialex/users/${post.userId}`}>
+          <Link href={`/socialex/user/${post.userId}`}>
             <ImageCustom
               src={post.user.image || undefined}
               alt={post.user.name || ""}
@@ -33,7 +33,7 @@ export const PostCard = async ({ post }: Props) => {
             />
           </Link>
           <div className="flex flex-col">
-            <Link href={`/socialex/users/${post.userId}`} className="text-sm font-medium hover:underline">
+            <Link href={`/socialex/user/${post.userId}`} className="text-sm font-medium hover:underline">
               {post.user.name}
             </Link>
             <p className="text-xs text-gray-500">{post.user.profession}</p>

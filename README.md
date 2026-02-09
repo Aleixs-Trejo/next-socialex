@@ -37,7 +37,7 @@ La idea de Socialex es funcionar como una **red social de entretenimiento**, don
 - **Next.js (App Router)**
 - **React**
 - **TypeScript**
-- **NextAuth**
+- **BetterAuth**
 - **Zustand** (manejo de estado global)
 - **Spotify Web API**
 - **Tailwind CSS**

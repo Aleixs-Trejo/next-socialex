@@ -195,7 +195,7 @@ model Account {
   accessToken  String?   @db.Text
   refreshToken String?   @db.Text
   idToken      String?   @db.Text
-  expiresAt    DateTime?
+  accessTokenExpiresAt   DateTime?
   scope        String?
 
   createdAt DateTime @default(now())

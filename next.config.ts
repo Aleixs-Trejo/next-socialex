@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
         pathname: "/api/portraits/**"
       }
     ]
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '25mb'
+    }
   }
 };
 

@@ -15,7 +15,7 @@ export function GoogleButton() {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/onboarding",
+        callbackURL: "/socialex/profile",
       });
     } catch (err) {
       console.error('Error al iniciar sesión con Google:', err);

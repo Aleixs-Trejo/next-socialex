@@ -66,9 +66,7 @@ export const auth = betterAuth({
         if (!dbUser) return;
 
         if (dbUser.statusAccount === "INACTIVE") {
-          throw new APIError("UNAUTHORIZED", {
-            message: "Cuenta inactiva",
-          });
+          throw new APIError("UNAUTHORIZED", { message: "Cuenta inactiva" });
         }
       }
 
@@ -77,10 +75,7 @@ export const auth = betterAuth({
 
         if (!email) return;
 
-        const dbUser = await prisma.user.findUnique({
-          where: { email },
-          include: { accounts: true },
-        });
+        const dbUser = await prisma.user.findUnique({ where: { email }, include: { accounts: true } });
 
         if (!dbUser) return;
 

@@ -1,21 +1,23 @@
 'use server';
 
 import prisma from "@/lib/prisma";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getServerSession } from "@/lib/get-server-session";
 
 export const getUserBySession = async () => {
   try { 
-    const session = await auth.api.getSession({
-      headers: await headers()
-    });
+    const session = await getServerSession();
 
     if (!session?.user) {
       return null;
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id }
+      where: { id: session.user.id },
+      include: {
+        posts: true,
+        comments: true,
+        reactions: true,
+      }
     });
     
     return user;

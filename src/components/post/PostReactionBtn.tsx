@@ -105,7 +105,7 @@ export const PostReactionBtn = ({ postId, currentReaction }: Props) => {
         )}
       </button>
       {showReactions && (
-        <div className="absolute -top-11 sm:-top-15 sm:left-3 z-10 inset-x-0 w-max bg-tertiary rounded-xl animate-fade-in">
+        <div className="min-w-40 w-[70dvw] max-w-max absolute -top-11 sm:-top-15 z-10 inset-x-0 bg-secondary rounded-xl animate-fade-in">
           <div className="flex items-center gap-2 w-full p-1">
             {reactionMap}
           </div>

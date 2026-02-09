@@ -80,7 +80,7 @@ export const ModalReactions = ({ groupedReactions, onClose }: Props) => {
                       />
                     </div>
                     <div className="w-full h-full flex flex-col leading-2">
-                      <Link href={`/socialex/users/${user.id}`} className="font-semibold text-sm hover:underline">{user.name}</Link>
+                      <Link href={`/socialex/user/${user.id}`} className="font-semibold text-sm hover:underline">{user.name}</Link>
                       <span className="text-xs text-gray-400">{user.profession}</span>
                     </div>
                   </li>

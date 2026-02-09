@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 const UsersPage = async () => {
-/*   const users = await getAllUsers();
+  const users = await getAllUsers();
 
   if (!users.ok) return (
     <EmptyData message={users.message} />
@@ -24,7 +24,7 @@ const UsersPage = async () => {
     <div key={user.id} className="w-full border border-tertiary p-4 rounded-xl">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
-          <Link href={`/socialex/users/${user.id}`} className="w-15 h-15 shrink-0 relative">
+          <Link href={`/socialex/user/${user.id}`} className="w-15 h-15 shrink-0 relative">
             <ImageCustom
               src={user.image || undefined}
               alt="Avatar"
@@ -42,22 +42,23 @@ const UsersPage = async () => {
             </div>
           </Link>
           <div className="flex flex-col">
-            <Link href={`/socialex/users/${user.id}`} className="text-base font-normal hover:underline">{user.name}</Link>
+            <Link href={`/socialex/user/${user.id}`} className="text-base font-normal hover:underline">{user.name}</Link>
             <span className="text-sm text-gray-400">{user.profession}</span>
           </div>
         </div>
         <div className="w-full">
           <p className="text-sm text-gray-200">"{user.description}"</p>
         </div>
-        <Link href={`/socialex/users/${user.id}`} className="btn-primary">Ver perfil</Link>
+        <Link href={`/socialex/user/${user.id}`} className="btn-primary">Ver perfil</Link>
       </div>
     </div>
-  )); */
+  ));
 
   return (
     <div className="w-9/10 max-w-xl mx-auto overflow-hidden py-8">
       <div className="flex flex-col gap-4">
         <Title title="Usuarios" subtitle="Explora los usuarios" />
+        {usersMap}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ export * from './auth/logout';
 export * from './user/get-user-by-session';
 export * from './user/get-all-users';
 export * from './user/get-user-by-id';
+export * from './user/update-user';
 
 export * from './post/get-all-posts-paginated';
 export * from './post/get-post-by-id';
