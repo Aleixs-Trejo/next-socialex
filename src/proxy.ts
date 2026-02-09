@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getServerSession } from './lib/get-server-session';
+import { auth } from './lib/auth';
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -9,7 +9,9 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const session = await getServerSession();
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
 
   const publicRoutes = ['/auth/login', '/auth/register', '/', '/socialex/feed', '/socialex/profile', '/socialex/music', '/socialex/games', '/socialex/post/new', '/socialex/users'];
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
