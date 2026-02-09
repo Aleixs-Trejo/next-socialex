@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { auth } from '@/lib/auth';
+import { getServerSession } from './lib/get-server-session';
 
 export async function proxy(request: NextRequest) {
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
-
   const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith('/api/auth')) {
+    return NextResponse.next();
+  }
+
+  const session = await getServerSession();
 
   const publicRoutes = ['/auth/login', '/auth/register', '/', '/socialex/feed', '/socialex/profile', '/socialex/music', '/socialex/games', '/socialex/post/new', '/socialex/users'];
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
@@ -18,12 +20,6 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL('/socialex/feed', request.url));
     }
   }
-
-  // Redirigir si no hay sesssssionnnn
-  // Por qué carajos no fununcia?
-  /* if (pathname.startsWith('/socialex') && !session?.user) {
-    return NextResponse.redirect(new URL('/auth/login', request.url));
-  } */
 
   return NextResponse.next();
 }
