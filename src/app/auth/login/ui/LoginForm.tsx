@@ -107,7 +107,7 @@ export const LoginForm = () => {
         </div>
         <button 
           type="submit" 
-          className="btn-primary overflow-hidden" 
+          className={`overflow-hidden ${isPending ? 'btn-disabled' : 'btn-primary'}`}
           disabled={isPending}
         >
           {isPending ? 'Accediendo...' : 'Acceder'}

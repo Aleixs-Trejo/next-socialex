@@ -14,6 +14,7 @@ export * from './user/update-user';
 export * from './post/get-all-posts-paginated';
 export * from './post/get-post-by-id';
 export * from './post/new-post';
+export * from './post/update-post';
 
 export * from './reaction/toggle-reaction';
 export * from './reaction/get-reaction-post';

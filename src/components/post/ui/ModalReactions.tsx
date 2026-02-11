@@ -1,7 +1,7 @@
 import { ReactionType } from "@/generated/prisma/enums";
 import Image from "next/image";
 import { useState } from "react";
-import { ImageCustom } from "../image-custom/ImageCustom";
+import { ImageCustom } from "../../image-custom/ImageCustom";
 import Link from "next/link";
 
 const REACTIONS_ICONS = [

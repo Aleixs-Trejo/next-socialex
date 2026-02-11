@@ -1,6 +1,7 @@
 import { getUserBySession } from "@/actions";
 import { redirect } from "next/navigation";
 import { EditProfileForm } from "../../@modal/(.)profile/edit/ui/EditProfileForm";
+import { BtnBack } from "@/components/btn-back/BtnBack";
 
 const EditProfilePage = async () => {
   const user = await getUserBySession();
@@ -15,7 +16,8 @@ const EditProfilePage = async () => {
   };
   
   return (
-    <div className="w-9/10 max-w-xl mx-auto py-12">
+    <div className="w-9/10 max-w-3xl mx-auto py-12 overflow-hidden relative">
+      <BtnBack additionalClass="absolute top-4 left-0" />
       <div className="flex flex-col gap-4 overflow-hidden">
         <h2 className="text-center text-white text-xl">Editar perfil</h2>
         <div className="flex flex-col gap-4">

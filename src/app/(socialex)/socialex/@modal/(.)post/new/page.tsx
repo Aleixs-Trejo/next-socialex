@@ -1,5 +1,6 @@
 import { OverlayModal } from "@/components";
 import { FormNewPost } from "./ui/FormNewPost";
+import { BtnBack } from "@/components/btn-back/BtnBack";
 
 const NewPostModal = () => {
   return (

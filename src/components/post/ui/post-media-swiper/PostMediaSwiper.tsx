@@ -38,14 +38,14 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
                 alt={userName ? `${userName} - imagen ${index + 1}` : `Imagen ${index + 1}`}
                 width={600}
                 height={400}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 priority={index === 0}
               />
             ) : (
               <video
                 src={file.url}
                 controls
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 preload="metadata"
               >
                 Tu navegador no soporta el elemento video
@@ -54,7 +54,6 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
           </SwiperSlide>
         ))}
       </Swiper>
-
       {sortedMedia.length > 1 && (
         <>
           <button

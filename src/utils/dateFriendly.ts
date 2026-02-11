@@ -34,5 +34,5 @@ export const postDate = (value?: string): string => {
   const month = date.toLocaleString('default', { month: 'short' });
   const year = date.getFullYear();
 
-  return `El ${day} ${month} ${year} a las ${hours}:${minutes}`;
+  return `${day} ${month} ${year}, ${hours}:${minutes}`;
 };

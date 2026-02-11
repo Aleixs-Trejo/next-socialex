@@ -6,6 +6,7 @@ import { useShallow } from "zustand/shallow";
 import Link from "next/link";
 import { NavListElements } from "./ui/NavListElements";
 import { BetterAuthSession } from "@/types/better-auth.type";
+import { LogoutBtn } from "./ui/LogoutBtn";
 
 interface Props {
   session: BetterAuthSession | null;
@@ -39,9 +40,9 @@ export const AsideNav = ({ session }: Props) => {
             <NavListElements session={session} />
           </ul>
         </nav>
-        {/* {
+        {
           session?.user && <LogoutBtn />
-        }    */}
+        }   
       </div>
     </aside>
   );

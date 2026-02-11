@@ -1,14 +1,11 @@
 "use server";
 
-import { auth } from "@/lib/auth";
+import { getServerSession } from "@/lib/get-server-session";
 import prisma from "@/lib/prisma";
-import { headers } from "next/headers";
 
 export const getPostById = async (postId: string) => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers()
-    });
+    const session = await getServerSession();
     if (!session?.user) {
       return {
         ok: false,
@@ -19,6 +16,7 @@ export const getPostById = async (postId: string) => {
     const post = await prisma.post.findUnique({
       where: { id: postId },
       select: {
+        id: true,
         content: true,
         userId: true,
         media: true,

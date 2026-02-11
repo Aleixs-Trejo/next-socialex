@@ -1,11 +1,10 @@
 "use server";
 
-import { headers } from "next/headers";
 import { MediaType } from "@/generated/prisma/enums";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "@/lib/get-server-session";
 cloudinary.config(process.env.CLOUDINARY_URL ?? "");
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -16,9 +15,7 @@ const VIDEO_TYPES = ["video/mp4", "video/webm"];
 
 export const newPost = async (formData: FormData) => {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getServerSession()
 
     if (!session?.user?.id) {
       return { ok: false, message: "No autorizado" };
