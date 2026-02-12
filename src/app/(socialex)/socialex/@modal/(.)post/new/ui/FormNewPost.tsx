@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { IoClose, IoImage, IoVideocam, IoCloudUpload } from "react-icons/io5";
 import { useState } from "react";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from 'remark-breaks';
 
 const MAX_IMAGE = 5 * 1024 * 1024; // 5MB
 const MAX_VIDEO = 20 * 1024 * 1024; // 20MB
@@ -14,6 +17,7 @@ export const FormNewPost = () => {
   const router = useRouter();
   const [previews, setPreviews] = useState<{url: string; type: string }[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+  const [showMarkdown, setShowMarkdown] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -27,7 +31,6 @@ export const FormNewPost = () => {
       value.media.forEach(file => formData.append('media', file));
       
       const result = await newPost(formData);
-      console.log('Form submit: ', result );
       if (!result.ok) {
         setErrorMessage(result.message);
         return;
@@ -61,9 +64,7 @@ export const FormNewPost = () => {
     setErrorMessage(undefined);
     const currentFiles = field.state.value;
     const newFiles = currentFiles.filter((_: File, i: number) => i !== idx);
-
     URL.revokeObjectURL(previews[idx].url);
-
     const newPreviews = previews.filter((_, i) => i !== idx);
     setPreviews(newPreviews);
     field.handleChange(newFiles);
@@ -83,20 +84,20 @@ export const FormNewPost = () => {
         }}
       >
         {field => (
-          <>
-            <textarea
-              value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
-              id="content"
-              placeholder="Cuéntame algo interesante"
-              className={`input-field-text mx-auto resize-none ${field.state.meta.errors.length ? 'input-field-text-error' : ''}`}
-            />
-            {field.state.meta.errors.map(err => (
-              <p key={err} className="text-red-500 text-xs">
-                {err}
-              </p>
-            ))}
-          </>
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
+              <button type="button" onClick={() => setShowMarkdown(false)} className={`px-3 py-1 text-xs rounded cursor-pointer transition-colors duration-300 ${!showMarkdown ? 'bg-primary text-white' : 'bg-secondary text-gray-300'}`}>Editar</button>
+              <button type="button" onClick={() => setShowMarkdown(true)} className={`px-3 py-1 text-xs rounded cursor-pointer transition-colors duration-300 ${showMarkdown ? 'bg-primary text-white' : 'bg-secondary text-gray-300'}`}>Vista previa</button>
+            </div>
+            {!showMarkdown ? (
+              <textarea value={field.state.value} onChange={e => field.handleChange(e.target.value)} id="content" placeholder="Cuéntame algo interesante" className={`input-field-text mx-auto resize-none field-sizing-content min-h-35 ${field.state.meta.errors.length ? 'input-field-text-error' : ''}`} />
+            ) : (
+              <div className="input-field-text mx-auto min-h-35 prose prose-invert max-w-none">
+                {field.state.value ? (<ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{field.state.value}</ReactMarkdown>) : (<span className="text-sm text-gray-400 italic">No hay nada oe</span>)}
+              </div>
+            )}
+            {field.state.meta.errors.map(err => (<p key={err} className="text-red-500 text-xs">{err}</p>))}
+          </div>
         )}
       </form.Field>
       <form.Field

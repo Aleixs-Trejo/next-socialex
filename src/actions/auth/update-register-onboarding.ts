@@ -1,8 +1,6 @@
 'use server';
 
-import { headers } from "next/headers";
 import { OnboardingUpdateInput } from "@/interfaces";
-import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getUserByToken } from "./get-user-by-token";
 import { redirect } from "next/navigation";

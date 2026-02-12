@@ -1,14 +1,11 @@
 'use server';
 
-import { auth } from "@/lib/auth";
+import { getServerSession } from "@/lib/get-server-session";
 import prisma from "@/lib/prisma";
-import { headers } from "next/headers";
 
 export const getFriendshipStatus = async (userId: string) => {
   try {
-    const session = await auth.api.getSession({
-          headers: await headers(),
-        });
+    const session = await getServerSession();
     if (!session?.user) {
       return { ok: false, message: 'No autenticado'};
     }

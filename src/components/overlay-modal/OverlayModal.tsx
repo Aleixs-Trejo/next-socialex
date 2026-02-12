@@ -10,7 +10,6 @@ interface Props {
 
 export const OverlayModal = ({ children, additionalClass }: Props) => {
   const router = useRouter();
-
   const handleClose = () => router.back();
 
   return (

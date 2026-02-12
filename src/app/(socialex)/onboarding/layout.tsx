@@ -1,12 +1,8 @@
 import { Copyright } from "@/components";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { getServerSession } from "@/lib/get-server-session";
 
 const OnboardingLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
+  const session = await getServerSession();
 
   return (
     <section className="w-full min-h-dvh flex flex-col items-center justify-center">

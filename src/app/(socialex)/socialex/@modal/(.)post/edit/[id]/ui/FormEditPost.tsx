@@ -6,6 +6,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MediaType } from "@/generated/prisma/enums";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from 'remark-breaks';
 
 interface Props {
   postId: string;
@@ -23,6 +26,7 @@ interface Props {
 export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Props) => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+  const [showMarkdown, setShowMarkdown] = useState(false);
 
   const form = useForm({
     defaultValues,
@@ -69,18 +73,26 @@ export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Pro
         }}
       >
         {field => (
-          <>
-            <textarea
-              value={field.state.value}
-              onChange={e => { field.handleChange(e.target.value); setErrorMessage(undefined) }}
-              id="content"
-              placeholder="¿Quieres agregar algo más?"
-              className={`input-field-text mx-auto resize-none ${field.state.meta.errors ? 'input-field-text-error' : ''}`}
-            />
-            {field.state.meta.errors.map(err => (
-              <p key={err} className="text-red-500 text-xs">{err}</p>
-            ))}
-          </>
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
+              <button type="button" onClick={() => setShowMarkdown(false)} className={`px-3 py-1 text-xs rounded cursor-pointer transition-colors duration-300 ${!showMarkdown ? 'bg-primary text-white' : 'bg-secondary/40 text-gray-300'}`}>Editar</button>
+              <button type="button" onClick={() => setShowMarkdown(true)} className={`px-3 py-1 text-xs rounded cursor-pointer transition-colors duration-300 ${showMarkdown ? 'bg-primary text-white' : 'bg-secondary/40 text-gray-300'}`}>Vista previa</button>
+            </div>
+            {!showMarkdown ? (
+              <textarea
+                value={field.state.value}
+                onChange={e => { field.handleChange(e.target.value); setErrorMessage(undefined) }}
+                id="content"
+                placeholder="¿Quieres agregar algo más?"
+                className={`input-field-text mx-auto resize-none min-h-35 field-sizing-content ${field.state.meta.errors.length ? 'input-field-text-error' : ''}`}
+              />
+            ) : (
+              <div className="input-field-text mx-auto min-h-35 prose prose-invert max-w-none">
+                {field.state.value ? (<ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{field.state.value}</ReactMarkdown>) : (<span className="text-sm text-gray-400 italic">No hay nada oe</span>)}
+              </div>
+            )}
+            {field.state.meta.errors.map(err => (<p key={err} className="text-red-500 text-xs">{err}</p>))}
+          </div>
         )}
       </form.Field>
       {errorMessage && (

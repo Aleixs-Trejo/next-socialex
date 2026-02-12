@@ -1,14 +1,17 @@
+import Link from "next/link";
 import { getReactionPost } from "@/actions";
+import { getAllReactionsFromPost } from "@/actions";
 import { PostWithUser } from "@/interfaces";
 import { postDate } from "@/utils/dateFriendly";
+import { getServerSession } from "@/lib/get-server-session";
 import { ImageCustom, PostMediaSwiper } from "..";
 import { PostReactionBtn } from "./ui/PostReactionBtn";
 import { PostReactionsUsers } from "./ui/PostReactionsUsers";
-import { getAllReactionsFromPost } from "@/actions";
-import Link from "next/link";
-import { getServerSession } from "@/lib/get-server-session";
 import { BtnPostOptions } from "./ui/BtnPostOptions";
 import { OptionsPost } from "./ui/OptionsPost";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkBreaks from "remark-breaks";
 
 interface Props {
   post: PostWithUser;
@@ -86,7 +89,13 @@ export const PostCard = async ({ post }: Props) => {
       </div>
       {(hasContent || hasMedia) && (
         <div className="flex flex-col gap-2 pb-4">
-          {hasContent && <p className="text-xl font-semibold p-3 sm:p-4">{post.content}</p>}
+          {hasContent && (
+            <div className="text-xl font-semibold p-3 sm:p-4 prose prose-invert max-w-none [&_p]:text-white [&_strong]:text-base [&_hr]:mt-10 [&_li]:my-2 [&_li]:p-0 [&_h2]:mb-6">
+              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                {post.content}
+              </ReactMarkdown>
+            </div>
+          )}
           {hasMedia && (
             <div className="w-full aspect-video bg-black">
               <PostMediaSwiper

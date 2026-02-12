@@ -1,5 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
+import { CiEdit } from "react-icons/ci";
+import { BtnDeletePost } from "./BtnDeletePost";
 
 interface Props {
   postId: string;
@@ -7,21 +8,17 @@ interface Props {
 
 export const OptionsPost = ({ postId }: Props) => {
   return (
-    <div className="absolute bottom-2 right-4 ml-auto inset-x-0 w-full max-w-40 rounded-lg bg-quaternary overflow-hidden">
+    <div className="absolute -bottom-2 right-4 p-2 ml-auto inset-x-0 w-full max-w-45 rounded-lg bg-accent overflow-hidden border border-quaternary">
       <div className="w-full flex flex-col">
-        <Link href={`/socialex/post/edit/${postId}`} className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-secondary transition-colors duration-300">
-          <span className="w-6 h-6 shrink-0 flex select-none">
-            <Image
-              src="/icons/edit.svg"
-              alt="Editar"
-              width={16}
-              height={16}
-              className="w-full h-full"
-              draggable={false}
-            />
-          </span>
-          <span className="text-sm text-gray-300 select-none">Editar la wea</span>
-        </Link>
+        <div className="w-full border-b border-tertiary">
+          <Link href={`/socialex/post/edit/${postId}`} className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-secondary/50 transition-colors duration-300">
+            <CiEdit size={16} className="shrink-0" />
+            <span className="text-sm text-gray-300 select-none">Editar la wea</span>
+          </Link>
+        </div>
+        <div className="w-full">
+          <BtnDeletePost postId={postId} />
+        </div>
       </div>
     </div>
   )

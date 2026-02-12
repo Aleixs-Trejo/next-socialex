@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useUIStore } from "@/stores";
+import { logout } from "@/actions";
+import { authClient } from "@/lib/auth-client";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
-import { useUIStore } from "@/stores";
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { logout } from "@/actions";
 
 export const MenuProfileHeaderOptions = () => {
   const router = useRouter();
@@ -12,13 +12,7 @@ export const MenuProfileHeaderOptions = () => {
 
   const handleLogout = async () => {
     await logout();
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push('/auth/login');
-        },
-      }
-    });
+    await authClient.signOut({ fetchOptions: { onSuccess: () => { router.push('/auth/login') } } });
   };
 
   return (

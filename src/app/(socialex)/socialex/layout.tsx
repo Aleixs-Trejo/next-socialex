@@ -1,6 +1,5 @@
 import { AsideNav, Copyright, FooterNav, HeaderNav } from "@/components";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getServerSession } from "@/lib/get-server-session";
 
 interface Props {
   children: React.ReactNode;
@@ -8,9 +7,7 @@ interface Props {
 }
 
 const SocialexLayout = async ({ children, modal }: Props) => {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
+  const session = await getServerSession();
 
   return (
     <div className="w-full min-h-dvh flex flex-col">

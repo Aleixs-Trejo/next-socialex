@@ -5,8 +5,8 @@ import { PostCard } from "@/components";
 export const AllPosts = async () => {
   const posts = await getAllPostsPaginated();
 
-  if (!posts?.ok) return <div>Error</div>;
-  if (!posts?.data) return <div>Error</div>;
+  if (!posts?.ok) return <EmptyData message="Error en la BD" />;
+  if (!posts?.data) return <EmptyData message="Error al cargar publicaciones" />;
   if (!posts?.data?.length) return <EmptyData message="No hay publicaciones" />;
 
   return (

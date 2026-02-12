@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 @theme {
   /* Colors */
@@ -43,7 +44,10 @@
       opacity: 1;
     }
   }
+}
 
+body:has(.overlay-logout-btns) {
+  overflow: hidden;
 }
 
 .bg-main-gradient {

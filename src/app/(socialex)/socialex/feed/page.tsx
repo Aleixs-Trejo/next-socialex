@@ -2,8 +2,7 @@
 import { Title } from "@/components";
 import { NewPostBanner } from "./ui/NewPostBanner";
 import { AllPosts } from "./ui/AllPosts";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getServerSession } from "@/lib/get-server-session";
 
 export const metadata = {
   title: "Inicio | Socialex"
@@ -11,9 +10,7 @@ export const metadata = {
 
 const FeedPage = async () => {
 
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
+  const session = await getServerSession();
 
   return (
     <div className="w-9/10 max-w-3xl mx-auto overflow-hidden py-8">
