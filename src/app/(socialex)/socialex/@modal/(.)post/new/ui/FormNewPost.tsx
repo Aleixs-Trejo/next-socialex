@@ -186,9 +186,7 @@ export const FormNewPost = () => {
           </div>
         )}
       </form.Field>
-      {errorMessage && (
-        <p className="text-red-500 text-xs">{errorMessage}</p>
-      )}
+      {errorMessage && (<span className="text-red-500 text-xs">{errorMessage}</span>)}
       <button
         type="submit"
         disabled={!form.state.isValid}

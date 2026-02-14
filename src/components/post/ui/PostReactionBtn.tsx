@@ -72,7 +72,7 @@ export const PostReactionBtn = ({ postId, currentReaction }: Props) => {
       <button
         type="button"
         onClick={() => setShowReactions(!showReactions)}
-        className={`flex items-center justify-center gap-2 text-gray-300 px-3 py-1.5 grow cursor-pointer transition-colors duration-300 rounded-lg hover:bg-secondary/20 ${userReaction ? 'bg-secondary/40' : ''}`}
+        className={`w-full flex items-center justify-center gap-2 text-gray-300 px-3 py-1.5 grow cursor-pointer transition-colors duration-300 rounded-lg hover:bg-secondary/20 ${userReaction ? 'bg-secondary/40' : ''}`}
       >
         {currentReactionData ? (
           <>

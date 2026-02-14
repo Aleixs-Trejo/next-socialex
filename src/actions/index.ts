@@ -20,3 +20,8 @@ export * from './post/delete-post';
 export * from './reaction/toggle-reaction';
 export * from './reaction/get-reaction-post';
 export * from './reaction/get-all-reactions-from-post';
+
+export * from './comment/create-comment';
+export * from './comment/update-comment';
+export * from './comment/delete-comment';
+export * from './comment/get-comments';

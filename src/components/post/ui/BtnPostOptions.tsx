@@ -20,7 +20,7 @@ export const BtnPostOptions = ({ children }: Props) => {
 
   return (
     <div ref={wrapperRef}>
-      <button className="w-8 h-8 flex items-center justify-center cursor-pointer rounded-full hover:bg-secondary transition-colors duration-300" onClick={() => setShowOptions(!showOptions)}>
+      <button className="btn-post-card-options w-8 h-8 flex items-center justify-center cursor-pointer rounded-full hover:bg-secondary transition-colors duration-300" onClick={() => setShowOptions(!showOptions)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

@@ -39,9 +39,9 @@ export const DescriptionStep = ({ form, token }: Props) => {
               placeholder="Ejm: Me gustan los gatos..."
             ></textarea>
             {field.state.meta.errors.map(err => (
-              <p key={err} className="text-red-500 text-xs">
+              <span key={err} className="text-red-500 text-xs">
                 {err}
-              </p>
+              </span>
             ))}
           </div>
           <button type="button" className="text-bright text-sm text-right cursor-pointer hover:underline w-max ml-auto" onClick={skipOboarding}>Saltar</button>

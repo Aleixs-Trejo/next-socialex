@@ -1,32 +1,35 @@
-import { getComments, getUserBySession } from "@/actions";
-import { getPostById } from "@/actions";
-import { PostCard } from "@/components";
+import { getComments, getPostById, getUserBySession } from "@/actions";
+import { OverlayModal, PostCard } from "@/components";
 import { CommentsUsers } from "@/components/post/ui/CommentsUsers";
 import { InputComment } from "@/components/post/ui/InputComment";
+import { getServerSession } from "@/lib/get-server-session";
 import { notFound } from "next/navigation";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
-const PostByIdPage = async ({ params }: Props) => {
+const PostModal = async ({ params }: Props) => {
   const user = await getUserBySession();
-    const { id } = await params;
-  
-    const post = await getPostById(id);
-    if (!post?.ok) notFound();
-    if (!post?.data) notFound();
-  
-    const postData = post.data;
-  
-    const allCommentsUsers = await getComments(postData.id);
-    const commentsData = allCommentsUsers.data || [];
+  const { id } = await params;
+
+  const post = await getPostById(id);
+  if (!post?.ok) notFound();
+  if (!post?.data) notFound();
+
+  const postData = post.data;
+
+  const allCommentsUsers = await getComments(postData.id);
+  const commentsData = allCommentsUsers.data || [];
 
   return (
-    <div className="w-9/10 mx-auto max-w-7xl py-12">
-      <div className="flex flex-col lg:flex-row h-full border border-primary rounded-lg">
+    <OverlayModal additionalClass="h-[90dvh] max-w-7xl z-50">
+      <div className="flex flex-col lg:flex-row h-full">
         <div className="lg:w-3/5 lg:border-r lg:border-tertiary lg:overflow-y-auto">
-          <PostCard post={postData} additionalClass="border-transparent" />
+          <PostCard 
+            post={postData} 
+            additionalClass="border-transparent" 
+          />
         </div>
         <div className="flex flex-col lg:w-0 lg:grow">
           <div className="hidden lg:block border-b border-tertiary p-4">
@@ -49,7 +52,7 @@ const PostByIdPage = async ({ params }: Props) => {
 
           <div className="flex-1 overflow-hidden">
             <div className="overflow-y-auto h-full">
-              <CommentsUsers
+              <CommentsUsers 
                 comments={commentsData} 
                 currentUserId={user?.id}
               />
@@ -57,15 +60,15 @@ const PostByIdPage = async ({ params }: Props) => {
             </div>
           </div>
           <div className="border-t border-tertiary p-3">
-            <InputComment
+            <InputComment 
               postId={postData.id} 
               user={user}
             />
           </div>
         </div>
       </div>
-    </div>
-  );
+    </OverlayModal>
+  )
 };
 
-export default PostByIdPage;
+export default PostModal;

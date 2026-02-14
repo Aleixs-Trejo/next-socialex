@@ -57,7 +57,7 @@ const UsersPage = async () => {
   return (
     <div className="w-9/10 max-w-xl mx-auto overflow-hidden py-8">
       <div className="flex flex-col gap-4">
-        <Title title="Usuarios" subtitle="Explora los usuarios" />
+        <Title title="Usuarios" subtitle="Usuarios registrados" />
         {usersMap}
       </div>
     </div>

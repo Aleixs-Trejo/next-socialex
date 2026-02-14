@@ -1,4 +1,4 @@
-export const postDate = (value?: string): string => {
+export const dateFriendly = (value?: string): string => {
   if (!value) return '';
 
   const date = new Date(value);

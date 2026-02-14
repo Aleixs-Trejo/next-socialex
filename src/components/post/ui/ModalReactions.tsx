@@ -86,7 +86,7 @@ export const ModalReactions = ({ groupedReactions, onClose }: Props) => {
                   </li>
                 ))
               ) : (
-                <span className="text-center text-gray-300 p-4 text-sm">No hay nada por aquí 😢</span>
+                <span className="text-center text-gray-400 p-4 text-sm">No hay nada por aquí 😢</span>
               )}
             </ul>
           </div>

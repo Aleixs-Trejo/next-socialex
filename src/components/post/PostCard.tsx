@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getReactionPost } from "@/actions";
 import { getAllReactionsFromPost } from "@/actions";
 import { PostWithUser } from "@/interfaces";
-import { postDate } from "@/utils/dateFriendly";
+import { dateFriendly } from "@/utils/dateFriendly";
 import { getServerSession } from "@/lib/get-server-session";
 import { ImageCustom, PostMediaSwiper } from "..";
 import { PostReactionBtn } from "./ui/PostReactionBtn";
@@ -15,9 +15,10 @@ import remarkBreaks from "remark-breaks";
 
 interface Props {
   post: PostWithUser;
+  additionalClass?: string;
 }
 
-export const PostCard = async ({ post }: Props) => {
+export const PostCard = async ({ post, additionalClass }: Props) => {
   const session = await getServerSession();
   
   const hasContent = Boolean(post.content?.trim());
@@ -28,7 +29,7 @@ export const PostCard = async ({ post }: Props) => {
   const usersReactions = getReactions.data?.reactions.map(r => r.user.name);
 
   return (
-    <div className="flex flex-col border border-secondary rounded-lg shadow-md">
+    <div className={`flex flex-col rounded-lg shadow-md ${additionalClass ? additionalClass : 'border border-primary'}`}>
       <div className="w-full flex justify-between items-start p-3 sm:p-4 relative">
         <div className="flex items-center gap-2">
           <Link href={`/socialex/user/${post.userId}`}>
@@ -47,7 +48,7 @@ export const PostCard = async ({ post }: Props) => {
             <p className="text-sm text-gray-300">{post.user.profession}</p>
             <div className="flex items-center gap-2 text-gray-500">
               <span className="text-xs">
-                {postDate(post.createdAt.toISOString())}
+                {dateFriendly(post.createdAt.toISOString())}
               </span>
               <span>·</span>
               <svg
@@ -79,28 +80,29 @@ export const PostCard = async ({ post }: Props) => {
             </div>
           </div>
         </div>
-        {
-          session?.user?.id === post.userId && (
+        {session?.user?.id === post.userId && (
           <BtnPostOptions>
             <OptionsPost postId={post.id} />
           </BtnPostOptions>
-        )
-        }
+        )}
       </div>
       {(hasContent || hasMedia) && (
         <div className="flex flex-col gap-2 pb-4">
           {hasContent && (
-            <div className="text-xl font-semibold p-3 sm:p-4 prose prose-invert max-w-none [&_p]:text-white [&_strong]:text-base [&_hr]:mt-10 [&_li]:my-2 [&_li]:p-0 [&_h2]:mb-6">
-              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                {post.content}
-              </ReactMarkdown>
-            </div>
+            <Link href={`/socialex/post/${post.id}`} title="Click para ir al post">
+              <div className="text-xl font-semibold p-3 sm:p-4 prose prose-invert max-w-none [&_p]:text-white [&_strong]:text-base [&_hr]:mt-10 [&_li]:my-2 [&_li]:p-0 [&_h2]:mb-6">
+                <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                  {post.content}
+                </ReactMarkdown>
+              </div>
+            </Link>
           )}
           {hasMedia && (
             <div className="w-full aspect-video bg-black">
               <PostMediaSwiper
                 media={post.media} 
                 userName={post.user.name || undefined}
+                additionalClass="cursor-pointer"
               />
             </div>
           )}
@@ -108,17 +110,18 @@ export const PostCard = async ({ post }: Props) => {
       )}
       <div className="w-full flex items-center justify-between p-3 sm:p-4">
         <PostReactionsUsers allReactions={getReactions.data?.totalReactions || 0} usersReactions={usersReactions || []} groupedReactions={getReactions.data?.groupedReactions} />
-        <button type="button" className="flex items-center gap-2 cursor-pointer hover:underline">
+        <Link href={`/socialex/post/${post.id}`} className="flex items-center gap-2 cursor-pointer hover:underline">
           <span className="text-xs">{post.comments.length} comentarios</span>
-        </button>
+        </Link>
       </div>
       {session?.user && (
         <>
           <div className="border-b border-tertiary mx-3" />
           <div className="flex items-center gap-2 px-3 py-1">
             <PostReactionBtn postId={post.id} currentReaction={currentReaction.data?.type || null} />
-            <button
-              type="button"
+            <Link
+              href={`/socialex/post/${post.id}`}
+              title="Click para ir al post"
               className="flex items-center justify-center gap-2 text-gray-300 p-1.5 grow cursor-pointer transition-colors duration-300 rounded-lg hover:bg-secondary/20"
             >
               <svg
@@ -138,7 +141,7 @@ export const PostCard = async ({ post }: Props) => {
                 ></path>
               </svg>
               <span className="user-select-none pointer-events-none text-xs">Comentar</span>
-            </button>
+            </Link>
           </div>
         </>
       )}

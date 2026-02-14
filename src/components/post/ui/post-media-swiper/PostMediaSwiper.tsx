@@ -59,7 +59,7 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             disabled={currentIndex === 0}
-            className="absolute left-1/50 top-1/2 -translate-y-1/2 z-10 
+            className="absolute cursor-pointer left-1/50 top-1/2 -translate-y-1/2 z-10 
               bg-white text-gray-700 rounded-full p-1.5 shadow-md
               disabled:opacity-0 disabled:pointer-events-none
               hover:bg-gray-100 transition-all duration-200"
@@ -72,7 +72,7 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
           <button
             onClick={() => swiperRef.current?.slideNext()}
             disabled={currentIndex === sortedMedia.length - 1}
-            className="absolute right-1/50 top-1/2 -translate-y-1/2 z-10 bg-white text-gray-700 rounded-full p-1.5 shadow-md disabled:opacity-0 disabled:pointer-events-none hover:bg-gray-100 transition-all duration-200"
+            className="absolute cursor-pointer right-1/50 top-1/2 -translate-y-1/2 z-10 bg-white text-gray-700 rounded-full p-1.5 shadow-md disabled:opacity-0 disabled:pointer-events-none hover:bg-gray-100 transition-all duration-200"
             aria-label="Siguiente"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
