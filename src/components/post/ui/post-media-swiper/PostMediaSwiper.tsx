@@ -45,7 +45,7 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
               <video
                 src={file.url}
                 controls
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain max-w-130 mx-auto"
                 preload="metadata"
                 controlsList="nodownload"
               >
