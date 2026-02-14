@@ -1,6 +1,7 @@
 import { getComments, getUserBySession } from "@/actions";
 import { getPostById } from "@/actions";
 import { PostCard } from "@/components";
+import { BtnBack } from "@/components/btn-back/BtnBack";
 import { CommentsUsers } from "@/components/post/ui/CommentsUsers";
 import { InputComment } from "@/components/post/ui/InputComment";
 import { notFound } from "next/navigation";
@@ -23,7 +24,8 @@ const PostByIdPage = async ({ params }: Props) => {
     const commentsData = allCommentsUsers.data || [];
 
   return (
-    <div className="w-9/10 mx-auto max-w-7xl py-12">
+    <div className="w-9/10 max-w-7xl mx-auto py-12 overflow-hidden relative">
+      <BtnBack additionalClass="absolute top-4 left-0" />
       <div className="flex flex-col lg:flex-row h-full border border-primary rounded-lg">
         <div className="lg:w-3/5 lg:border-r lg:border-tertiary lg:overflow-y-auto">
           <PostCard post={postData} additionalClass="border-transparent" />
