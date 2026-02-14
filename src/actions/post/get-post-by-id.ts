@@ -27,6 +27,7 @@ export const getPostById = async (postId: string) => {
         },
         media: {
           select: {
+            id: true,
             url: true,
             type: true,
             order: true,
