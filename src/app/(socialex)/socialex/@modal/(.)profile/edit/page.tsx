@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { OverlayModal } from "@/components";
 import { EditProfileForm } from "./ui/EditProfileForm";
 import { redirect } from "next/navigation";
