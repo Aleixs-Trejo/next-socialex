@@ -158,7 +158,7 @@ export const FormNewPost = () => {
                         />
                       ) : (
                         <div className="relative w-full h-full">
-                          <video src={preview.url} className="w-full-h-full object-contain" />
+                          <video src={preview.url} className="w-full-h-full object-contain" controlsList="nodownload" />
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                             <IoVideocam size={32} className="text-white" />
                           </div>

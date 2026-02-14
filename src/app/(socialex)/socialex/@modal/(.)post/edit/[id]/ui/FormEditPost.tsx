@@ -55,7 +55,7 @@ export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Pro
         />
       )}
       {media.type === 'VIDEO' && (
-        <video src={media.url} className="w-full h-full object-contain" />
+        <video src={media.url} className="w-full h-full object-contain" controlsList="nodownload" />
       )}
     </li>
   ));

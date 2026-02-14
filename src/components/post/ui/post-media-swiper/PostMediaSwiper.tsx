@@ -47,6 +47,7 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
                 controls
                 className="w-full h-full object-contain"
                 preload="metadata"
+                controlsList="nodownload"
               >
                 Tu navegador no soporta el elemento video
               </video>
