@@ -18,8 +18,6 @@ export const CommentActions = ({ commentId }: Props) => {
 
   const handleEdit = () => {
     setShowMenu(false);
-    // Activar edición en CommentContent
-    (window as any)[`editComment_${commentId}`]?.();
   };
 
   const handleDelete = async () => {

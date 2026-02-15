@@ -13,6 +13,7 @@ export const getComments = async (postId: string) => {
             name: true,
             image: true,
             profession: true,
+            statusProfile: true,
           }
         },
         reactions: {
@@ -23,6 +24,7 @@ export const getComments = async (postId: string) => {
                 name: true,
                 image: true,
                 profession: true,
+                statusProfile: true,
               }
             }
           }

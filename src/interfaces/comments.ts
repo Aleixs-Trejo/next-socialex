@@ -16,4 +16,4 @@ export interface CommentReaction extends Reaction {
   user: UserBasic;
 }
 
-export type CommentBasic = Pick<Comment, 'id' | 'content' | 'userId'>;
+export type CommentBasic = Pick<Comment, 'id' | 'content' | 'userId' | 'createdAt' | 'updatedAt' | 'postId'>;

@@ -21,7 +21,7 @@ export interface User {
   updatedAt: Date;
 }
 
-export type UserBasic = Pick<User, 'id' | 'name' | 'image' | 'profession'>;
+export type UserBasic = Pick<User, 'id' | 'name' | 'image' | 'profession' | 'statusProfile'>;
 
 export interface UserWithPosts extends User {
   posts: Post[];

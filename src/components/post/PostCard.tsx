@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { getReactionPost } from "@/actions";
 import { getAllReactionsFromPost } from "@/actions";
-import { Post, PostInterface, PostWithUser } from "@/interfaces";
+import { Post, PostBasic, PostInterface } from "@/interfaces";
 import { dateFriendly } from "@/utils/dateFriendly";
 import { getServerSession } from "@/lib/get-server-session";
 import { ImageCustom, PostMediaSwiper } from "..";
 import { PostReactionBtn } from "./ui/PostReactionBtn";
 import { PostReactionsUsers } from "./ui/PostReactionsUsers";
-import { BtnPostOptions } from "./ui/BtnPostOptions";
 import { OptionsPost } from "./ui/OptionsPost";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
