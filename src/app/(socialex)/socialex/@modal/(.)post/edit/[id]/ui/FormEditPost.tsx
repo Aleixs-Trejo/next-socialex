@@ -32,7 +32,6 @@ export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Pro
     defaultValues,
     onSubmit: async ({ value }) => {
       const result = await updatePost(postId, value.content);
-      console.log('Form submit: ', result );
       if (!result.ok) {
         toast.error(result.message || 'Ocurrió un error al actualizar el post');
         return;

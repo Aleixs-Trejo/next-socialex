@@ -13,7 +13,6 @@ const EditPostPage = async ({ params }: Props) => {
 
   const postId = post.data?.id;
   if (!postId) redirect('/socialex/feed');
-  console.log('post: ', post.data);
 
   const postContent = post.data?.content || '';
 

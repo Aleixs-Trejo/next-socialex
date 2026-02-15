@@ -2,6 +2,7 @@ import { logoFont } from "@/config/fonts";
 import Link from "next/link";
 import { BtnProfileHeaderOptions } from "./ui/BtnProfileHeaderOptions";
 import { BetterAuthSession } from "@/types/better-auth.type";
+import { MenuProfileHeaderOptionsAuth } from "./ui/MenuProfileHeaderOptionsAuth";
 
 interface Props {
   session: BetterAuthSession | null;
@@ -15,8 +16,10 @@ export const HeaderNav = async ({ session }: Props) => {
           SOCIALEX
         </Link>
         {
-          session?.user && (
+          session?.user ? (
             <BtnProfileHeaderOptions session={session} />
+          ) : (
+            <MenuProfileHeaderOptionsAuth />
           )
         }
       </div>

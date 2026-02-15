@@ -80,11 +80,7 @@ export const PostCard = async ({ post, additionalClass }: Props) => {
             </div>
           </div>
         </div>
-        {session?.user?.id === post.userId && (
-          <BtnPostOptions>
-            <OptionsPost postId={post.id} />
-          </BtnPostOptions>
-        )}
+        {session?.user?.id === post.userId && <OptionsPost postId={post.id} />}
       </div>
       {(hasContent || hasMedia) && (
         <div className="flex flex-col gap-2 pb-4">

@@ -16,8 +16,6 @@ export const logout = async () => {
       data: { statusProfile: 'OFFLINE' },
     });
 
-    console.log('logoutDB: ', logoutDB);
-
     return { ok: true, message: 'Sesión cerrada correctamente' };
   } catch (error) {
     console.error("Error en logout:", error);

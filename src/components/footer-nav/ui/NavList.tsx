@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaMusic, FaUser } from "react-icons/fa";
+import { FaMusic } from "react-icons/fa";
 import { GiConsoleController } from "react-icons/gi";
 import { IoMdHome } from "react-icons/io";
 import { IoPeopleSharp } from "react-icons/io5";
+import { MdVideoLibrary } from "react-icons/md";
 
 const navLinks = [
   {
@@ -16,12 +17,12 @@ const navLinks = [
   {
     name: 'Amigos',
     href: '/socialex/users',
-    icon: <IoPeopleSharp size={24} className="text-white" />,
+    icon: <IoPeopleSharp size={22} className="text-white" />,
   },
   {
-    name: 'Perfil',
-    href: '/socialex/profile',
-    icon: <FaUser size={18} className="text-white" />,
+    name: 'Watch',
+    href: '/socialex/watch',
+    icon: <MdVideoLibrary size={22} className="text-white" />,
   },
   {
     name: 'Música',

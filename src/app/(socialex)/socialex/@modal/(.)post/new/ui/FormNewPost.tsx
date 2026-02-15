@@ -32,7 +32,6 @@ export const FormNewPost = () => {
       value.media.forEach(file => formData.append('media', file));
       
       const result = await newPost(formData);
-      console.log('result', result);
       if (!result.ok) {
         toast.error(result.message || 'Ocurrió un error al crear el post');
         return;
