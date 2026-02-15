@@ -25,7 +25,9 @@ export const getUserBySession = async () => {
                 statusProfile: true,
               }
             },
-            comments: true
+            media: true,
+            comments: true,
+            reactions: true,
           }
         },
         comments: true,

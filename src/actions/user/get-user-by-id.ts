@@ -9,7 +9,15 @@ export const getUserById = async (id: string) => {
       include: {
         posts: {
           include: {
-            user: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+                profession: true,
+                statusProfile: true,
+              }
+            },
             media: true,
             comments: true,
             reactions: true,
