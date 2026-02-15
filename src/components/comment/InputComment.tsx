@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { createComment } from '@/actions';
 import { ImageCustom } from '@/components/image-custom/ImageCustom';
-import { UserWithCommentsPostsAndReactions } from '@/interfaces';
+import { UserBasic, UserWithCommentsPostsAndReactions } from '@/interfaces';
 import { useForm } from '@tanstack/react-form';
 import { IoSend } from "react-icons/io5";
 import { toast } from 'sonner';
 
 interface Props {
   postId: string;
-  user: UserWithCommentsPostsAndReactions | null;
+  user: UserBasic | null;
 }
 
 export const InputComment = ({ postId, user}: Props) => {

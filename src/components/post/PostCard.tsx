@@ -14,7 +14,7 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from "remark-breaks";
 
 interface Props {
-  post: Post;
+  post: PostInterface;
   additionalClass?: string;
 }
 

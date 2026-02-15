@@ -7,7 +7,7 @@ export interface Post {
   id: string;
   content: string | null;
   userId: string;
-  user: User;
+  user: UserBasic;
   media: {
     id: string;
     url: string;
@@ -35,3 +35,38 @@ export interface PostInterface extends PostBasic {
   }[];
   reactions: ReactionBasic[];
 }
+
+/* 
+
+comments: {
+        id: string;
+        userId: string;
+        content: string;
+    }[];
+    reactions: {
+        id: string;
+        userId: string;
+        type: ReactionType;
+    }[];
+    user: {
+        id: string;
+        name: string | null;
+        statusProfile: StatusProfile;
+        profession: string | null;
+        image: string | null;
+    };
+    media: {
+        id: string;
+        url: string;
+        type: MediaType;
+        order: number;
+    }[];
+} & {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    userId: string;
+    content: string | null;
+}
+
+*/

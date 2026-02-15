@@ -4,7 +4,7 @@ import { PostCard } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { CommentsUsers } from "@/components/comment/CommentsUsers";
 import { InputComment } from "@/components/comment/InputComment";
-import { Comment, UserWithCommentsPostsAndReactions } from "@/interfaces";
+import { Comment, Post, PostInterface, UserBasic, UserWithCommentsPostsAndReactions } from "@/interfaces";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -12,14 +12,14 @@ interface Props {
 }
 
 const PostByIdPage = async ({ params }: Props) => {
-  const user = await getUserBySession();
+  const user: UserBasic | null = await getUserBySession();
   const { id } = await params;
 
   const post = await getPostById(id);
   if (!post?.ok) notFound();
   if (!post?.data) notFound();
 
-  const postData = post.data;
+  const postData = post.data as PostInterface;
 
   const allCommentsUsers = await getComments(postData.id);
   const commentsData = (allCommentsUsers.data || []) as Comment[];

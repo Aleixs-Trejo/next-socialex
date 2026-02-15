@@ -2,6 +2,7 @@ import { getComments, getPostById, getUserBySession } from "@/actions";
 import { OverlayModal, PostCard } from "@/components";
 import { CommentsUsers } from "@/components/comment/CommentsUsers";
 import { InputComment } from "@/components/comment/InputComment";
+import { PostInterface, UserBasic } from "@/interfaces";
 import { getServerSession } from "@/lib/get-server-session";
 import { notFound } from "next/navigation";
 
@@ -10,14 +11,14 @@ interface Props {
 }
 
 const PostModal = async ({ params }: Props) => {
-  const user = await getUserBySession();
+  const user: UserBasic | null = await getUserBySession();
   const { id } = await params;
 
   const post = await getPostById(id);
   if (!post?.ok) notFound();
   if (!post?.data) notFound();
 
-  const postData = post.data;
+  const postData = post.data as PostInterface;
 
   const allCommentsUsers = await getComments(postData.id);
   const commentsData = allCommentsUsers.data || [];
