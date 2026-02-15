@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getReactionPost } from "@/actions";
 import { getAllReactionsFromPost } from "@/actions";
-import { PostWithUser } from "@/interfaces";
+import { Post, PostInterface, PostWithUser } from "@/interfaces";
 import { dateFriendly } from "@/utils/dateFriendly";
 import { getServerSession } from "@/lib/get-server-session";
 import { ImageCustom, PostMediaSwiper } from "..";
@@ -14,7 +14,7 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from "remark-breaks";
 
 interface Props {
-  post: PostWithUser;
+  post: Post;
   additionalClass?: string;
 }
 
@@ -32,7 +32,7 @@ export const PostCard = async ({ post, additionalClass }: Props) => {
     <div className={`flex flex-col rounded-lg shadow-md ${additionalClass ? additionalClass : 'border border-primary'}`}>
       <div className="w-full flex justify-between items-start p-3 sm:p-4 relative">
         <div className="flex items-center gap-2">
-          <Link href={`/socialex/user/${post.userId}`}>
+          <Link href={`/socialex/user/${post.userId}`} className="shrink-0">
             <ImageCustom
               src={post.user.image || undefined}
               alt={post.user.name || ""}

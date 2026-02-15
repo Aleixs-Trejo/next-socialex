@@ -12,6 +12,7 @@ export const getComments = async (postId: string) => {
             id: true,
             name: true,
             image: true,
+            profession: true,
           }
         },
         reactions: {
@@ -21,6 +22,7 @@ export const getComments = async (postId: string) => {
                 id: true,
                 name: true,
                 image: true,
+                profession: true,
               }
             }
           }
@@ -31,6 +33,6 @@ export const getComments = async (postId: string) => {
     return { ok: true, message: 'Comentarios obtenidos correctamente', data: comments };
   } catch (error) {
     console.log('Error: ', error);
-    return { ok: false, message: 'Error al obtener comentarios' };
+    return { ok: false, message: 'Error al obtener comentarios', data: null };
   }
 };

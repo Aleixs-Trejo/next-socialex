@@ -7,6 +7,7 @@ import { ImageCustom } from '@/components/image-custom/ImageCustom';
 import { UserWithCommentsPostsAndReactions } from '@/interfaces';
 import { useForm } from '@tanstack/react-form';
 import { IoSend } from "react-icons/io5";
+import { toast } from 'sonner';
 
 interface Props {
   postId: string;
@@ -14,30 +15,20 @@ interface Props {
 }
 
 export const InputComment = ({ postId, user}: Props) => {
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
-
   const form = useForm({
     defaultValues: {
       content: '',
     },
     onSubmit: async ({ value }) => {
-      setErrorMessage(undefined);
       if (!value.content.trim()) return;
-
-      try {
-        const result = await createComment(postId, value.content);
-
-        if (!result.ok) {
-          setErrorMessage(result.message);
-        } else {
-          setErrorMessage(undefined);
-          form.reset();
-        }
-      } catch (error) {
-        console.log('Error: ', error);
-        setErrorMessage('Error al crear comentario');
-      } finally {
+      const result = await createComment(postId, value.content);
+      if (!result.ok) {
+        toast.error(result.message || 'Ocurrió un error al crear el comentario');
+        return;
       }
+
+      toast.success('¡Comentario agregado!');
+      form.reset();
     },
   });
 
@@ -90,7 +81,6 @@ export const InputComment = ({ postId, user}: Props) => {
         </div>
         <button type="submit" disabled={isSubmitting} className='w-10 h-10 cursor-pointer flex items-center justify-center rounded-full hover:bg-primary transition-colors duration-300'><IoSend size={20} className={`${isSubmitting ? 'text-gray-500' : 'text-white'}`} /></button>
       </div>
-      {errorMessage && (<span className="text-red-500 text-xs">{errorMessage}</span>)}
     </form>
   );
 };

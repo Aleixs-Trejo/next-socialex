@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { deletePost } from '@/actions';
 import { CiTrash } from "react-icons/ci";
+import { toast } from 'sonner';
 
 interface Props {
   postId: string;
@@ -15,17 +16,15 @@ export const BtnDeletePost = ({ postId }: Props) => {
   const [showModalConfirm, setShowModalConfirm] = useState(false);
 
   const handleDeletePost = async () => {
-    try {
-      setIsLoading(true);
-      const result = await deletePost(postId);
-      if (result.ok) {
-        router.push('/socialex/feed');
-      }
-    } catch (error) {
-      console.log('Error: ', error);
-    } finally {
-      setIsLoading(false);
+    setIsLoading(true);
+    const result = await deletePost(postId);
+    if (!result.ok) {
+      toast.error(result.message || 'Ocurrió un error al eliminar el post');
+      return;
     }
+    setIsLoading(false);
+    toast.success(result.message || 'Eliminado exitosamente');
+    router.push('/socialex/feed');
   };
 
   return (

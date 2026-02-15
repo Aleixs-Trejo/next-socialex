@@ -105,6 +105,7 @@ const uploadMedia = async (file: File) => {
       {
         folder: "socialex/posts",
         resource_type: "auto",
+        transformation: [{ quality: "auto", fetch_format: "auto" }, { width: 600, crop: "limit" }],
       },
       (error, result) => {
         if (error || !result) return reject(error);

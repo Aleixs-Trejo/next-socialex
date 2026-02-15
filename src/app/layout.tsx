@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/providers/Providers";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -10,14 +11,16 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Socialex | Un espacio para compartir",
-  description: "Socialex es un espacio para compartir y conectar con quienes quieras.",
+  description:
+    "Socialex es un espacio para compartir y conectar con quienes quieras.",
   openGraph: {
     type: "website",
     locale: "es_ES",
     url: "https://next-socialex.vercel.app",
     siteName: "Socialex",
     title: "Socialex | Un espacio para compartir",
-    description: "Socialex es un espacio para compartir y conectar con quienes quieras.",
+    description:
+      "Socialex es un espacio para compartir y conectar con quienes quieras.",
     images: [
       {
         url: "https://res.cloudinary.com/dpap5lqxq/image/upload/v1769989002/cover_wdm3rn.png",
@@ -30,8 +33,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Socialex | Un espacio para compartir",
-    description: "Socialex es un espacio para compartir y conectar con quienes quieras.",
-    images: ["https://res.cloudinary.com/dpap5lqxq/image/upload/v1769989002/cover_wdm3rn.png"],
+    description:
+      "Socialex es un espacio para compartir y conectar con quienes quieras.",
+    images: [
+      "https://res.cloudinary.com/dpap5lqxq/image/upload/v1769989002/cover_wdm3rn.png",
+    ],
   },
 };
 
@@ -42,11 +48,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.className} antialiased text-white bg-black`}
-      >
-        <div className="bg-main-gradient"></div>
-        {children}
+      <body className={`${poppins.className} antialiased text-white bg-black`}>
+        <Providers>
+          <div className="bg-main-gradient"></div>
+          {children}
+        </Providers>
       </body>
     </html>
   );

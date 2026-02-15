@@ -9,6 +9,7 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from 'remark-breaks';
+import { toast } from "sonner";
 
 interface Props {
   postId: string;
@@ -25,7 +26,6 @@ interface Props {
 
 export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Props) => {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
   const [showMarkdown, setShowMarkdown] = useState(false);
 
   const form = useForm({
@@ -34,9 +34,10 @@ export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Pro
       const result = await updatePost(postId, value.content);
       console.log('Form submit: ', result );
       if (!result.ok) {
-        setErrorMessage(result.message);
+        toast.error(result.message || 'Ocurrió un error al actualizar el post');
         return;
       }
+      toast.success('Publicación actualizada');
       router.back();
     },
   });
@@ -81,7 +82,7 @@ export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Pro
             {!showMarkdown ? (
               <textarea
                 value={field.state.value}
-                onChange={e => { field.handleChange(e.target.value); setErrorMessage(undefined) }}
+                onChange={e => { field.handleChange(e.target.value) }}
                 id="content"
                 placeholder="¿Quieres agregar algo más?"
                 className={`input-field-text mx-auto resize-none min-h-35 field-sizing-content ${field.state.meta.errors.length ? 'input-field-text-error' : ''}`}
@@ -95,9 +96,6 @@ export const FormEditPost = ({ postId, content, defaultValues, media = [] }: Pro
           </div>
         )}
       </form.Field>
-      {errorMessage && (
-        <p className="text-red-500 text-xs">{errorMessage}</p>
-      )}
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {mediaMap}
       </ul>

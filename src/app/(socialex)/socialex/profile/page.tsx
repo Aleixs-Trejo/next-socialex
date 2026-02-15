@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { getUserBySession } from "@/actions";
 import { getServerSession } from "@/lib/get-server-session";
 import { ProfileUser } from "@/components/profile/ProfileUser";
+import { UserWithCommentsPostsAndReactions } from "@/interfaces";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const currentUser = await getUserBySession();
@@ -32,12 +33,12 @@ const ProfilePage = async () => {
   const session = await getServerSession();
   if (!session?.user) redirect("/auth/login");
 
-  const currentUser = await getUserBySession();
+  const currentUser = await getUserBySession() as UserWithCommentsPostsAndReactions;
   if (!currentUser) redirect("/auth/login");
 
   return (
     <div className="w-9/10 max-w-3xl mx-auto overflow-hidden py-8 relative">
-      <ProfileUser user={currentUser} />
+      <ProfileUser user={currentUser} posts={currentUser.posts} />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getUserById } from "@/actions";
 import { getServerSession } from "@/lib/get-server-session";
 import { ProfileUser } from "@/components/profile/ProfileUser";
+import { UserWithCommentsPostsAndReactions } from "@/interfaces";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -50,7 +51,7 @@ const UserPage = async ({ params }: Props) => {
     </div>
   );
 
-  const { data: user } = response;
+  const user = response.data as UserWithCommentsPostsAndReactions | null;
 
   if (!user) return (
     <div className="w-9/10 max-w-xl mx-auto overflow-hidden py-8">
@@ -62,7 +63,7 @@ const UserPage = async ({ params }: Props) => {
 
   return (
     <div className="w-9/10 max-w-xl mx-auto overflow-hidden py-8">
-      <ProfileUser user={user} />
+      <ProfileUser user={user} posts={user.posts} />
     </div>
   );
 };

@@ -2,12 +2,10 @@
 
 import prisma from "@/lib/prisma";
 
-export const getAllPostsPaginated = async (page: number = 1, limit: number = 10) => {
+export const getPostByUserId = async (userId: string) => {
   try {
-    const postsPaginated = await prisma.post.findMany({
-      take: limit,
-      skip: (page - 1) * limit,
-      orderBy: { createdAt: 'desc' },
+    const posts = await prisma.post.findMany({
+      where: { userId },
       include: {
         user: {
           select: {
@@ -15,10 +13,12 @@ export const getAllPostsPaginated = async (page: number = 1, limit: number = 10)
             name: true,
             image: true,
             profession: true,
+            statusProfile: true,
           }
         },
         media: {
           select: {
+            id: true,
             url: true,
             type: true,
             order: true,
@@ -38,13 +38,14 @@ export const getAllPostsPaginated = async (page: number = 1, limit: number = 10)
             content: true,
           }
         }
-      }
+      },
+      orderBy: { createdAt: 'desc' },
     });
 
     return {
       ok: true,
       message: 'Posts obtenidos correctamente',
-      data: postsPaginated,
+      data: posts,
     }
   } catch (error) {
     console.log('Error: ', error);

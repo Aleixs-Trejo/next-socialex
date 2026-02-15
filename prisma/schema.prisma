@@ -80,7 +80,7 @@ model Verification {
   expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  
+
   @@unique([identifier, value])
   @@map("verification")
 }
@@ -187,16 +187,16 @@ model VerificationCode {
 }
 
 model Account {
-  id           String    @id @default(cuid())
-  userId       String
-  accountId    String
-  providerId   String
-  password     String?
-  accessToken  String?   @db.Text
-  refreshToken String?   @db.Text
-  idToken      String?   @db.Text
-  accessTokenExpiresAt   DateTime?
-  scope        String?
+  id                   String    @id @default(cuid())
+  userId               String
+  accountId            String
+  providerId           String
+  password             String?
+  accessToken          String?   @db.Text
+  refreshToken         String?   @db.Text
+  idToken              String?   @db.Text
+  accessTokenExpiresAt DateTime?
+  scope                String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

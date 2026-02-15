@@ -14,6 +14,11 @@ export * from './title/Title';
 export * from './not-found/PageNotFound';
 
 export * from './overlay-modal/OverlayModal';
+export * from './overlay-confirm-action/OverlayConfirmAction';
 
 export * from './post/ui/post-media-swiper/PostMediaSwiper';
 export * from './post/PostCard';
+
+export * from './comment/CommentItem';
+export * from './comment/CommentsUsers';
+export * from './comment/InputComment';

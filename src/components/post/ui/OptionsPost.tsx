@@ -8,7 +8,7 @@ interface Props {
 
 export const OptionsPost = ({ postId }: Props) => {
   return (
-    <div className="absolute -bottom-1/2 right-4 p-2 ml-auto inset-x-0 w-full max-w-45 rounded-lg bg-accent overflow-hidden border border-secondary">
+    <div className="absolute -bottom-1/2 right-4 p-2 ml-auto inset-x-0 w-full max-w-45 rounded-lg bg-accent overflow-hidden border border-secondary z-50">
       <div className="w-full flex flex-col">
         <div className="w-full border-b border-tertiary">
           <Link href={`/socialex/post/edit/${postId}`} className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-secondary/50 transition-colors duration-300">

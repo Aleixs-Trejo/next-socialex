@@ -1,15 +1,22 @@
-import { UserWithCommentsPostsAndReactions } from "@/interfaces";
+import { Post, UserWithCommentsPostsAndReactions } from "@/interfaces";
 import { ImageCustom } from "../image-custom/ImageCustom";
 import { getServerSession } from "@/lib/get-server-session";
 import Image from "next/image";
 import Link from "next/link";
+import { PostCard } from "../post/PostCard";
+import { EmptyData } from "../empty-data/EmptyData";
 
 interface Props {
   user: UserWithCommentsPostsAndReactions;
+  posts: Post[];
 }
 
-export const ProfileUser = async ({ user }: Props) => {
+export const ProfileUser = async ({ user, posts }: Props) => {
   const currentUser = await getServerSession();
+
+  const postsMap = posts ? posts.map(post => (
+    <PostCard key={post.id} post={post} />
+  )) : <EmptyData message="No hay publicaciones" />;
 
   return (
     <div className="flex flex-col gap-4">
@@ -77,6 +84,14 @@ export const ProfileUser = async ({ user }: Props) => {
             <span className="text-sm text-gray-200">
               {user?.birthdate?.toISOString().split("T")[0]}
             </span>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-4 md:flex-row md:gap-8 border border-tertiary p-4 rounded-xl relative">
+        <div className="w-full flex flex-col gap-4 bg-bg-tertiary">
+          <h3 className="text-xl font-semibold">Publicaciones</h3>
+          <div className="flex flex-col gap-4">
+            {postsMap}
           </div>
         </div>
       </div>

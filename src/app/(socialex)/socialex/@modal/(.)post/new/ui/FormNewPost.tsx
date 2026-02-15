@@ -9,6 +9,7 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from 'remark-breaks';
+import { toast } from "sonner";
 
 const MAX_IMAGE = 5 * 1024 * 1024; // 5MB
 const MAX_VIDEO = 20 * 1024 * 1024; // 20MB
@@ -16,8 +17,8 @@ const MAX_VIDEO = 20 * 1024 * 1024; // 20MB
 export const FormNewPost = () => {
   const router = useRouter();
   const [previews, setPreviews] = useState<{url: string; type: string }[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
   const [showMarkdown, setShowMarkdown] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const form = useForm({
     defaultValues: {
@@ -31,10 +32,12 @@ export const FormNewPost = () => {
       value.media.forEach(file => formData.append('media', file));
       
       const result = await newPost(formData);
+      console.log('result', result);
       if (!result.ok) {
-        setErrorMessage(result.message);
+        toast.error(result.message || 'Ocurrió un error al crear el post');
         return;
       }
+      toast.success('Publicado exitosamente');
       previews.forEach(preview => URL.revokeObjectURL(preview.url));
       router.back();
     },
@@ -43,7 +46,6 @@ export const FormNewPost = () => {
   const isSubmitting = form.state.isSubmitting;
 
   const handleFileChange = (newFiles: File[], field: any) => {
-    setErrorMessage(undefined);
     // Limpiamos prviwews
     const currentFiles = field.state.value;
 
@@ -61,7 +63,6 @@ export const FormNewPost = () => {
   };
 
   const removeFile = (idx: number, field: any) => {
-    setErrorMessage(undefined);
     const currentFiles = field.state.value;
     const newFiles = currentFiles.filter((_: File, i: number) => i !== idx);
     URL.revokeObjectURL(previews[idx].url);
@@ -158,7 +159,7 @@ export const FormNewPost = () => {
                         />
                       ) : (
                         <div className="relative w-full h-full">
-                          <video src={preview.url} className="w-full-h-full object-contain" controlsList="nodownload" />
+                          <video src={preview.url} className="w-full h-full object-cover" controlsList="nodownload" autoPlay muted />
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                             <IoVideocam size={32} className="text-white" />
                           </div>
@@ -186,14 +187,22 @@ export const FormNewPost = () => {
           </div>
         )}
       </form.Field>
-      {errorMessage && (<span className="text-red-500 text-xs">{errorMessage}</span>)}
-      <button
-        type="submit"
-        disabled={!form.state.isValid}
-        className={`${isSubmitting ? 'btn-disabled' : 'btn-primary'}`}
+      <form.Subscribe
+        selector={(state) => ({
+          isSubmitting: state.isSubmitting,
+          canSubmit: state.canSubmit,
+        })}
       >
-        {isSubmitting ? 'Publicando...' : 'Publicar'}
-      </button>
+        {({ isSubmitting, canSubmit }) => (
+          <button
+            type="submit"
+            disabled={!canSubmit || isSubmitting}
+            className={`${isSubmitting || !canSubmit ? 'btn-disabled' : 'btn-primary'}`}
+          >
+            {isSubmitting ? 'Publicando...' : 'Publicar'}
+          </button>
+        )}
+      </form.Subscribe>
     </form>
   );
 };

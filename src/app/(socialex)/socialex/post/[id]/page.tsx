@@ -2,8 +2,9 @@ import { getComments, getUserBySession } from "@/actions";
 import { getPostById } from "@/actions";
 import { PostCard } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
-import { CommentsUsers } from "@/components/post/ui/CommentsUsers";
-import { InputComment } from "@/components/post/ui/InputComment";
+import { CommentsUsers } from "@/components/comment/CommentsUsers";
+import { InputComment } from "@/components/comment/InputComment";
+import { Comment, UserWithCommentsPostsAndReactions } from "@/interfaces";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -12,16 +13,16 @@ interface Props {
 
 const PostByIdPage = async ({ params }: Props) => {
   const user = await getUserBySession();
-    const { id } = await params;
-  
-    const post = await getPostById(id);
-    if (!post?.ok) notFound();
-    if (!post?.data) notFound();
-  
-    const postData = post.data;
-  
-    const allCommentsUsers = await getComments(postData.id);
-    const commentsData = allCommentsUsers.data || [];
+  const { id } = await params;
+
+  const post = await getPostById(id);
+  if (!post?.ok) notFound();
+  if (!post?.data) notFound();
+
+  const postData = post.data;
+
+  const allCommentsUsers = await getComments(postData.id);
+  const commentsData = (allCommentsUsers.data || []) as Comment[];
 
   return (
     <div className="w-9/10 max-w-7xl mx-auto py-12 overflow-hidden relative">

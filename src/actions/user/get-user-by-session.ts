@@ -14,7 +14,14 @@ export const getUserBySession = async () => {
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
       include: {
-        posts: true,
+        posts: {
+          include: {
+            user: true,
+            media: true,
+            comments: true,
+            reactions: true,
+          }
+        },
         comments: true,
         reactions: true,
       }

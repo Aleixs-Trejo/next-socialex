@@ -1,16 +1,6 @@
+import { Comment } from '@/interfaces';
 import { CommentItem } from './CommentItem';
 
-interface Comment {
-  id: string;
-  content: string;
-  createdAt: Date;
-  user: {
-    id: string;
-    name: string | null;
-    image: string | null;
-  };
-  reactions: any[];
-}
 
 interface Props {
   comments: Comment[];
