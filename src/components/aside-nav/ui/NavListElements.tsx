@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { BetterAuthSession } from "@/types";
 import { useUIStore } from "@/stores";
 import { useShallow } from "zustand/shallow";
-import { FaMusic, FaUser } from "react-icons/fa";
+import { FaMusic } from "react-icons/fa";
 import { GiConsoleController } from "react-icons/gi";
 import { IoMdHome } from "react-icons/io";
 import { IoPeopleSharp } from "react-icons/io5";
