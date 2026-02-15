@@ -12,6 +12,7 @@ interface Props {
 
 const PostModal = async ({ params }: Props) => {
   const user: UserBasic | null = await getUserBySession();
+
   const { id } = await params;
 
   const post = await getPostById(id);
