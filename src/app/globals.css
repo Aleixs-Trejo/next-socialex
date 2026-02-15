@@ -47,8 +47,8 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 3rem;
+  width: 0.4rem;
+  height: 0.4rem;
   transition: all 0.3s ease-in-out;
 }
 

@@ -14,26 +14,28 @@ const GAMES = [
 export const AllGames = () => {
   const gamesMap = GAMES.map(game => (
     <div className="flex flex-col rounded-xl overflow-hidden border border-secondary hover:shadow-md hover:shadow-primary transition-shadow duration-300" key={game.label}>
-      <div className="w-full h-full aspect-video border-b border-quaternary select-none overflow-hidden">
+      <div className="w-full aspect-4/3 border-b border-quaternary select-none overflow-hidden">
         <Image src={game.image} alt={game.label} width={264} height={140} className="w-full h-full object-cover" draggable={false} />
       </div>
-      <div className="flex flex-col gap-4 p-2 bg-bg-card h-full">
-        <div className="flex justify-between gap-2">
-          <h3 className="text-lg text-white select-none">{game.label}</h3>
-          <div className="p-1 rounded md bg-tertiary shrink-0 h-max">
-            {game.icon}
+      <div className="h-auto grow">
+        <div className="flex flex-col gap-4 p-2 bg-bg-card h-full">
+          <div className="flex justify-between gap-2">
+            <h3 className="text-lg text-white select-none">{game.label}</h3>
+            <div className="p-1 rounded md bg-tertiary shrink-0 h-max">
+              {game.icon}
+            </div>
           </div>
+          <p className="text-sm text-gray-400 select-none">{game.description}</p>
+          <Link
+            href={game.url}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full p-2 mt-auto rounded-sm text-sm text-white text-center bg-primary hover:bg-secondary transition-colors duration-300"
+            draggable={false}
+          >
+            Jugar
+          </Link>
         </div>
-        <p className="text-sm text-gray-400 select-none">{game.description}</p>
-        <Link
-          href={game.url}
-          target="_blank"
-          rel="noreferrer"
-          className="w-full p-2 mt-auto rounded-sm text-sm text-white text-center bg-primary hover:bg-secondary transition-colors duration-300"
-          draggable={false}
-        >
-          Jugar
-        </Link>
       </div>
     </div>
   ));
