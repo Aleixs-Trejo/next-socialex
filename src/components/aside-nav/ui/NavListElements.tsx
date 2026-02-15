@@ -63,7 +63,7 @@ export const NavListElements = ({ session }: Props) => {
     <>
       {session?.user && (
         <li className="flex-1 flex border-b border-tertiary">
-          <Link href="socialex/profile" className={`w-full h-full flex gap-4 items-center transition-colors duration-300 rounded-md hover:bg-quaternary ${pathname === 'socialex/profile' ? 'bg-secondary hover:bg-secondary': ''}`} draggable={false}>
+          <Link href="/socialex/profile" className={`w-full h-full flex gap-4 items-center transition-colors duration-300 rounded-md hover:bg-quaternary ${pathname === '/socialex/profile' ? 'bg-secondary hover:bg-secondary': ''}`} draggable={false}>
             <div className="w-16 h-16 shrink-0 flex items-center justify-center overflow-hidden">
               <ImageCustom
                 className="w-10 h-10 rounded-full"
