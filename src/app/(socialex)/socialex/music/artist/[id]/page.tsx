@@ -25,7 +25,14 @@ export const generateMetadata = async ({ params }: Props) => {
     openGraph: {
       title: `${artist.profile.name} | Socialex Music`,
       description: artist.profile.biography.text,
-      images: [artist.visuals.avatarImage.sources[0].url]
+      images: [
+        {
+          url: artist.visuals.avatarImage.sources[0].url,
+          width: 630,
+          height: 630,
+          alt: artist.profile.name
+        }
+      ]
     }
   };
 };
