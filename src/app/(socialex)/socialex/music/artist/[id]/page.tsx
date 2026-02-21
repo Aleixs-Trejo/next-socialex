@@ -52,6 +52,18 @@ export const generateMetadata = async ({ params }: Props) => {
   };
 };
 
+export const generateViewport = async ({ params }: Props) => {
+  const { id } = await params;
+  const result = await getArtist(id);
+  if (!result.ok) notFound();
+  const artist = result.dataRes.data.artist;
+
+  return {
+    themeColor: artist.visuals.avatarImage.extractedColors.colorRaw["hex"],
+    colorScheme: "dark",
+  }
+};
+
 const ArtistPage = async ({ params }: Props) => {
   const { id } = await params;
   const artistRes = await getArtist(id);
