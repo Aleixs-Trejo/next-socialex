@@ -21,10 +21,12 @@ export const generateMetadata = async ({ params }: Props) => {
 
   return {
     title: `${artist.profile.name} | Socialex Music`,
-    description: artist.profile.biography.text,
+    description: artist.profile.biography.text.slice(0, 200),
+    canonical: `https://next-socialex.vercel.app/socialex/music/artist/${id}`,
     openGraph: {
+      url: `https://next-socialex.vercel.app/socialex/music/artist/${id}`,
       title: `${artist.profile.name} | Socialex Music`,
-      description: artist.profile.biography.text,
+      description: artist.profile.biography.text.slice(0, 200),
       images: [
         {
           url: artist.visuals.avatarImage.sources[0].url,
@@ -33,7 +35,20 @@ export const generateMetadata = async ({ params }: Props) => {
           alt: artist.profile.name
         }
       ]
-    }
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${artist.profile.name} | Socialex Music`,
+      description: artist.profile.biography.text.slice(0, 200),
+      images: [
+        {
+          url: artist.visuals.avatarImage.sources[0].url,
+          width: 630,
+          height: 630,
+          alt: artist.profile.name
+        }
+      ]
+    },
   };
 };
 

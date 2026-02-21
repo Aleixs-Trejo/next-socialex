@@ -26,7 +26,7 @@ export const BackgroundArtist = ({ artistBg, artistColor, verified, artistName, 
               <span className="font-light">Artista Verificado</span>
             </div>
           )}
-          <h2 className="text-title-main font-semibold leading-20">{artistName}</h2>
+          <h1 className="text-title-main font-semibold leading-20">{artistName}</h1>
           <div className="flex flex-col sm:flex-row sm:gap-4">
             <span>{formatNumber(followers)} seguidores</span>
             <span className="hidden sm:inline">|</span>
