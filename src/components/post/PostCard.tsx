@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getReactionPost } from "@/actions";
 import { getAllReactionsFromPost } from "@/actions";
-import { Post, PostBasic, PostInterface } from "@/interfaces";
+import { PostInterface } from "@/interfaces";
 import { dateFriendly } from "@/utils/dateFriendly";
 import { getServerSession } from "@/lib/get-server-session";
 import { ImageCustom, PostMediaSwiper } from "..";

@@ -1,3 +1,5 @@
+import { Title } from "@/components";
+
 export const metadata = {
   title: "Mira todo lo que quieras | Socialex",
   description: "Watch Page",
@@ -5,7 +7,7 @@ export const metadata = {
 
 const WatchPage = () => {
   return (
-    <h2 className="text-title-main">Watch Page</h2>
+    <Title title="Mira todo lo que quieras" subtitle="Pronto disponible" />
   );
 };
 

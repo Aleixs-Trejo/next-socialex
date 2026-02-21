@@ -1,5 +1,5 @@
 import { ReactionType } from "@/generated/prisma/enums";
-import { UserBasic } from "./user";
+import { UserBasic } from "../user/user";
 
 export interface Reaction {
   id: string;

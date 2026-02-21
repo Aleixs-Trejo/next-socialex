@@ -1,5 +1,5 @@
-import { Reaction } from "./reaction";
-import { UserBasic } from "./user";
+import { Reaction } from "../reaction/reaction";
+import { UserBasic } from "../user/user";
 
 export interface Comment {
   id: string;

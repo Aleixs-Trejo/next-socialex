@@ -1,6 +1,6 @@
 import { StatusAccount, StatusProfile } from "@/generated/prisma/enums";
-import { Post } from "./post";
-import { Reaction } from "./reaction";
+import { Post } from "../post/post";
+import { Reaction } from "../reaction/reaction";
 
 export interface User {
   id: string;

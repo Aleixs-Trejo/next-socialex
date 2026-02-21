@@ -22,10 +22,8 @@ export const PostMediaSwiper = ({ media, userName, additionalClass }: Props) => 
   return (
     <div className={`relative group ${additionalClass || ""}`}>
       <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
+        onSwiper={swiper => swiperRef.current = swiper}
+        onSlideChange={swiper => setCurrentIndex(swiper.activeIndex)}
         pagination={sortedMedia.length > 1 ? { clickable: true } : false}
         slidesPerView={1}
         className="swiper-post-card"

@@ -1,4 +1,5 @@
 import { Title } from "../title/Title";
+import { BtnBack } from "./BtnBack";
 
 export const PageNotFound = () => {
   return (
@@ -6,6 +7,7 @@ export const PageNotFound = () => {
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl font-semibold">¡Ups! No encontramos esa página</h2>
         <Title title="Página no encontrada" subtitle="Parece que algo malió sal" />
+        <BtnBack />
       </div>
     </div>
   );

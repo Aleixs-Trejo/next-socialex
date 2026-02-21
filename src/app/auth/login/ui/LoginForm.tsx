@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const LoginForm = () => {
   const [isPending, setIsPending] = useState(false);
@@ -29,12 +30,13 @@ export const LoginForm = () => {
 
       if (error) {
         setMessage(error.message || 'Error al iniciar sesión');
+        toast.error(error.message || 'Error al iniciar sesión');
         setIsPending(false);
         return;
       }
 
       if (data) {
-        // Éxito - redirigir
+        toast.success('Inición sesada');
         router.push('/socialex/feed');
         router.refresh();
       }

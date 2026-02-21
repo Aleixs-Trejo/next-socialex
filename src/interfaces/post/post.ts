@@ -1,7 +1,7 @@
 import { MediaType } from "@/generated/prisma/enums";
-import { Reaction, ReactionBasic } from "./reaction";
-import { User, UserBasic } from "./user";
-import { Comment, CommentBasic } from "./comments";
+import { Reaction, ReactionBasic } from "../reaction/reaction";
+import { User, UserBasic } from "../user/user";
+import { Comment, CommentBasic } from "../comment/comments.interface";
 
 export interface Post {
   id: string;

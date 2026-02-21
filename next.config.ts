@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
         hostname: "randomuser.me",
         port: "",
         pathname: "/api/portraits/**"
+      },
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+        port: "",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        port: "",
+        pathname: "/**"
       }
     ]
   },

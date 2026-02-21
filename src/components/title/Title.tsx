@@ -8,7 +8,7 @@ interface Props {
 
 export const Title = ({ title, aditionalClass, subtitle }: Props) => {
   return (
-    <div className="flex flex-col border-b-2 pb-4 border-bg-card">
+    <div className="flex flex-col pb-4 select-none">
       <h2 className={`text-title font-semibold ${logoFont.className} ${aditionalClass ? aditionalClass : ''}`}>{title}</h2>
       {
         subtitle && (

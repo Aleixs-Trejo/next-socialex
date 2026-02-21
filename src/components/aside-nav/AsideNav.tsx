@@ -17,9 +17,9 @@ export const AsideNav = ({ session }: Props) => {
   const setIsAsideOpen = useUIStore(useShallow(state => state.setIsAsideOpen));
 
   return (
-    <aside className={`h-main fixed top-16 bottom-0 hidden md:block transition-all duration-300 z-50 ${isAsideOpen ? 'w-aside-open aside-active': 'w-aside'}`}>
+    <aside className={`h-main fixed top-16 bottom-0 hidden md:block transition-all duration-300 bg-accent-dark z-50 ${isAsideOpen ? 'w-aside-open aside-active': 'w-aside'}`}>
       <div className="w-full h-full flex flex-col">
-        <div className={`flex items-center gap-2 overflow-hidden transition-all duration-300 ${isAsideOpen ? 'w-max': 'w-16'}`}>
+        <div className={`flex items-center gap-4 overflow-hidden transition-all duration-300 ${isAsideOpen ? 'w-max': 'w-16'}`}>
           <button
             type="button"
             className={`h-16 aspect-square flex items-center justify-center cursor-pointer px-4 shrink-0`}

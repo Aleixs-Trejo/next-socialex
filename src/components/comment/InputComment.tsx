@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { createComment } from '@/actions';
 import { ImageCustom } from '@/components/image-custom/ImageCustom';
-import { UserBasic, UserWithCommentsPostsAndReactions } from '@/interfaces';
+import { UserBasic } from '@/interfaces';
 import { useForm } from '@tanstack/react-form';
 import { IoSend } from "react-icons/io5";
 import { toast } from 'sonner';
@@ -27,7 +27,7 @@ export const InputComment = ({ postId, user}: Props) => {
         return;
       }
 
-      toast.success('¡Comentario agregado!');
+      toast.success('Comentario agregado');
       form.reset();
     },
   });
@@ -37,7 +37,7 @@ export const InputComment = ({ postId, user}: Props) => {
   if (!user) {
     return (
       <div className="w-full">
-        <Link href="/socialex/auth/login" className="text-sm text-gray-400 text-center">Inicia sesión para comentar</Link>
+        <Link href="/auth/login" className="text-sm text-bright text-center">Inicia sesión para comentar</Link>
       </div>
     )
   }

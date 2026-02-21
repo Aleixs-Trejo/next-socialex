@@ -11,7 +11,7 @@ export const logout = async () => {
   }
 
   try {
-    const logoutDB = await prisma.user.update({
+    await prisma.user.update({
       where: { id: session.user.id },
       data: { statusProfile: 'OFFLINE' },
     });
