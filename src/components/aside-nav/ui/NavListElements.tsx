@@ -48,7 +48,7 @@ export const NavListElements = ({ session }: Props) => {
 
   const navList = navLinks.map(link => {
     return (
-    <li className="flex-1 flex border-b border-tertiary" key={link.name}>
+    <li className="flex-1 flex border-b border-tertiary overflow-hidden" key={link.name}>
       <Link href={link.href} className={`flex gap-4 w-full h-full items-center transition-colors duration-300 rounded-md hover:bg-quaternary ${pathname === link.href ? 'bg-secondary hover:bg-secondary': ''}`} draggable={false}>
         <div className="w-16 h-16 shrink-0 flex items-center justify-center">
           {link.icon}
@@ -62,7 +62,7 @@ export const NavListElements = ({ session }: Props) => {
   return (
     <>
       {session?.user && (
-        <li className="flex-1 flex border-b border-tertiary">
+        <li className="flex-1 flex border-b border-tertiary overflow-hidden">
           <Link href="/socialex/profile" className={`w-full h-full flex gap-4 items-center transition-colors duration-300 rounded-md hover:bg-quaternary ${pathname === '/socialex/profile' ? 'bg-secondary hover:bg-secondary': ''}`} draggable={false}>
             <div className="w-16 h-16 shrink-0 flex items-center justify-center overflow-hidden">
               <ImageCustom

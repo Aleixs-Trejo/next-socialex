@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { DiscographyCarousel } from './DiscographyCarousel';
+import { DiscographyCarousel } from '@/components/spotify/DiscographyCarousel';
 import { MappedDiscography, normalizeDiscography } from '@/lib/spotify/mappers/album.mapper';
 import { DiscographyTab } from '@/interfaces/spotify/spotify-album-resume.interface';
 

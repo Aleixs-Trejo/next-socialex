@@ -1,20 +1,22 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
 import { createComment } from '@/actions';
 import { ImageCustom } from '@/components/image-custom/ImageCustom';
 import { UserBasic } from '@/interfaces';
 import { useForm } from '@tanstack/react-form';
 import { IoSend } from "react-icons/io5";
 import { toast } from 'sonner';
+import { authClient } from '@/lib/auth-client';
 
 interface Props {
   postId: string;
-  user: UserBasic | null;
 }
 
-export const InputComment = ({ postId, user}: Props) => {
+export const InputComment = ({ postId }: Props) => {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
   const form = useForm({
     defaultValues: {
       content: '',

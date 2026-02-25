@@ -2,7 +2,7 @@ import { getComments, getPostById, getUserBySession } from "@/actions";
 import { OverlayModal, PostCard } from "@/components";
 import { CommentsUsers } from "@/components/comment/CommentsUsers";
 import { InputComment } from "@/components/comment/InputComment";
-import { Comment, Post, PostInterface, User, UserBasic } from "@/interfaces";
+import { Comment, Post } from "@/interfaces";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -10,8 +10,6 @@ interface Props {
 }
 
 const PostModal = async ({ params }: Props) => {
-  const user: User | null = await getUserBySession();
-
   const { id } = await params;
 
   const post = await getPostById(id);
@@ -54,16 +52,14 @@ const PostModal = async ({ params }: Props) => {
           <div className="flex-1 overflow-hidden">
             <div className="overflow-y-auto h-full">
               <CommentsUsers 
-                comments={commentsData} 
-                currentUserId={user?.id}
+                comments={commentsData}
               />
 
             </div>
           </div>
           <div className="border-t border-tertiary p-3">
             <InputComment 
-              postId={postData.id} 
-              user={user}
+              postId={postData.id}
             />
           </div>
         </div>

@@ -27,6 +27,7 @@
   --spacing-aside: 4rem;
   --spacing-aside-open: 16rem;
   --spacing-image-header: clamp(1.5rem, 5.75dvw, 2.5rem);
+  --spacingheader-album: min(30dvh, 21px);
 
   /* Font size */
   --text-title-main: clamp(1.25rem, 12dvw, 4.25rem);
@@ -36,6 +37,7 @@
 
   /* Animations */
   --animation-fade-in: fade-in 0.3s ease-in-out;
+  --animation-equalizer: equalizer 0.8s ease-in-out infinite;
 
   @keyframes fade-in {
     from {
@@ -44,6 +46,11 @@
     to {
       opacity: 1;
     }
+  }
+
+  @keyframes equalizer {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
   }
 }
 
@@ -114,6 +121,10 @@ body:has(.overlay-modal) {
 .modal-form-register,
 .animate-fade-in {
   animation: fade-in 0.3s ease-in-out;
+}
+
+.element-equalizer {
+  animation: equalizer 0.8s ease-in-out infinite;
 }
 
 .overlay-logout-btns {

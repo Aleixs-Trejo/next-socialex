@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/providers/Providers";
+import { FooterPlayer } from "@/components/spotify/FooterPlayer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -62,6 +63,7 @@ export default function RootLayout({
         <Providers>
           <div className="bg-main-gradient"></div>
           {children}
+          <FooterPlayer />
         </Providers>
       </body>
     </html>

@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import { getArtist } from "@/lib/spotify/get-artists";
+import { mapArtistDiscography } from "@/lib/spotify/mappers/artist.mapper";
+import { BtnBack } from "@/components/btn-back/BtnBack";
 import { BackgroundArtist } from "./ui/BackgroundArtist";
 import { SocialsArtist } from "./ui/SocialsArtist";
 import { PopularTracksArtist } from "./ui/PopularTracksArtist";
 import { DiscographyArtist } from "./ui/DiscographyArtist";
-import { mapArtistDiscography } from "@/lib/spotify/mappers/artist.mapper";
 import { AboutArtist } from "./ui/AboutArtist";
 import { RelatedArtists } from "./ui/RelatedArtists";
-import { BtnBack } from "@/components/btn-back/BtnBack";
 
 interface Props {
   params: Promise<{ id: string }>;

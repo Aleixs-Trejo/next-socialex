@@ -1,13 +1,16 @@
-import { Comment } from '@/interfaces';
+import { Comment, UserBasic } from '@/interfaces';
 import { CommentItem } from './CommentItem';
+import { getServerSession } from '@/lib/get-server-session';
 
 
 interface Props {
   comments: Comment[];
-  currentUserId?: string;
 }
 
-export const CommentsUsers = ({ comments, currentUserId }: Props) => {
+export const CommentsUsers = async ({ comments }: Props) => {
+  const user = await getServerSession();
+  const currentUserId = user?.user?.id;
+
   if (comments.length === 0) {
     return (
       <div className="p-8 text-center">

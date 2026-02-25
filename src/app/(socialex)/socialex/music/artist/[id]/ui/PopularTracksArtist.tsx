@@ -1,29 +1,20 @@
-import Image from "next/image";
-import { formatMilliseconds } from "@/utils/formatMilliseconds";
 import { TopTracksItem } from "@/interfaces/spotify/spotify-artist.interface";
+import { TrackPopularArtist } from "./TrackPopularArtist";
 
 interface Props {
   artistTracks: TopTracksItem[];
 }
 
-export const PopularTracksArtist = ({ artistTracks }: Props) => {
-
-  const popularTracksMap = artistTracks.map((trackItem, idx) => {
+export const PopularTracksArtist = async ({ artistTracks }: Props) => {
+  
+  const popularTracksMap = artistTracks.map(async (trackItem, idx) => {
     const { track } = trackItem;
     const imgsrc = track.album.coverArt.sources.at(0)?.url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Spotify_App_Logo.svg/400px-Spotify_App_Logo.svg.png';
     const timeMilliseconds = track.duration.totalMilliseconds;
+    const trackId = track.uri.split(':')[2];
   
     return (
-      <button key={trackItem.uid} className="flex items-center gap-4 rounded-lg py-2 px-4 transition-colors cursor-pointer hover:bg-secondary/40">
-        <span className="shrink-0 text-xs">{idx + 1}</span>
-        <div className="w-full flex items-center gap-2 justify-between">
-          <div className="flex items-center gap-2">
-            <Image src={imgsrc} width={40} height={40} alt="Cover" className="w-10 h-10 object-contain object-center" />
-            <span className="text-white font-normal text-sm leading-4">{track.name}</span>
-          </div>
-          <div className="text-gray-400 text-xs">{formatMilliseconds(timeMilliseconds)}</div>
-        </div>
-      </button>
+      <TrackPopularArtist key={trackId} idx={idx} trackName={track.name} imgsrc={imgsrc} timeMilliseconds={timeMilliseconds} trackId={trackId} />
     );
   });
 

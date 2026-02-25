@@ -1,6 +1,6 @@
-const API_KEY = process.env.RAPIDAPI_SPOTIFY_API_KEY_1 as string;
-const BASE_URL = process.env.RAPIDAPI_SPOTIFY_URL as string;
-const API_HOST = process.env.RAPIDAPI_HOST as string;
+const API_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_SPOTIFY_API_KEY_1 as string;
+const BASE_URL = process.env.NEXT_PUBLIC_RAPIDAPI_SPOTIFY_URL as string;
+const API_HOST = process.env.NEXT_PUBLIC_RAPIDAPI_HOST as string;
 
 const defaultHeaders = {
   "x-rapidapi-key": API_KEY,
@@ -19,6 +19,7 @@ export async function spotifyFetch<T>(endpoint: string, params?: Record<string, 
     const res = await fetch(url.toString(), {
       method: "GET",
       headers: defaultHeaders,
+      cache: "force-cache",
       next: { revalidate: 604800 }, // 7 díasssssss
     });
 

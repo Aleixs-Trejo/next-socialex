@@ -85,7 +85,7 @@ export const PostCard = async ({ post, additionalClass }: Props) => {
         <div className="flex flex-col gap-2 pb-4">
           {hasContent && (
             <Link href={`/socialex/post/${post.id}`} title="Click para ir al post">
-              <div className="text-xl font-semibold p-3 sm:p-4 prose prose-invert max-w-none [&_p]:text-white [&_strong]:text-base [&_hr]:mt-10 [&_li]:my-2 [&_li]:p-0 [&_h2]:mb-6">
+              <div className="text-xl font-semibold p-3 sm:p-4 prose prose-invert max-w-none [&_p]:text-white [&_strong]:text-base [&_hr]:mt-10 [&_li]:my-2 [&_li]:p-0 [&_h2]:mb-6 [&_li]:text-white">
                 <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
                   {post.content}
                 </ReactMarkdown>

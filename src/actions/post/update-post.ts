@@ -16,6 +16,7 @@ export const updatePost = async (postId: string, content: string) => {
     revalidatePath("/socialex/feed");
 
     return { ok: true, message: "Publicación actualizada correctamente" };
+    
   } catch (error) {
     console.log("Error: ", error);
     return {

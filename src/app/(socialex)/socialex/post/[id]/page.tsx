@@ -1,10 +1,10 @@
-import { getComments, getUserBySession } from "@/actions";
+import { getComments } from "@/actions";
 import { getPostById } from "@/actions";
 import { PostCard } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { CommentsUsers } from "@/components/comment/CommentsUsers";
 import { InputComment } from "@/components/comment/InputComment";
-import { Comment, Post, PostInterface, UserBasic, UserWithCommentsPostsAndReactions } from "@/interfaces";
+import { Comment, PostInterface } from "@/interfaces";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -12,7 +12,6 @@ interface Props {
 }
 
 const PostByIdPage = async ({ params }: Props) => {
-  const user: UserBasic | null = await getUserBySession();
   const { id } = await params;
 
   const post = await getPostById(id);
@@ -53,16 +52,13 @@ const PostByIdPage = async ({ params }: Props) => {
           <div className="flex-1 overflow-hidden">
             <div className="overflow-y-auto h-full">
               <CommentsUsers
-                comments={commentsData} 
-                currentUserId={user?.id}
+                comments={commentsData}
               />
-
             </div>
           </div>
           <div className="border-t border-tertiary p-3">
             <InputComment
-              postId={postData.id} 
-              user={user}
+              postId={postData.id}
             />
           </div>
         </div>
