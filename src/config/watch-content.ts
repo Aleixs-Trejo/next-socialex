@@ -95,7 +95,7 @@ export const ALL_CONTENT = [
         episodeNumber: 12,
       },
       {
-        title: 'Ep 13 (Extrea) - ¡Días de invierno!',
+        title: 'Ep 13 (Extra) - ¡Días de invierno!',
         bg: '/img/kon/prev-13cap.png',
         description: 'Durante los fríos días de invierno, Yui Hirasawa intenta encontrar a alguien con quien tomar nabe , pero resulta que todos tienen otras cosas que hacer.',
         episodeUrl: `${R2}/k-on-1-13.mp4`,

@@ -16,8 +16,6 @@ export const generateMetadata = async ({ params }: Props) => {
   const episode = serie.caps.find((cap) => cap?.episodeNumber === +episodeId);
   if (!episode) notFound();
 
-  const videoUrl = episode.episodeUrl;
-
   const titleCap = episode.title;
 
   return {
