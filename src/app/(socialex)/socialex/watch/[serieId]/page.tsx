@@ -8,6 +8,44 @@ interface Props {
   params: Promise<{ serieId: string }>;
 }
 
+export const generateMetadata = async ({ params }: Props) => {
+  const { serieId } = await params;
+  const serie = ALL_CONTENT.find(item => item.id === serieId);
+  if (!serie) notFound();
+
+  return {
+    title: `Ver ${serie.title} | Socialex`,
+    description: serie.description,
+    canonical: `https://next-socialex.vercel.app/socialex/watch/${serieId}`,
+    openGraph: {
+      url: `https://next-socialex.vercel.app/socialex/watch/${serieId}`,
+      title: `Ver ${serie.title} | Socialex`,
+      description: serie.description,
+      images: [
+        {
+          url: '/img/kon/portakon.jpg',
+          width: 630,
+          height: 630,
+          alt: serie.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${serie.title} | Socialex`,
+      description: serie.description,
+      images: [
+        {
+          url: '/img/kon/portakon.jpg',
+          width: 630,
+          height: 630,
+          alt: serie.title,
+        }
+      ]
+    },
+  };
+};
+
 const WatchSeriesPage = async ({ params }: Props) => {
   const { serieId } = await params;
   const serie = ALL_CONTENT.find(item => item.id === serieId);
