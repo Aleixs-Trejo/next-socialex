@@ -22,3 +22,5 @@ export * from './post/PostCard';
 export * from './comment/CommentItem';
 export * from './comment/CommentsUsers';
 export * from './comment/InputComment';
+
+export * from './media-player/VideoPlayer';
