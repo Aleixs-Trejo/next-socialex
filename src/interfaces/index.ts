@@ -9,3 +9,6 @@ export * from "./reaction/reaction";
 export * from "./user/status-account-profile";
 export * from "./reaction/reaction-type";
 export * from "./comment/comments.interface";
+
+export * from "./watch/serie.interface";
+export * from "./watch/context-comment.interface";

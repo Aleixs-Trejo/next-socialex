@@ -24,3 +24,16 @@ export * from './comment/CommentsUsers';
 export * from './comment/InputComment';
 
 export * from './media-player/VideoPlayer';
+
+export * from './watch/serie/BackgroundSerie';
+export * from './watch/serie/CommentListSerie';
+export * from './watch/serie/CommentFormSerie';
+export * from './watch/serie/CommentsSerie';
+export * from './watch/serie/CommentItemSerie';
+export * from './watch/serie/DetailsSerie';
+export * from './watch/serie/SeasonsSerie';
+export * from './watch/serie/SinopsisSerie';
+export * from './watch/serie/SeasonCard';
+export * from './watch/serie/BtnReactionSerie';
+export * from './watch/season/DetailsSeason';
+export * from './watch/season/BackgroundSeason';

@@ -27,6 +27,7 @@ export const CommentsUsers = async ({ comments }: Props) => {
         <CommentItem
           key={comment.id} 
           comment={comment} 
+          isOwner={comment.user.id === currentUserId}
           currentUserId={currentUserId}
         />
       ))}

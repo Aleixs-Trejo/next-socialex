@@ -160,8 +160,20 @@ body:has(.overlay-modal) {
   mask-image: linear-gradient(black 10%, transparent);
 }
 
+
+
 @media screen and (width >= 48rem) {
   body:has(.aside-active) .main {
     @apply w-width-main-active;
+  }
+}
+
+@media screen and (width >= 64rem) {
+  .details-watch {
+    flex-basis: 40%;
+  }
+
+  .figure-details-watch {
+    max-width: unset;
   }
 }

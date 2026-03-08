@@ -1,8 +1,6 @@
-import { ALL_CONTENT } from "@/config/watch-content";
-import { notFound } from "next/navigation";
-import { BackgroundSerie } from "./ui/BackgroundSerie";
+import { BackgroundSerie, CommentsSerie, DetailsSerie, SeasonsSerie, SinopsisSerie } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
-import { EpisodeCard } from "./ui/EpisodeCard";
+import { getSerieById } from "@/actions";
 
 interface Props {
   params: Promise<{ serieId: string }>;
@@ -10,8 +8,10 @@ interface Props {
 
 export const generateMetadata = async ({ params }: Props) => {
   const { serieId } = await params;
-  const serie = ALL_CONTENT.find(item => item.id === serieId);
-  if (!serie) notFound();
+  const resSerie = await getSerieById(serieId);
+
+  if (!resSerie.ok || !resSerie.data) return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><span className="text-gray-400">Error al obtener series</span></div>;
+  const serie = resSerie.data;
 
   return {
     title: `Ver ${serie.title} | Socialex`,
@@ -23,9 +23,9 @@ export const generateMetadata = async ({ params }: Props) => {
       description: serie.description,
       images: [
         {
-          url: '/img/kon/portakon.jpg',
-          width: 630,
-          height: 630,
+          url: 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772764999/k-on-portada-2_pxp7uo.webp',
+          width: 640,
+          height: 515,
           alt: serie.title,
         },
       ],
@@ -36,9 +36,9 @@ export const generateMetadata = async ({ params }: Props) => {
       description: serie.description,
       images: [
         {
-          url: '/img/kon/portakon.jpg',
-          width: 630,
-          height: 630,
+          url: 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772764999/k-on-portada-2_pxp7uo.webp',
+          width: 640,
+          height: 515,
           alt: serie.title,
         }
       ]
@@ -46,22 +46,25 @@ export const generateMetadata = async ({ params }: Props) => {
   };
 };
 
+const defaultImage = 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772501361/socialex/profile-images/socialex/profile-images/user_gj0RnR9zstFGSN2009uFPyLnZwRS1m2A.jpg';
+
 const WatchSeriesPage = async ({ params }: Props) => {
   const { serieId } = await params;
-  const serie = ALL_CONTENT.find(item => item.id === serieId);
-  if (!serie) notFound();
+  const resSerie = await getSerieById(serieId);
+
+  if (!resSerie.ok || !resSerie.data) return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><span className="text-gray-400">Error al obtener series</span></div>;
+  const serie = resSerie.data;
 
   return (
     <div className="w-full flex flex-col">
-      <BackgroundSerie image={serie.image} title={serie.title} />
+      <BackgroundSerie image={serie.coverImage || defaultImage} title={serie.title} genre={serie.genre} />
       <BtnBack additionalClass="my-2" />
-      <div className="w-9/10 max-w-5xl mx-auto px-4 pb-6 flex flex-col gap-3">
-        <p className="text-white/60 text-sm font-medium uppercase tracking-widest">Todos los episodios</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {serie.caps.map(cap => {
-            if (!cap) return null;
-            return <EpisodeCard key={cap.episodeNumber} serieId={serie.id} cap={cap} tags={serie.tags} />;
-          })}
+      <div className="w-9/10 max-w-5xl mx-auto pb-6 flex flex-col gap-8 lg:flex-row lg:gap-4">
+        <DetailsSerie coverImage={serie.coverImage} title={serie.title} serieId={serieId} />
+        <div className="w-full flex flex-col gap-6 lg:grow">
+          {serie.description && <SinopsisSerie description={serie.description} />}
+          <SeasonsSerie seasons={serie.seasons} />
+          <CommentsSerie serieId={serieId} />
         </div>
       </div>
     </div>

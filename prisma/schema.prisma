@@ -38,6 +38,11 @@ enum MediaType {
   VIDEO
 }
 
+enum ContentReactionType {
+  LIKE
+  DISLIKE
+}
+
 model User {
   id            String        @id @default(cuid())
   name          String?
@@ -64,6 +69,10 @@ model User {
   posts     Post[]
   comments  Comment[]
   reactions Reaction[]
+
+  // SERIES
+  contentReactions ContentReaction[]
+  commentsWatch    CommentWatch[]
 
   // AMIGUITOS
   friendshipsSent     Friendship[] @relation("FriendshipSender")
@@ -171,6 +180,98 @@ model Friendship {
   @@index([senderId])
   @@index([receiverId])
   @@index([status])
+}
+
+model Serie {
+  id               String            @id
+  title            String
+  description      String?
+  coverImage       String?
+  seasons          Season[]
+  commentsWatch    CommentWatch[]
+  genre            String?
+  subgenre         String?
+  contentReactions ContentReaction[]
+  createdAt        DateTime          @default(now())
+}
+
+model Season {
+  id               String            @id @default(cuid())
+  serieId          String
+  seasonNumber     Int
+  title            String?
+  description      String?
+  coverImage       String?
+  serie            Serie             @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  episodes         Episode[]
+  commentsWatch    CommentWatch[]
+  contentReactions ContentReaction[]
+
+  @@unique([serieId, seasonNumber])
+}
+
+model Episode {
+  id               String            @id @default(cuid())
+  seasonId         String
+  episodeNumber    Int
+  title            String
+  description      String?
+  r2Key            String
+  thumbnail        String?
+  duration         Int?
+  tags             String[]
+  season           Season            @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  commentsWatch    CommentWatch[]
+  contentReactions ContentReaction[]
+  createdAt        DateTime          @default(now())
+
+  @@unique([seasonId, episodeNumber])
+}
+
+model ContentReaction {
+  id        String              @id @default(cuid())
+  type      ContentReactionType
+  userId    String
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  serieId   String?
+  serie     Serie?              @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  seasonId  String?
+  season    Season?             @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  episodeId String?
+  episode   Episode?            @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, serieId])
+  @@unique([userId, seasonId])
+  @@unique([userId, episodeId])
+  @@index([serieId])
+  @@index([seasonId])
+  @@index([episodeId])
+}
+
+model CommentWatch {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  serieId   String?
+  serie     Serie?   @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  seasonId  String?
+  season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  episodeId String?
+  episode   Episode? @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([serieId])
+  @@index([seasonId])
+  @@index([episodeId])
+  @@index([userId])
+  @@index([createdAt])
 }
 
 model VerificationCode {

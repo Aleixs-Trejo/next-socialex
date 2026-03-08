@@ -2,6 +2,7 @@
 
 import { getTrack } from "@/lib/spotify/get-track";
 import { usePlayerStore } from "@/stores";
+import { toast } from "sonner";
 
 interface Props {
   trackId: string;
@@ -16,7 +17,10 @@ export const TrackPreview = ({ trackId, title, children }: Props) => {
     const result = await getTrack(trackId);
     if (!result.ok) return;
     const t = result.dataRes?.tracks[0];
-    if (!t?.preview_url) return;
+    if (!t?.preview_url) {
+      toast.error('No se pudo cargar la pista');
+      return;
+    }
 
     setTrack({
       id: t.id,

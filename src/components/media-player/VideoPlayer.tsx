@@ -39,13 +39,13 @@ export const VideoPlayer = ({ src, title }: Props) => {
   useEffect(() => () => { if (hideTimer.current) clearTimeout(hideTimer.current); }, []);
 
   return (
-    <div ref={containerRef} className={`relative w-full bg-black rounded-lg overflow-hidden group/player select-none aspect-video ${controlsVisible ? 'cursor-pointer': 'cursor-none'}`} onMouseMove={resetHideTimer} onMouseLeave={() => isPlaying && setControlsVisible(false)}>
+    <div ref={containerRef} className={`relative min-w-80 w-full bg-black rounded-lg border border-primary overflow-hidden group/player select-none aspect-video ${controlsVisible ? 'cursor-pointer': 'cursor-none'}`} onMouseMove={resetHideTimer} onMouseLeave={() => isPlaying && setControlsVisible(false)}>
 
       <video ref={mediaRef as React.RefObject<HTMLVideoElement>} className="w-full h-full object-contain cursor-pointer" onClick={togglePlay} />
 
       {!isPlaying && (
-        <button className="absolute inset-0 flex items-center justify-center cursor-pointer" onClick={togglePlay}>
-          <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center backdrop-blur-sm border border-white/20 transition-transform duration-200 hover:scale-110"><FaPlay size={22} className="text-white ml-1" /></div>
+        <button className="absolute inset-0 flex items-center justify-center cursor-pointer transform" onClick={togglePlay}>
+          <div className="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center backdrop-blur-sm border border-tertiary/20 transform -translate-y-1/3 transition-transform duration-200 hover:scale-110"><FaPlay size={12} className="text-bright" /></div>
         </button>
       )}
 
@@ -53,7 +53,7 @@ export const VideoPlayer = ({ src, title }: Props) => {
 
       <div className={`absolute bottom-0 left-0 right-0 transition-opacity duration-300 ${controlsVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         <div className="absolute bottom-0 left-0 right-0 h-28 bg-linear-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-        <div className="relative px-3 pb-3 pt-6 flex flex-col gap-2">
+        <div className="relative p-2 flex flex-col gap-2">
           <span className="text-white/70 text-xs font-medium px-1 truncate">{title}</span>
 
           <div ref={progressRef} role="slider" tabIndex={0} aria-label="Progreso de reproducción" aria-valuemin={0} aria-valuemax={duration} aria-valuenow={currentTime} className="relative w-full h-1 cursor-pointer group/bar focus:outline-none" onMouseDown={handleProgressMouseDown} onMouseMove={handleProgressMouseMove} onMouseLeave={handleProgressMouseLeave} onClick={handleProgressClick} onKeyDown={handleProgressKeyDown}>
