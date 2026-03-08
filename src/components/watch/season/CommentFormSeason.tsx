@@ -12,13 +12,12 @@ interface Props {
 export const CommentFormSeason = ({ seasonId }: Props) => {
   const [isPending, startTransition] = useTransition();
   const ref = useRef<HTMLTextAreaElement>(null);
-  const pathname = usePathname();
 
   const handleSubmit = () => {
     const content = ref.current?.value ?? "";
     if (content.trim().length === 0) toast.error("Agrega un comentario, no seas idiota");
     startTransition(async () => {
-      const res = await createCommentWatchContext({ seasonId }, content, pathname);
+      const res = await createCommentWatchContext({ seasonId }, content);
       if (res.ok && ref.current) {
         ref.current.value = "";
         toast.success('Comentario agregado');

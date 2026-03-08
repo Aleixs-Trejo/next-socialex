@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-
 import { getUserBySession } from "@/actions";
 import { redirect } from "next/navigation";
 import { EditProfileForm } from "../../@modal/(.)profile/edit/ui/EditProfileForm";

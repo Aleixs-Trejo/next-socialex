@@ -21,11 +21,10 @@ export const CommentItemSerie = ({ comment, isOwner }: Props) => {
   const [editValue, setEditValue] = useState(comment.content);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const pathname = usePathname();
 
   const handleUpdate = () => {
     startTransition(async () => {
-      const res = await updateCommentWatchContext(comment.id, editValue, pathname);
+      const res = await updateCommentWatchContext(comment.id, editValue);
       if (res.ok) {
         setIsEditing(false);
         toast.success('Comentario actualizado');
@@ -35,7 +34,7 @@ export const CommentItemSerie = ({ comment, isOwner }: Props) => {
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteCommentWatchContext(comment.id, pathname);
+      await deleteCommentWatchContext(comment.id);
       toast.success('Comentario eliminado');
     });
   };
