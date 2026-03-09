@@ -7,7 +7,6 @@ import { CommentWatchBasic } from "@/interfaces";
 import { OverlayConfirmAction } from "@/components";
 import { toast } from 'sonner';
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const defaultImage = 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772501361/socialex/profile-images/socialex/profile-images/user_gj0RnR9zstFGSN2009uFPyLnZwRS1m2A.jpg';
 

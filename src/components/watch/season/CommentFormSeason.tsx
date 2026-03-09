@@ -2,7 +2,6 @@
 
 import { useTransition, useRef } from "react";
 import { createCommentWatchContext } from "@/actions";
-import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 
 interface Props {

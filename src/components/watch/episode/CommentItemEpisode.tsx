@@ -7,7 +7,6 @@ import { CommentWatchBasic } from "@/interfaces";
 import { OverlayConfirmAction } from "@/components";
 import { toast } from 'sonner';
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const defaultImage = 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772501361/socialex/profile-images/socialex/profile-images/user_gj0RnR9zstFGSN2009uFPyLnZwRS1m2A.jpg';
 
@@ -21,11 +20,10 @@ export const CommentItemWatch = ({ comment, isOwner }: Props) => {
   const [editValue, setEditValue] = useState(comment.content);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const pathname = usePathname();
 
   const handleUpdate = () => {
     startTransition(async () => {
-      const res = await updateCommentWatchContext(comment.id, editValue, pathname);
+      const res = await updateCommentWatchContext(comment.id, editValue);
       if (res.ok) {
         setIsEditing(false);
         toast.success('Comentario actualizado');
@@ -35,7 +33,7 @@ export const CommentItemWatch = ({ comment, isOwner }: Props) => {
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteCommentWatchContext(comment.id, pathname);
+      await deleteCommentWatchContext(comment.id);
       toast.success('Comentario eliminado');
     });
   };
