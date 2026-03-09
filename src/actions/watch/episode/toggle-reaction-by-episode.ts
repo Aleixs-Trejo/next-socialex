@@ -19,19 +19,19 @@ export const toggleReactionByEpisode = async (episodeId: string, typeReaction: C
       // Eliminar reacción si elige la misma
       if (isExististReaction.type === typeReaction) {
         await prisma.contentReaction.delete({ where: { userId_episodeId: { userId, episodeId } } });
-        revalidateTag(`reactions-${episodeId}`, { expire: 0 });
+        revalidateTag(`reaction-${episodeId}`, { expire: 0 });
         return { ok: true, data: null };
       }
 
       // Cambiar reacción
       await prisma.contentReaction.update({ where: { userId_episodeId: { userId, episodeId } }, data: { type: typeReaction } });
-      revalidateTag(`reactions-${episodeId}`, { expire: 0 });
+      revalidateTag(`reaction-${episodeId}`, { expire: 0 });
       return { ok: true, data: typeReaction };
     }
 
     // Crear reacción
     await prisma.contentReaction.create({ data: { userId, episodeId, type: typeReaction } });
-    revalidateTag(`reactions-${episodeId}`, { expire: 0 });
+    revalidateTag(`reaction-${episodeId}`, { expire: 0 });
     return { ok: true, data: typeReaction };
 
   } catch (error) {

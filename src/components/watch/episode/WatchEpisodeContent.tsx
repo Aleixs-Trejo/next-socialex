@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { EmptyData, VideoPlayer } from "@/components";
-import { getEpisodeByNumber, getSeasonByNumber, getSignedVideoUrl } from "@/actions";
+import { EmptyData } from "@/components";
+import { getEpisodeByNumber, getSeasonByNumber } from "@/actions";
 import { CommentsEpisode } from "./CommentsEpisode";
 import { Suspense } from "react";
 import { BtnsReactionEpisodeWrapper } from "./BtnsReactionEpisodeWrapper";
