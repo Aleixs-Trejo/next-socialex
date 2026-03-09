@@ -5,6 +5,7 @@ import { CommentsEpisode } from "./CommentsEpisode";
 import { Suspense } from "react";
 import { BtnsReactionEpisodeWrapper } from "./BtnsReactionEpisodeWrapper";
 import { connection } from "next/server";
+import { WatchEpisodeVideo } from "./WatchEpisodeVideo";
 
 interface Props {
   serieId: string;
@@ -32,11 +33,9 @@ export const WatchEpisodeContent = async ({ serieId, seasonId, episodeNumber }: 
 
   return (
     <div className="w-9/10 max-w-5xl mx-auto flex flex-col gap-4 overflow-hidden">
-      <div className="flex flex-col">
-        <h1 className="text-white text-xl font-bold">{season.title} - Episodio {episodeNumber}</h1>
-        <span className="text-sm text-gray-300">{episode.title}</span>
-      </div>
-      <VideoPlayer src={signedUrl} title={`${seasonId} - Ep. ${episodeNumber} - ${episode.title}`} />
+      <Suspense fallback={<div className="h-64" />}>
+        <WatchEpisodeVideo seasonTitle={season.title || ''} episodeNumber={episodeNumber} signedUrl={signedUrl} seasonId={seasonId} episodeTitle={episode.title} />
+      </Suspense>
       <Suspense fallback={<div className="h-10" />}>
         <BtnsReactionEpisodeWrapper episodeId={episode.id} />
       </Suspense>
