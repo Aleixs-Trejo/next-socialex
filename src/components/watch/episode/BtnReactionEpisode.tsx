@@ -1,4 +1,3 @@
-// BtnReactionEpisode.tsx - ahora solo es presentacional
 'use client';
 
 interface Props {

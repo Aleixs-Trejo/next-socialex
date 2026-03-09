@@ -3,7 +3,7 @@ import { CommentItemWatch } from "../CommentItemWatch";
 
 interface Props {
   comments: CommentWatchBasic[];
-  currentUserId?: string;
+  currentUserId: string | null;
 }
 
 export const CommentListEpisode = async ({ comments, currentUserId }: Props) => {

@@ -4,6 +4,7 @@ import { getEpisodeByNumber, getSeasonByNumber } from "@/actions";
 import { Suspense } from "react";
 import { WatchEpisodeContent } from "@/components/watch/episode/WatchEpisodeContent";
 import { connection } from "next/server";
+import { getServerSession } from "@/lib/get-server-session";
 
 interface Props {
   params: Promise<{ serieId: string; seasonId: string; episodeNumber: number }>;
@@ -64,6 +65,9 @@ const WatchEpisodePage = async ({ params }: Props) => {
   await connection();
   const { serieId, seasonId, episodeNumber } = await params;
 
+  const session = await getServerSession();
+  const userId = session?.user?.id ?? null;
+
   return (
     <div className="w-full flex flex-col gap-4 p-4">
       <BtnBack />
@@ -72,6 +76,7 @@ const WatchEpisodePage = async ({ params }: Props) => {
           serieId={serieId}
           seasonId={seasonId}
           episodeNumber={+episodeNumber}
+          userId={userId}
         />
       </Suspense>
     </div>

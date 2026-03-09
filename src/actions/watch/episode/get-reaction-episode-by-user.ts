@@ -6,7 +6,7 @@ import prisma from '@/lib/prisma';
 
 const getCachedReaction = async (episodeId: string, userId: string) => {
   'use cache';
-  cacheTag(`reactions-${episodeId}`);
+  cacheTag(`reaction-${episodeId}`);
 
   const reaction = await prisma.contentReaction.findUnique({
     where: { userId_episodeId: { userId, episodeId } },

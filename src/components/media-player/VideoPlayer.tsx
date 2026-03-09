@@ -1,4 +1,4 @@
-// ui/VideoPlayer.tsx
+// Mover todo esto a otro lado porque no fununcia la mierda estaaaaaaaaaaaaaa
 'use client';
 
 import { useMediaPlayer } from "@/hooks/useMediaPlayer";

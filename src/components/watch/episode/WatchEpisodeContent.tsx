@@ -1,20 +1,21 @@
+// Este componente me trae más problemas que la vida misma
+
 import { notFound } from "next/navigation";
 import { EmptyData } from "@/components";
 import { getEpisodeByNumber, getSeasonByNumber } from "@/actions";
 import { CommentsEpisode } from "./CommentsEpisode";
 import { Suspense } from "react";
 import { BtnsReactionEpisodeWrapper } from "./BtnsReactionEpisodeWrapper";
-import { connection } from "next/server";
 import { WatchEpisodeVideo } from "./WatchEpisodeVideo";
 
 interface Props {
   serieId: string;
   seasonId: string;
   episodeNumber: number;
+  userId: string | null;
 }
 
-export const WatchEpisodeContent = async ({ serieId, seasonId, episodeNumber }: Props) => {
-  await connection();
+export const WatchEpisodeContent = async ({ serieId, seasonId, episodeNumber, userId }: Props) => {
   const seasonNumber = seasonId.split('-')[1];
 
   const resSeason = await getSeasonByNumber(serieId, +seasonNumber);
@@ -36,7 +37,7 @@ export const WatchEpisodeContent = async ({ serieId, seasonId, episodeNumber }: 
         <BtnsReactionEpisodeWrapper episodeId={episode.id} />
       </Suspense>
       <Suspense fallback={<div className="h-20" />}>
-        <CommentsEpisode episodeId={episode.id} />
+        <CommentsEpisode episodeId={episode.id} userId={userId} />
       </Suspense>
     </div>
   );
