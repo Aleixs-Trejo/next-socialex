@@ -1,3 +1,5 @@
+'use client';
+
 export const Copyright = () => {
   const currentYear = new Date().getFullYear();
 
