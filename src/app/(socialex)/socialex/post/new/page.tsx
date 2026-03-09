@@ -1,7 +1,10 @@
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { FormNewPost } from "../../@modal/(.)post/new/ui/FormNewPost";
+import { connection } from "next/server";
 
-const NewPostPage = () => {
+const NewPostPage = async () => {
+  await connection();
+
   return (
     <div className="w-9/10 max-w-3xl mx-auto py-12 overflow-hidden relative">
       <BtnBack additionalClass="absolute top-4 left-0" />

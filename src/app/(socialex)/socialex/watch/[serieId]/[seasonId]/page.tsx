@@ -7,6 +7,7 @@ import { DetailsSeason } from "@/components";
 import { SinopsisSeason } from "@/components/watch/season/SinopsisSeason";
 import { EpisodesSeason } from "@/components/watch/season/EpisodesSeason";
 import { CommentsSeason } from "@/components/watch/season/CommentsSeason";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ serieId: string; seasonId: string }>;
@@ -15,6 +16,7 @@ interface Props {
 const defaultImage = 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772501361/socialex/profile-images/socialex/profile-images/user_gj0RnR9zstFGSN2009uFPyLnZwRS1m2A.jpg'
 
 export const generateMetadata = async ({ params }: Props) => {
+  await connection();
   const { serieId, seasonId } = await params;
   const seasonNumber = seasonId.split('-')[1];
   const resSeason = await getSeasonByNumber(serieId, +seasonNumber);
@@ -55,6 +57,7 @@ export const generateMetadata = async ({ params }: Props) => {
 };
 
 const WatchSeasonPage = async ({ params }: Props) => {
+  await connection();
   const { serieId, seasonId } = await params;
 
   const seasonNumber = seasonId.split('-')[1];

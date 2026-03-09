@@ -3,12 +3,14 @@ import { BtnBack } from "@/components/btn-back/BtnBack";
 import { getEpisodeByNumber, getSeasonByNumber } from "@/actions";
 import { Suspense } from "react";
 import { WatchEpisodeContent } from "@/components/watch/episode/WatchEpisodeContent";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ serieId: string; seasonId: string; episodeNumber: number }>;
 }
 
 export const generateMetadata = async ({ params }: Props) => {
+  await connection();
   const { serieId, seasonId, episodeNumber } = await params;
 
   const seasonNumber = seasonId.split('-')[1];
@@ -59,6 +61,7 @@ export const generateMetadata = async ({ params }: Props) => {
 };
 
 const WatchEpisodePage = async ({ params }: Props) => {
+  await connection();
   const { serieId, seasonId, episodeNumber } = await params;
 
   return (

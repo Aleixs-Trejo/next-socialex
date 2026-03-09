@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PostCard } from "../post/PostCard";
 import { EmptyData } from "../empty-data/EmptyData";
+import { connection } from "next/server";
 
 interface Props {
   user: UserWithCommentsPostsAndReactions;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const ProfileUser = async ({ user, posts }: Props) => {
+  await connection();
   const currentUser = await getServerSession();
 
   const postsMap = posts ? posts.map(post => (

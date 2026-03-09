@@ -6,12 +6,14 @@ import { CommentsUsers } from "@/components/comment/CommentsUsers";
 import { InputComment } from "@/components/comment/InputComment";
 import { Comment, PostInterface } from "@/interfaces";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 const PostByIdPage = async ({ params }: Props) => {
+  await connection();
   const { id } = await params;
 
   const post = await getPostById(id);

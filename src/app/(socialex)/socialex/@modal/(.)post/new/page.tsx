@@ -1,8 +1,9 @@
 import { OverlayModal } from "@/components";
 import { FormNewPost } from "./ui/FormNewPost";
-import { BtnBack } from "@/components/btn-back/BtnBack";
+import { connection } from "next/server";
 
-const NewPostModal = () => {
+const NewPostModal = async () => {
+  await connection();
   return (
     <OverlayModal additionalClass="max-h-[80dvh] max-w-3xl">
       <div className="flex flex-col gap-4">

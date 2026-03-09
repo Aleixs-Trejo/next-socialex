@@ -4,6 +4,7 @@ import { getEpisodeByNumber, getSeasonByNumber, getSignedVideoUrl } from "@/acti
 import { CommentsEpisode } from "./CommentsEpisode";
 import { Suspense } from "react";
 import { BtnsReactionEpisodeWrapper } from "./BtnsReactionEpisodeWrapper";
+import { connection } from "next/server";
 
 interface Props {
   serieId: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const WatchEpisodeContent = async ({ serieId, seasonId, episodeNumber }: Props) => {
+  await connection();
   const seasonNumber = seasonId.split('-')[1];
 
   const resSeason = await getSeasonByNumber(serieId, +seasonNumber);

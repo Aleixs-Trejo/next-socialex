@@ -2,12 +2,14 @@ import { BtnBack } from "@/components/btn-back/BtnBack";
 import { FormEditPost } from "../../../@modal/(.)post/edit/[id]/ui/FormEditPost";
 import { getPostById } from "@/actions";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 const EditPostPage = async ({ params }: Props) => {
+  await connection();
   const { id } = await params;
   const post = await getPostById(id);
 

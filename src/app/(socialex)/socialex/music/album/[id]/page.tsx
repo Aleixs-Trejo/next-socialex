@@ -6,12 +6,14 @@ import { DateCopyrightAlbum } from "./ui/DateCopyrightAlbum";
 import { DiscographyArtistAlbum } from "./ui/DiscographyArtistAlbum";
 import { getArtist } from "@/lib/spotify/get-artists";
 import { BtnBack } from "@/components/btn-back/BtnBack";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export const generateMetadata = async ({ params }: Props) => {
+  await connection();
   const { id } = await params;
   const result = await getAlbum(id);
   if (!result.ok) notFound();
@@ -55,6 +57,7 @@ export const generateMetadata = async ({ params }: Props) => {
 };
 
 const AlbumPage = async ({ params }: Props) => {
+  await connection();
   const { id } = await params;
   const result = await getAlbum(id);
   if (!result.ok) notFound();

@@ -4,12 +4,14 @@ import { getUserById } from "@/actions";
 import { getServerSession } from "@/lib/get-server-session";
 import { ProfileUser } from "@/components/profile/ProfileUser";
 import { UserWithCommentsPostsAndReactions } from "@/interfaces";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  await connection();
   const { id } = await params;
   const user = await getUserById(id);
   if (!user.ok) redirect("/auth/login");

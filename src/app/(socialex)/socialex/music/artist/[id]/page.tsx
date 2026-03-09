@@ -8,12 +8,14 @@ import { PopularTracksArtist } from "./ui/PopularTracksArtist";
 import { DiscographyArtist } from "./ui/DiscographyArtist";
 import { AboutArtist } from "./ui/AboutArtist";
 import { RelatedArtists } from "./ui/RelatedArtists";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export const generateMetadata = async ({ params }: Props) => {
+  await connection();
   const { id } = await params;
   const result = await getArtist(id);
   if (!result.ok) notFound();
@@ -54,6 +56,7 @@ export const generateMetadata = async ({ params }: Props) => {
 };
 
 const ArtistPage = async ({ params }: Props) => {
+  await connection();
   const { id } = await params;
   const artistRes = await getArtist(id);
   if (!artistRes.ok) notFound();

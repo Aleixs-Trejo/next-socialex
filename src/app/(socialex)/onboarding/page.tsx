@@ -1,6 +1,7 @@
 import { OnboardingForm } from "./OnboardingForm";
 import { redirect } from "next/navigation";
 import { getUserByToken } from "@/actions";
+import { connection } from "next/server";
 
 export const metadata = {
   title: "Registro | Socialex",
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const OnboardingPage = async ({ searchParams }: Props) => {
+  await connection();
   const params = await searchParams;
   const tokenAuth = params.token as string;
   const user = await getUserByToken(tokenAuth);

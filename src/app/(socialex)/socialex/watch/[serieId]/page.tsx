@@ -1,12 +1,14 @@
-import { BackgroundSerie, CommentsSerie, DetailsSerie, SeasonsSerie, SinopsisSerie } from "@/components";
+import { BackgroundSerie, CommentsSerie, DetailsSerie, EmptyData, SeasonsSerie, SinopsisSerie } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { getSerieById } from "@/actions";
+import { connection } from "next/server";
 
 interface Props {
   params: Promise<{ serieId: string }>;
 }
 
 export const generateMetadata = async ({ params }: Props) => {
+  await connection();
   const { serieId } = await params;
   const resSerie = await getSerieById(serieId);
 
@@ -49,10 +51,12 @@ export const generateMetadata = async ({ params }: Props) => {
 const defaultImage = 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772501361/socialex/profile-images/socialex/profile-images/user_gj0RnR9zstFGSN2009uFPyLnZwRS1m2A.jpg';
 
 const WatchSeriesPage = async ({ params }: Props) => {
+  await connection();
+
   const { serieId } = await params;
   const resSerie = await getSerieById(serieId);
 
-  if (!resSerie.ok || !resSerie.data) return <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><span className="text-gray-400">Error al obtener series</span></div>;
+  if (!resSerie.ok || !resSerie.data) return <EmptyData message="Error al obtener series" />;
   const serie = resSerie.data;
 
   return (

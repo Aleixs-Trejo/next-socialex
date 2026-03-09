@@ -5,6 +5,7 @@ import { ContentReactionType } from "@/generated/prisma/enums";
 import { IoMdHeart, IoMdHeartDislike } from "react-icons/io";
 import { getReactionDislikesSeason, getReactionDislikeUsers, getReactionLikesSeason, getReactionLikeUsers, getReactionSeasonByUser } from "@/actions";
 import { EmptyData } from "@/components/empty-data/EmptyData";
+import { connection } from "next/server";
 
 const reactions = [
   { label: 'Me gusta', icon: <IoMdHeart size={16} className="text-red-500" />, typeReaction: ContentReactionType.LIKE },
@@ -21,6 +22,7 @@ interface Props {
 const defaultImage = 'https://res.cloudinary.com/dpap5lqxq/image/upload/v1772501361/socialex/profile-images/socialex/profile-images/user_gj0RnR9zstFGSN2009uFPyLnZwRS1m2A.jpg';
 
 export const DetailsSeason = async ({ coverImage, title, seasonNumber, serieId }: Props) => {
+  await connection();
   const getReactionLikes = await getReactionLikesSeason(serieId, seasonNumber);
   const getReactionDislikes = await getReactionDislikesSeason(serieId, seasonNumber);
 
