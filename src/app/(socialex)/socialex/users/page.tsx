@@ -1,6 +1,7 @@
 import { getAllUsers } from "@/actions";
 import { EmptyData, ImageCustom, Title } from "@/components";
 import Link from "next/link";
+import { connection } from "next/server";
 
 export const metadata = {
   title: "Usuarios | Socialex",
@@ -8,6 +9,7 @@ export const metadata = {
 };
 
 const UsersPage = async () => {
+  await connection();
   const users = await getAllUsers();
 
   if (!users.ok) return (
