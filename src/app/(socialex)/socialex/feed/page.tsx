@@ -3,13 +3,14 @@ import { Title } from "@/components";
 import { NewPostBanner } from "./ui/NewPostBanner";
 import { AllPosts } from "./ui/AllPosts";
 import { getServerSession } from "@/lib/get-server-session";
+import { connection } from "next/server";
 
 export const metadata = {
   title: "Inicio | Socialex"
 };
 
 const FeedPage = async () => {
-
+  await connection();
   const session = await getServerSession();
 
   return (

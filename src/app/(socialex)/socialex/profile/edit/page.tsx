@@ -2,8 +2,10 @@ import { getUserBySession } from "@/actions";
 import { redirect } from "next/navigation";
 import { EditProfileForm } from "../../@modal/(.)profile/edit/ui/EditProfileForm";
 import { BtnBack } from "@/components/btn-back/BtnBack";
+import { connection } from "next/server";
 
 const EditProfilePage = async () => {
+  await connection();
   const user = await getUserBySession();
   if (!user) redirect("/auth/login");
 

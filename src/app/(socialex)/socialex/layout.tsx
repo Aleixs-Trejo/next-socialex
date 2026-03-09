@@ -1,5 +1,6 @@
 import { AsideNav, Copyright, FooterNav, HeaderNav } from "@/components";
 import { getServerSession } from "@/lib/get-server-session";
+import { connection } from "next/server";
 
 interface Props {
   children: React.ReactNode;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const SocialexLayout = async ({ children, modal }: Props) => {
+  await connection();
   const session = await getServerSession();
 
   return (

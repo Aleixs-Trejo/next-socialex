@@ -2,8 +2,10 @@ import { OverlayModal } from "@/components";
 import { EditProfileForm } from "./ui/EditProfileForm";
 import { redirect } from "next/navigation";
 import { getUserBySession } from "@/actions";
+import { connection } from "next/server";
 
 const EditProfilePage = async () => {
+  await connection();
   const user = await getUserBySession();
   if (!user) redirect("/auth/login");
 

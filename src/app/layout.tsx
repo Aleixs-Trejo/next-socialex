@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/providers/Providers";
 import { FooterPlayer } from "@/components/spotify/FooterPlayer";
+import { Suspense } from "react";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -52,19 +53,17 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased text-white bg-black`}>
-        <Providers>
-          <div className="bg-main-gradient"></div>
-          {children}
-          <FooterPlayer />
-        </Providers>
+        <Suspense fallback={null}>
+          <Providers>
+            <div className="bg-main-gradient"></div>
+            {children}
+            <FooterPlayer />
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );

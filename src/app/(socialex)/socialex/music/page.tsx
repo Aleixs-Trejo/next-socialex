@@ -3,6 +3,7 @@ import { SearchInput } from "./ui/SearchInput";
 import { getServerSession } from "@/lib/get-server-session";
 import { redirect } from "next/navigation";
 import { MusicArtists } from "./ui/MusicArtist";
+import { connection } from "next/server";
 
 export const metadata = {
   title: "Lo mejor de la música | Socialex",
@@ -10,6 +11,7 @@ export const metadata = {
 }
 
 const MusicPage = async () => {
+  await connection();
   const session = await getServerSession();
   if (!session?.user) redirect("/auth/login");
 

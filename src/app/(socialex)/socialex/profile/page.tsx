@@ -4,8 +4,10 @@ import { getUserBySession } from "@/actions";
 import { getServerSession } from "@/lib/get-server-session";
 import { ProfileUser } from "@/components/profile/ProfileUser";
 import { UserWithCommentsPostsAndReactions } from "@/interfaces";
+import { connection } from "next/server";
 
 export const generateMetadata = async (): Promise<Metadata> => {
+  await connection();
   const currentUser = await getUserBySession();
   if (!currentUser) redirect("/auth/login");
   return {
@@ -28,6 +30,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const ProfilePage = async () => {
+  await connection();
   const session = await getServerSession();
   if (!session?.user) redirect("/auth/login");
 

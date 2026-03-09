@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 import { Copyright } from "@/components";
 import { getServerSession } from "@/lib/get-server-session";
+import { connection } from "next/server";
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
+  await connection();
   const session = await getServerSession();
 
   if (session?.user) redirect("/socialex/feed");
