@@ -27,14 +27,10 @@ export const WatchEpisodeContent = async ({ serieId, seasonId, episodeNumber }: 
   const episode = resEpisode.data;
   if (!episode) return notFound();
 
-  const signedUrl = await getSignedVideoUrl(episode.r2Key);
-
-  
-
   return (
     <div className="w-9/10 max-w-5xl mx-auto flex flex-col gap-4 overflow-hidden">
       <Suspense fallback={<div className="h-64" />}>
-        <WatchEpisodeVideo seasonTitle={season.title || ''} episodeNumber={episodeNumber} signedUrl={signedUrl} seasonId={seasonId} episodeTitle={episode.title} />
+        <WatchEpisodeVideo seasonTitle={season.title || ''} episodeNumber={episodeNumber} r2Key={episode.r2Key} seasonId={seasonId} episodeTitle={episode.title} />
       </Suspense>
       <Suspense fallback={<div className="h-10" />}>
         <BtnsReactionEpisodeWrapper episodeId={episode.id} />
