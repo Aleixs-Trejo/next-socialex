@@ -39,7 +39,7 @@ export const VideoPlayer = ({ src, title }: Props) => {
   useEffect(() => () => { if (hideTimer.current) clearTimeout(hideTimer.current); }, []);
 
   return (
-    <div ref={containerRef} className={`relative min-w-80 w-full bg-black rounded-lg border border-primary overflow-hidden group/player select-none aspect-video ${controlsVisible ? 'cursor-pointer': 'cursor-none'}`} onMouseMove={resetHideTimer} onMouseLeave={() => isPlaying && setControlsVisible(false)}>
+    <div ref={containerRef} className={`relative min-w-75 w-full bg-black rounded-lg border border-primary overflow-hidden group/player select-none aspect-video ${controlsVisible ? 'cursor-pointer': 'cursor-none'}`} onMouseMove={resetHideTimer} onMouseLeave={() => isPlaying && setControlsVisible(false)}>
 
       <video ref={mediaRef as React.RefObject<HTMLVideoElement>} className="w-full h-full object-contain cursor-pointer" onClick={togglePlay} />
 

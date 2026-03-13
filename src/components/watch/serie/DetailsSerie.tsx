@@ -55,10 +55,10 @@ export const DetailsSerie = async ({ coverImage, title, serieId }: Props) => {
       </figure>
       <div className="flex gap-2">
         {reactions.map(r => (
-    <BtnReactionSerie key={r.label} serieId={serieId} typeReaction={r.typeReaction} currentUserReaction={currentUserReaction}>
-      {r.icon}
-      <span className="text-xs text-white">{r.label}</span>
-    </BtnReactionSerie>
+          <BtnReactionSerie key={r.label} serieId={serieId} typeReaction={r.typeReaction} currentUserReaction={currentUserReaction}>
+            {r.icon}
+            <span className="text-xs text-white">{r.label}</span>
+          </BtnReactionSerie>
         ))}
       </div>
       <div className="flex flex-col">

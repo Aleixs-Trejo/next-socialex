@@ -9,6 +9,8 @@ export interface Serie {
   createdAt: Date;
   updatedAt: Date;
   seasons: Season[];
+  movies: Movie[];
+  events: EventSerie[];
   commentsWatch: CommentWatch[];
   genre: string | null;
   subgenre: string | null;
@@ -45,6 +47,29 @@ export interface Episode {
   commentsWatch: CommentWatch[];
 }
 
+export interface Movie {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  coverImage: string | null;
+  createdAt: Date;
+  serieId: string;
+  r2Key: string
+}
+
+export interface EventSerie {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  coverImage: string | null;
+  createdAt: Date;
+  serieId: string;
+  r2Key: string;
+  date: string | null;
+}
+
 export interface ContentReaction {
   id: string;
   type: ContentReactionType;
@@ -70,6 +95,10 @@ export interface CommentWatch {
   season: Season | null;
   episodeId: string | null;
   episode: Episode | null;
+  movieId: string | null;
+  movie: Movie | null;
+  eventId: string | null;
+  event: EventSerie | null;
   createdAt: Date;
 }
 

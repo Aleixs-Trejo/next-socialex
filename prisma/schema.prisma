@@ -188,6 +188,8 @@ model Serie {
   description      String?
   coverImage       String?
   seasons          Season[]
+  movies           Movie[]
+  events           Event[]
   commentsWatch    CommentWatch[]
   genre            String?
   subgenre         String?
@@ -199,7 +201,7 @@ model Season {
   id               String            @id @default(cuid())
   serieId          String
   seasonNumber     Int
-  title            String?
+  title            String
   description      String?
   coverImage       String?
   serie            Serie             @relation(fields: [serieId], references: [id], onDelete: Cascade)
@@ -228,33 +230,76 @@ model Episode {
   @@unique([seasonId, episodeNumber])
 }
 
+model Movie {
+  id               String            @id @default(cuid())
+  serieId          String
+  slug             String
+  title            String
+  description      String?
+  coverImage       String?
+  r2Key            String
+  serie            Serie             @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  commentsWatch    CommentWatch[]
+  contentReactions ContentReaction[]
+  createdAt        DateTime          @default(now())
+
+  @@unique([serieId, title])
+  @@index([slug])
+}
+
+model Event {
+  id               String            @id @default(cuid())
+  serieId          String
+  slug             String
+  title            String
+  description      String?
+  coverImage       String?
+  r2Key            String
+  date             String?
+  serie            Serie             @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  commentsWatch    CommentWatch[]
+  contentReactions ContentReaction[]
+  createdAt        DateTime          @default(now())
+
+  @@unique([serieId, title])
+  @@index([slug])
+}
+
 model ContentReaction {
-  id        String              @id @default(cuid())
-  type      ContentReactionType
-  userId    String
-  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String              @id @default(cuid())
+  type   ContentReactionType
+  userId String
+  user   User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   serieId   String?
-  serie     Serie?              @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  serie     Serie?   @relation(fields: [serieId], references: [id], onDelete: Cascade)
   seasonId  String?
-  season    Season?             @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   episodeId String?
-  episode   Episode?            @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  episode   Episode? @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  movieId   String?
+  movie     Movie?   @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
   @@unique([userId, serieId])
   @@unique([userId, seasonId])
   @@unique([userId, episodeId])
+  @@unique([userId, movieId])
+  @@unique([userId, eventId])
   @@index([serieId])
   @@index([seasonId])
   @@index([episodeId])
+  @@index([movieId])
+  @@index([eventId])
 }
 
 model CommentWatch {
-  id        String   @id @default(cuid())
-  content   String
-  userId    String
+  id      String @id @default(cuid())
+  content String
+  userId  String
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   serieId   String?
@@ -263,6 +308,10 @@ model CommentWatch {
   season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   episodeId String?
   episode   Episode? @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  movieId   String?
+  movie     Movie?   @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -270,6 +319,8 @@ model CommentWatch {
   @@index([serieId])
   @@index([seasonId])
   @@index([episodeId])
+  @@index([movieId])
+  @@index([eventId])
   @@index([userId])
   @@index([createdAt])
 }

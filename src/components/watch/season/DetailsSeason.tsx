@@ -69,7 +69,7 @@ export const DetailsSeason = async ({ coverImage, title, seasonNumber, serieId }
           <div className="grid grid-cols-3 gap-4 sm:grid-cols-4">
             {dataReactions.map(({ user }) => (
               <Link href={`/socialex/user/${user.id}`} key={user.id} className="flex flex-col items-center gap-2 p-1" title={user.name || ''}>
-                <Image src={user.image || defaultImage} alt={user.name || 'Usuario piola'} width={96} height={96} className="w-full h-full object-cover rounded-md" draggable={false} />
+                <Image src={user.image || defaultImage} alt={user.name || 'Usuario piola'} width={96} height={96} className="w-full h-full aspect-square object-cover rounded-md" draggable={false} />
                 <span className="text-xs text-white text-center leading-3">{user.name}</span>
               </Link>
             ))}

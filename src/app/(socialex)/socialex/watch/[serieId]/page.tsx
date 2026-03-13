@@ -1,4 +1,4 @@
-import { BackgroundSerie, CommentsSerie, DetailsSerie, EmptyData, SeasonsSerie, SinopsisSerie } from "@/components";
+import { BackgroundSerie, CommentsSerie, DetailsSerie, EmptyData, MoviesSerie, SeasonsSerie, SinopsisSerie } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { getSerieById } from "@/actions";
 import { connection } from "next/server";
@@ -68,6 +68,7 @@ const WatchSeriesPage = async ({ params }: Props) => {
         <div className="w-full flex flex-col gap-6 lg:grow">
           {serie.description && <SinopsisSerie description={serie.description} />}
           <SeasonsSerie seasons={serie.seasons} />
+          <MoviesSerie movies={serie.movies} />
           <CommentsSerie serieId={serieId} />
         </div>
       </div>

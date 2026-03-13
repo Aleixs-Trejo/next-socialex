@@ -15,7 +15,12 @@ export const deleteCommentWatchContext = async (commentId: string) => {
 
     const deletedComment = await prisma.commentWatch.delete({ where: { id: commentId } });
     
-    revalidateTag(`comments-episode-${existing.episodeId}`, { expire: 0 });
+    if (existing.serieId) revalidateTag(`comments-serie-${existing.serieId}`, { expire: 0 });
+    if (existing.seasonId) revalidateTag(`comments-season-${existing.seasonId}`, { expire: 0 });
+    if (existing.episodeId) revalidateTag(`comments-episode-${existing.episodeId}`, { expire: 0 });
+    if (existing.movieId) revalidateTag(`comments-movie-${existing.movieId}`, { expire: 0 });
+    if (existing.eventId) revalidateTag(`comments-event-${existing.eventId}`, { expire: 0 });
+
     return { ok: true, data: deletedComment };
   } catch (error) {
     console.log('Error: ', error);

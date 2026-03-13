@@ -1,0 +1,12 @@
+/*
+  Warnings:
+
+  - Added the required column `slug` to the `Event` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `slug` to the `Movie` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterTable
+ALTER TABLE "Event" ADD COLUMN     "slug" TEXT NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Movie" ADD COLUMN     "slug" TEXT NOT NULL;

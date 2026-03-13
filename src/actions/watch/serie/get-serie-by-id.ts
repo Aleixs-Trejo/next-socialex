@@ -11,7 +11,9 @@ export const getSerieById = async (serieId: string) => {
           include: {
             episodes: true,
           }
-        }
+        },
+        movies: true,
+        events: true,
       },
     });
     return { ok: true, message: 'Series obtenidas correctamente', data: serie }

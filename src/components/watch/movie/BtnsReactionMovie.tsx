@@ -2,9 +2,9 @@
 
 import { ContentReactionType } from "@/generated/prisma/enums";
 import { BiLike, BiSolidLike, BiSolidDislike, BiDislike } from "react-icons/bi";
-import { BtnReactionEpisode } from "./BtnReactionEpisode";
+import { BtnReactionMovie } from "./BtnReactionMovie";
 import { useOptimistic, useTransition } from "react";
-import { toggleReactionByEpisode } from "@/actions";
+import { toggleReactionByMovie } from "@/actions";
 import { toast } from "sonner";
 import { formatNumber } from "@/utils/formatNumber";
 
@@ -14,13 +14,13 @@ interface ReactionCounts {
 }
 
 interface Props {
-  episodeId: string;
+  movieId: string;
   currentUserReaction: ContentReactionType | null;
   initialLikes: number;
   initialDislikes: number;
 }
 
-export const BtnsReactionEpisode = ({ episodeId, currentUserReaction, initialLikes, initialDislikes }: Props) => {
+export const BtnsReactionMovie = ({ movieId, currentUserReaction, initialLikes, initialDislikes }: Props) => {
   const [isPending, startTransition] = useTransition();
   const [optimisticReaction, setOptimisticReaction] = useOptimistic(currentUserReaction);
   const [optimisticCounts, setOptimisticCounts] = useOptimistic<ReactionCounts>(
@@ -52,7 +52,7 @@ export const BtnsReactionEpisode = ({ episodeId, currentUserReaction, initialLik
       setOptimisticReaction(isActive ? null : typeReaction);
       setOptimisticCounts(newCounts);
 
-      const resReaction = await toggleReactionByEpisode(episodeId, typeReaction);
+      const resReaction = await toggleReactionByMovie(movieId, typeReaction);
       if (!resReaction.ok) toast.error('Debes iniciar sesión, idiota');
     });
   };
@@ -79,7 +79,7 @@ export const BtnsReactionEpisode = ({ episodeId, currentUserReaction, initialLik
   return (
     <div className="w-full max-w-80 flex gap-6 ml-auto">
       {reactions.map(r => (
-        <BtnReactionEpisode
+        <BtnReactionMovie
           key={r.label}
           isActive={optimisticReaction === r.typeReaction}
           isPending={isPending}
@@ -90,7 +90,7 @@ export const BtnsReactionEpisode = ({ episodeId, currentUserReaction, initialLik
             <span className="text-xs text-white">{r.label}</span>
           </div>
           <span className="text-white text-xs">{formatNumber(r.count)}</span>
-        </BtnReactionEpisode>
+        </BtnReactionMovie>
       ))}
     </div>
   );

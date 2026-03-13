@@ -37,3 +37,4 @@ export * from './watch/serie/SeasonCard';
 export * from './watch/serie/BtnReactionSerie';
 export * from './watch/season/DetailsSeason';
 export * from './watch/season/BackgroundSeason';
+export * from './watch/movie/MoviesSerie';
