@@ -16,7 +16,7 @@ export const EpisodesSeason = ({ episodes, serieId, seasonNumber }: Props) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {episodes.map(ep => {
           if (!ep) return null;
-          const route = `/socialex/watch/${serieId}/season-${seasonNumber}/${ep.episodeNumber}`;
+          const route = `/socialex/watch/${serieId}/seasons/season-${seasonNumber}/${ep.episodeNumber}`;
           const epImg = ep.thumbnail || defaultImage;
           const epTitle = ep.title || '';
           const description = ep.description || '';
