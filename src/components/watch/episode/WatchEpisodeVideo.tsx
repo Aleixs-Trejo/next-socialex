@@ -6,11 +6,11 @@ interface Props {
   seasonTitle: string;
   episodeNumber: number;
   r2Key: string;
-  seasonId: string;
+  seasonNumber: string;
   episodeTitle: string;
 }
 
-export const WatchEpisodeVideo = async ({ seasonTitle, episodeNumber, r2Key, seasonId, episodeTitle }: Props) => {
+export const WatchEpisodeVideo = async ({ seasonTitle, episodeNumber, r2Key, seasonNumber, episodeTitle }: Props) => {
   'use cache';
   cacheTag(`episode-video-${r2Key}`);
 
@@ -22,7 +22,7 @@ export const WatchEpisodeVideo = async ({ seasonTitle, episodeNumber, r2Key, sea
         <h1 className="text-white text-xl font-bold">{seasonTitle} - Episodio {episodeNumber}</h1>
         <span className="text-sm text-gray-300">{episodeTitle}</span>
       </div>
-      <VideoPlayer src={signedUrl} title={`${seasonId} - Ep. ${episodeNumber} - ${episodeTitle}`} />
+      <VideoPlayer src={signedUrl} title={`${seasonNumber} - Ep. ${episodeNumber} - ${episodeTitle}`} />
     </>
   );
 };

@@ -1,10 +1,10 @@
 'use server';
 
 import { cacheTag } from 'next/cache';
-import { ContextComment } from '@/interfaces';
+import { ContentContext } from '@/interfaces';
 import prisma from '@/lib/prisma';
 
-export const getCommentsWatchByContext = async (context: ContextComment) => {
+export const getCommentsWatchByContext = async (context: ContentContext) => {
   'use cache';
 
   try {

@@ -11,13 +11,12 @@ export const SeasonsSerie = ({ seasons }: Props) => {
   const seasonsMap = seasons.map(season => {
     if (!season) return null;
     const route = `/socialex/watch/${season.serieId}/seasons/season-${season.seasonNumber}`;
-    const episode1Title = season.episodes[0].title;
     const imgSeason = season.episodes[0].thumbnail || defaultImage;
     const seasonTitle = season.title || '';
     const episodesNumber = season.episodes.length;
     const seasonNumber = season.seasonNumber;
 
-    return <SeasonCard key={season.id} seasonNumber={seasonNumber} episodesNumber={episodesNumber} seasonTitle={seasonTitle} episode1Title={episode1Title} route={route} imgSeason={imgSeason} />;
+    return <SeasonCard key={season.id} seasonNumber={seasonNumber} episodesNumber={episodesNumber} seasonTitle={seasonTitle} route={route} imgSeason={imgSeason} />;
   });
   
   return (

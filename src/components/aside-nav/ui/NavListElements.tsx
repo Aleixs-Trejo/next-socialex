@@ -8,7 +8,7 @@ import { GiConsoleController } from "react-icons/gi";
 import { IoMdHome } from "react-icons/io";
 import { IoPeopleSharp } from "react-icons/io5";
 import { MdVideoLibrary } from "react-icons/md";
-import { ImageCustom } from "@/components/image-custom/ImageCustom";
+import { ImageCustom } from "@/components";
 
 const navLinks = [
   {

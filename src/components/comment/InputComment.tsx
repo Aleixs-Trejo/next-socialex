@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { createComment } from '@/actions';
-import { ImageCustom } from '@/components/image-custom/ImageCustom';
-import { UserBasic } from '@/interfaces';
+import { ImageCustom } from '@/components';
 import { useForm } from '@tanstack/react-form';
 import { IoSend } from "react-icons/io5";
 import { toast } from 'sonner';

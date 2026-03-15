@@ -1,9 +1,7 @@
 import { getComments } from "@/actions";
 import { getPostById } from "@/actions";
-import { PostCard } from "@/components";
+import { PostCard, CommentsUsers, InputComment } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
-import { CommentsUsers } from "@/components/comment/CommentsUsers";
-import { InputComment } from "@/components/comment/InputComment";
 import { Comment, PostInterface } from "@/interfaces";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";

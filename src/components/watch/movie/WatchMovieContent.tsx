@@ -1,17 +1,15 @@
 import { getMovieBySlug } from "@/actions";
-import { EmptyData } from "@/components/empty-data/EmptyData";
+import { EmptyData } from "@/components";
 import { Suspense } from "react";
 import { WatchMovieVideo } from "./WatchMovieVideo";
-import { BtnsReactionMovieWrapper } from "./BtnsReactionMovieWrapper";
-import { CommentsMovie } from "./CommentsMovie";
+import { CommentsContentWatch } from "../CommentsContentWatch";
+import { BtnsReactionVideoPlayerWrapper } from "../BtnsReactionVideoPlayerWrapper";
 
 interface Props {
-  serieId: string;
   movieSlug: string;
-  userId: string | null;
 }
 
-export const WatchMovieContent = async ({ serieId, movieSlug, userId }: Props) => {
+export const WatchMovieContent = async ({ movieSlug }: Props) => {
   const resMovie = await getMovieBySlug(movieSlug);
   if (!resMovie.ok || !resMovie.data) return <EmptyData message="Error al obtener película" />;
 
@@ -23,7 +21,7 @@ export const WatchMovieContent = async ({ serieId, movieSlug, userId }: Props) =
         <WatchMovieVideo r2Key={movie.r2Key} movieTitle={movie.title} />
       </Suspense>
       <Suspense fallback={<div className="h-10" />}>
-        <BtnsReactionMovieWrapper movieId={movie.id} />
+        <BtnsReactionVideoPlayerWrapper contentId={movie.id} contextField="movieId" />
       </Suspense>
       {movie.description && (
         <div className="p-5 w-full flex flex-col gap-4 rounded-md bg-bg-card">
@@ -32,7 +30,7 @@ export const WatchMovieContent = async ({ serieId, movieSlug, userId }: Props) =
         </div>
       )}
       <Suspense fallback={<div className="h-20" />}>
-        <CommentsMovie movieId={movie.id} userId={userId} />
+        <CommentsContentWatch context={{ movieId: movie.id }} />
       </Suspense>
     </div>
   );

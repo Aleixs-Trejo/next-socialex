@@ -1,7 +1,7 @@
 import { getComments, getPostById, getUserBySession } from "@/actions";
 import { OverlayModal, PostCard } from "@/components";
-import { CommentsUsers } from "@/components/comment/CommentsUsers";
-import { InputComment } from "@/components/comment/InputComment";
+import { CommentsUsers } from "@/components";
+import { InputComment } from "@/components";
 import { Comment, Post } from "@/interfaces";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";

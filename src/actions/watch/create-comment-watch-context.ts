@@ -2,10 +2,10 @@
 
 import { getServerSession } from '@/lib/get-server-session';
 import prisma from '@/lib/prisma';
-import { ContextComment } from '@/interfaces';
+import { ContentContext } from '@/interfaces';
 import { revalidateTag } from 'next/cache';
 
-export const createCommentWatchContext = async (context: ContextComment, content: string) => {
+export const createCommentWatchContext = async (context: ContentContext, content: string) => {
   try {
     const session = await getServerSession();
     if (!session?.user?.id) return { ok: false, error: 'No Autenticado' };

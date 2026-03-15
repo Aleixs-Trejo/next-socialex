@@ -11,4 +11,4 @@ export * from "./reaction/reaction-type";
 export * from "./comment/comments.interface";
 
 export * from "./watch/serie.interface";
-export * from "./watch/context-comment.interface";
+export * from "./watch/content-context.interface";

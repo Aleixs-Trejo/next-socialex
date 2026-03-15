@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { getUserBySession } from "@/actions";
 import { getServerSession } from "@/lib/get-server-session";
-import { ProfileUser } from "@/components/profile/ProfileUser";
+import { ProfileUser } from "@/components";
 import { UserWithCommentsPostsAndReactions } from "@/interfaces";
 import { connection } from "next/server";
 

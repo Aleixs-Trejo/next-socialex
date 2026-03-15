@@ -1,7 +1,14 @@
-import { BackgroundSerie, CommentsSerie, DetailsSerie, EmptyData, MoviesSerie, SeasonsSerie, SinopsisSerie } from "@/components";
+import { EmptyData } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { getSerieById } from "@/actions";
 import { connection } from "next/server";
+import { BackgroundContentWatch } from "@/components/watch/BackgroundContentWatch";
+import { CommentsContentWatch } from "@/components/watch/CommentsContentWatch";
+import { DetailsContentWatch } from "@/components/watch/DetailsContentWatch";
+import { MoviesSerie } from "@/components/watch/movie/MoviesSerie";
+import { SeasonsSerie } from "@/components/watch/serie/SeasonsSerie";
+import { SinopsisContentWatch } from "@/components/watch/SinopsisContentWatch";
+import { EventsSerie } from "@/components/watch/event/EventsSerie";
 
 interface Props {
   params: Promise<{ serieId: string }>;
@@ -61,15 +68,16 @@ const WatchSeriesPage = async ({ params }: Props) => {
 
   return (
     <div className="w-full flex flex-col">
-      <BackgroundSerie image={serie.coverImage || defaultImage} title={serie.title} genre={serie.genre} />
+      <BackgroundContentWatch image={serie.coverImage || defaultImage} title={serie.title} genre={serie.genre} />
       <BtnBack additionalClass="my-2" />
       <div className="w-9/10 max-w-5xl mx-auto pb-6 flex flex-col gap-8 lg:flex-row lg:gap-4">
-        <DetailsSerie coverImage={serie.coverImage} title={serie.title} serieId={serieId} />
+        <DetailsContentWatch coverImage={serie.coverImage} title={serie.title} context={{ serieId }} contentId={serieId} />
         <div className="w-full flex flex-col gap-6 lg:grow">
-          {serie.description && <SinopsisSerie description={serie.description} />}
+          {serie.description && <SinopsisContentWatch description={serie.description} />}
           <SeasonsSerie seasons={serie.seasons} />
           <MoviesSerie movies={serie.movies} />
-          <CommentsSerie serieId={serieId} />
+          <EventsSerie events={serie.events} />
+          <CommentsContentWatch context={{ serieId }} />
         </div>
       </div>
     </div>

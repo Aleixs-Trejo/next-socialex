@@ -3,10 +3,9 @@ import { getMovieBySlug } from "@/actions";
 import { EmptyData } from "@/components";
 import { BtnBack } from "@/components/btn-back/BtnBack";
 import { WatchMovieContent } from "@/components/watch/movie/WatchMovieContent";
-import { getServerSession } from "@/lib/get-server-session";
 
 interface Props {
-  params: Promise<{ serieId: string; movieSlug: string }>;
+  params: Promise<{ movieSlug: string }>;
 }
 
 export const generateMetadata = async ({ params }: Props) => {
@@ -29,8 +28,8 @@ export const generateMetadata = async ({ params }: Props) => {
       images: [
         {
           url: coverImage,
-          width: 500,
-          height: 328,
+          width: 671,
+          height: 527,
           alt: slug,
         },
       ],
@@ -42,8 +41,8 @@ export const generateMetadata = async ({ params }: Props) => {
       images: [
         {
           url: coverImage,
-          width: 500,
-          height: 328,
+          width: 671,
+          height: 527,
           alt: slug,
         }
       ]
@@ -53,14 +52,12 @@ export const generateMetadata = async ({ params }: Props) => {
 
 const MoviePage = async ({ params }: Props) => {
   await connection();
-  const { serieId, movieSlug } = await params;
-  const session = await getServerSession();
-  const userId = session?.user?.id ?? null;
+  const { movieSlug } = await params;
 
   return (
     <div className="w-full flex flex-col gap-2">
       <BtnBack additionalClass="m-2" />
-      <WatchMovieContent serieId={serieId} movieSlug={movieSlug} userId={userId} />
+      <WatchMovieContent movieSlug={movieSlug} />
     </div>
   );
 };
